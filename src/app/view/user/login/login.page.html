@@ -5,9 +5,17 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">login</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <ion-list>
+      <form [formGroup]="loginForm" (ngSubmit)="submitForm()" novalidate>
+        <ion-item>
+          <ion-label position="floating">E-mail</ion-label>
+          <ion-input type="email" formControlName="email" placeholder="Insira seu email"></ion-input>
+        </ion-item>
+      <!--Mensagens de erro-->
+      <span *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['required']">E-mail é obrigatório!</span>
+      <span *ngIf="loginForm.get('email')?.dirty && loginForm.get('email')?.errors?.['email']">Formato de E-mail inválido</span>
+      <!--Mensagens de erro-->
+      <ion-button expand="full" type="submit" [disabled]="!loginForm.valid">Entrar</ion-button>
+      </form>
+    </ion-list>
 </ion-content>
