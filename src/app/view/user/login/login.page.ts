@@ -11,14 +11,15 @@ import { AuthService } from 'src/app/model/service/auth.service';
 })
 export class LoginPage implements OnInit {
   loginForm!: FormGroup;
+  
   constructor(private formBuilder: FormBuilder, private alert: Alert, private auth: AuthService, private router: Router){
     
   }
 
   ngOnInit(){
     this.loginForm = this.formBuilder.group({
-      email: ['', Validators.required, Validators.email],
-      password: ['', Validators.required, Validators.minLength(6)]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
     })
   }
   get errorControl(){
@@ -33,10 +34,20 @@ export class LoginPage implements OnInit {
     }
   }
   signIn(){
-    // this.auth.signIn(this.loginForm.value['email'], this.loginForm.value['password']).then((res) => {
-    // this.alert.presentAlert("OK", "Bem vindo!"); this.router.navigate(['/home'])}).catch((error) => {
-    // this.alert.presentAlert("Erro", "Erro ao efetuar o login!"); console.log(error);})
+    this.auth.signIn(this.loginForm.value['email'], this.loginForm.value['password']).then((res) => {
+    this.alert.presentAlert("OK", "Bem vindo!"); this.router.navigate(['/home'])}).catch((error) => {
+    this.alert.presentAlert("Erro", "Erro ao efetuar o login!"); console.log(error);})
   }
+  
+  loginWithGmail(){
+    this.auth.logInWithGoogle().then((res)=>{this.alert.presentAlert("OK", "Seja bem Vindo!"); this.router.navigate(['/home']); }).catch((error)=>{
+    this.alert.presentAlert("OK", "Erro ao Logar! Tente Novamente"); console.log(error);});
+  }
+
+  loginWithFacebook(){
+    
+  }
+
   goToRegisterPage(){
     this.router.navigate(['/register']);
   }

@@ -15,7 +15,19 @@
       <span *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['required']">E-mail é obrigatório!</span>
       <span *ngIf="loginForm.get('email')?.dirty && loginForm.get('email')?.errors?.['email']">Formato de E-mail inválido</span>
       <!--Mensagens de erro-->
-      <ion-button expand="full" type="submit" [disabled]="!loginForm.valid">Entrar</ion-button>
-      </form>
+      <ion-item>
+        <ion-label position="floating">Senha</ion-label>
+        <ion-input type="password" formControlName="password" placeholder="Insira sua Senha"></ion-input>
+      </ion-item>
+      <!--Mensagens de erro-->
+      <span *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['required']">A senha é obrigatória!</span>
+      <span *ngIf="loginForm.get('password')?.dirty && loginForm.get('password')?.errors?.['minlength']">A senha deve ter no mínimo 6 caracteres</span>
+      <!--Mensagens de erro-->
+      <ion-button expand="full" color="success" type="submit">Entrar</ion-button>
+      <ion-button expand="full" color="danger" (click)="loginWithGmail()">Entrar com Google <ion-icon slot="end" name="logo-google"></ion-icon></ion-button>
+      <ion-button expand="full" (click)="loginWithFacebook()">Entrar com Facebook <ion-icon slot="end" name="logo-facebook"></ion-icon></ion-button>
+    </form>
+    <ion-label>Não tem cadastro?</ion-label>
+    <a (click)="goToRegisterPage()"> Clique Aqui!</a>
     </ion-list>
 </ion-content>

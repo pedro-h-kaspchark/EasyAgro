@@ -2,6 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { FirebaseService } from './firebase.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { getAuth, signInWithPopup, browserPopupRedirectResolver, GoogleAuthProvider } from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -38,4 +39,18 @@ export class AuthService {
       this.router.navigate(['login']);
     });
   }
+
+  public isLoggedIn() : boolean{
+    const user : any = JSON.parse(localStorage.getItem('user') || 'null');
+    return (user !== null) ? true : false;
+   }
+   public getUserLogged(){
+    const user : any = JSON.parse(localStorage.getItem('user') || 'null');
+    return (user !== null) ? user : null;
+   }
+   public logInWithGoogle(){
+    const provider = new GoogleAuthProvider();
+    const auth = getAuth();
+    return signInWithPopup(auth, provider, browserPopupRedirectResolver);
+   }
 }

@@ -1,13 +1,38 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>register</ion-title>
+    <ion-title>Cadastro</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">register</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <ion-list>
+      <form [formGroup]="registerForm" (ngSubmit)="submitForm()" novalidate>
+        <ion-item>
+          <ion-label position="floating">E-mail</ion-label>
+          <ion-input type="email" formControlName="email" placeholder="Insira seu email"></ion-input>
+        </ion-item>
+      <!--Mensagens de erro-->
+      <span *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['required']">E-mail é obrigatório!</span>
+      <span *ngIf="registerForm.get('email')?.dirty && registerForm.get('email')?.errors?.['email']">Formato de E-mail inválido</span>
+      <!--Mensagens de erro-->
+      <ion-item>
+        <ion-label position="floating">Senha</ion-label>
+        <ion-input type="password" formControlName="password" placeholder="Insira sua Senha"></ion-input>
+      </ion-item>
+      <!--Mensagens de erro-->
+      <span *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.errors?.['required']">A senha é obrigatória!</span>
+      <span *ngIf="registerForm.get('password')?.dirty && registerForm.get('password')?.errors?.['minlength']">A senha deve ter no mínimo 6 caracteres</span>
+      <!--Mensagens de erro-->
+      <ion-item>
+        <ion-label position="floating">Confirmação de senha</ion-label>
+        <ion-input type="password" formControlName="confPassword" placeholder="Repita sua Senha"></ion-input>
+      </ion-item>
+      <!--Mensagens de erro-->
+      <span *ngIf="registerForm.get('confPassword')?.touched && registerForm.get('confPassword')?.errors?.['required']">A confirmação de senha é obrigatória!</span>
+      <span *ngIf="registerForm.get('confPassword')?.dirty && registerForm.get('confPassword')?.errors?.['minlength']">A confirmação de senha deve ter no mínimo 6 caracteres</span>
+      <span *ngIf="registerForm.get('confPassword')?.dirty && (registerForm.get('password')?.value != registerForm.get('confPassword')?.value) && !registerForm.get('confPassword')?.errors?.['minlength']"> As senhas não conferem!</span>
+      <!--Mensagens de erro-->
+      <ion-button expand="full" color="success" type="submit" [disabled]="!registerForm.valid || (registerForm.get('password')?.value !== registerForm.get('confPassword')?.value)">Cadastrar</ion-button>
+    </form>
+    </ion-list>
 </ion-content>
