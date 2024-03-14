@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Alert } from 'src/app/common/alert';
@@ -12,7 +13,7 @@ import { AuthService } from 'src/app/model/service/auth.service';
 export class LoginPage implements OnInit {
   loginForm!: FormGroup;
   
-  constructor(private formBuilder: FormBuilder, private alert: Alert, private auth: AuthService, private router: Router){
+  constructor(private formBuilder: FormBuilder, private alert: Alert, private auth: AuthService, private router: Router, private firestore: AngularFirestore){
     
   }
 
@@ -42,10 +43,6 @@ export class LoginPage implements OnInit {
   loginWithGmail(){
     this.auth.logInWithGoogle().then((res)=>{this.alert.presentAlert("OK", "Seja bem Vindo!"); this.router.navigate(['/home']); }).catch((error)=>{
     this.alert.presentAlert("OK", "Erro ao Logar! Tente Novamente"); console.log(error);});
-  }
-
-  loginWithFacebook(){
-    
   }
 
   goToRegisterPage(){

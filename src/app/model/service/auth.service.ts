@@ -1,8 +1,9 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { FirebaseService } from './firebase.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { getAuth, signInWithPopup, browserPopupRedirectResolver, GoogleAuthProvider } from 'firebase/auth';
+import { signInWithPopup, browserPopupRedirectResolver, GoogleAuthProvider, Auth, User } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,16 @@ import { getAuth, signInWithPopup, browserPopupRedirectResolver, GoogleAuthProvi
 export class AuthService {
   dataUser: any;
 
-  constructor(private firebase: FirebaseService, private auth: AngularFireAuth, private router: Router, private ngZone: NgZone){
+  constructor(private firestore: AngularFirestore, private auth: AngularFireAuth, private router: Router, private ngZone: NgZone){
     this.auth.authState.subscribe(user =>{
       if(user){
-        this.dataUser = user;
+        this.dataUser = {
+          uid: user.uid,
+          email: user.email,
+          displayname: user.displayName,
+          number: user.phoneNumber,
+          photoURL: user.photoURL
+        }
         localStorage.setItem('user', JSON.stringify(this.dataUser))
       }else{
         localStorage.setItem('user', 'null');
@@ -25,8 +32,43 @@ export class AuthService {
     return this.auth.signInWithEmailAndPassword(email, password);
   }
 
-  public register(email: string, password: string){
-    return this.auth.createUserWithEmailAndPassword(email, password);
+  public async register(
+    email: string,
+    password: string,
+    displayName: string,
+    photoURL: string
+  ) {
+    try {
+      const userCredential = await this.auth.createUserWithEmailAndPassword(email, password);
+      const user = userCredential.user;
+
+      if(user){
+        this.dataUser ={
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          number: user.phoneNumber,
+          photoURL: user.photoURL
+        };
+        localStorage.setItem('user', JSON.stringify(this.dataUser));
+        await this.firestore.collection('users').doc(user.uid).set({
+          uid: user.uid,
+          email: user.email,
+          displayName,
+          number: '',
+          photoURL
+        });
+        return{
+          user: this.dataUser,
+          displayName,
+          photoURL
+        };
+      } else {
+        throw new Error('User not found after registration');
+      }
+    }catch(error){
+    throw error;
+    }
   }
   
   public recoverPassword(email: string){

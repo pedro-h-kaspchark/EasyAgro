@@ -20,7 +20,9 @@ export class RegisterPage implements OnInit {
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      confPassword: ['', [Validators.required, Validators.minLength(6)]]
+      confPassword: ['', [Validators.required, Validators.minLength(6)]],
+      displayName: ['', Validators.required],
+      photoURL: ['', Validators.required]
     })
   }
 
@@ -36,7 +38,7 @@ export class RegisterPage implements OnInit {
     }
   }
   private register(){
-    this.auth.register(this.registerForm.value['email'], this.registerForm.value['password']).then((res) => {
+    this.auth.register(this.registerForm.value['email'], this.registerForm.value['password'], this.registerForm.value['displayName'], this.registerForm.value['photoURL']).then((res) => {
     this.alert.presentAlert("OK", "Conta Criada!");this.router.navigate(['/login'])}).catch((error) => {
     this.alert.presentAlert("Erro", "Erro ao cadastrar!"); console.log(error)});
   }
