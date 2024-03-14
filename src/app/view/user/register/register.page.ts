@@ -21,8 +21,8 @@ export class RegisterPage implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confPassword: ['', [Validators.required, Validators.minLength(6)]],
-      displayName: ['', Validators.required],
-      photoURL: ['', Validators.required]
+      displayName: ['', [Validators.required, Validators.minLength(3)]],
+      photoURL: ['', [Validators.required]]
     })
   }
 
