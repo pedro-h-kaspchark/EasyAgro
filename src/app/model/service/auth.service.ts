@@ -1,12 +1,9 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { signInWithPopup, browserPopupRedirectResolver, GoogleAuthProvider } from 'firebase/auth';
-import { user } from '../entities/user';
+import { signInWithPopup, browserPopupRedirectResolver, GoogleAuthProvider, Auth, User } from 'firebase/auth';
 import { getAuth } from 'firebase/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { finalize } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +11,7 @@ import { finalize } from 'rxjs';
 export class AuthService {
   dataUser: any;
 
-  constructor(private firestore: AngularFirestore, private auth: AngularFireAuth, private router: Router, private ngZone: NgZone, private storage: AngularFireStorage){
+  constructor(private firestore: AngularFirestore, private auth: AngularFireAuth, private router: Router, private ngZone: NgZone){
     this.auth.authState.subscribe(user =>{
       if(user){
         this.dataUser = {
@@ -35,39 +32,39 @@ export class AuthService {
     return this.auth.signInWithEmailAndPassword(email, password);
   }
 
-  public async register(email: string, password: string, displayName: string, photoURL: string, phoneNumber: string) {
-    try {
-        const userCredential = await this.auth.createUserWithEmailAndPassword(email, password);
-        const user = userCredential.user;
+  public async register(email: string, password: string, displayName: string, photoURL: string, number: string) {
+    try{
+      const userCredential = await this.auth.createUserWithEmailAndPassword(email, password);
+      const user = userCredential.user;
 
-        if (user) {
-            this.dataUser = {
-                uid: user.uid,
-                email: user.email,
-                displayName: user.displayName,
-                number: user.phoneNumber,
-                photoURL: user.photoURL
-            };
-            localStorage.setItem('user', JSON.stringify(this.dataUser));
-            await this.firestore.collection('users').doc(user.uid).set({
-                uid: user.uid,
-                email: user.email,
-                displayName: user.displayName,
-                number: user.phoneNumber,
-                photoURL: user.photoURL
-            });
-            return {
-                user: this.dataUser,
-                displayName,
-                photoURL
-            };
-        } else {
-            throw new Error('User not found after registration');
-        }
-    } catch (error) {
-        throw error;
+      if(user){
+        this.dataUser ={
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          number: user.phoneNumber,
+          photoURL: user.photoURL
+        };
+        localStorage.setItem('user', JSON.stringify(this.dataUser));
+        await this.firestore.collection('users').doc(user.uid).set({
+          uid: user.uid,
+          email: user.email,
+          displayName,
+          number: '',
+          photoURL
+        });
+        return{
+          user: this.dataUser,
+          displayName,
+          photoURL
+        };
+      } else {
+        throw new Error('User not found after registration');
+      }
+    }catch(error){
+    throw error;
     }
-}
+  }
   
   public recoverPassword(email: string){
     return this.auth.sendPasswordResetEmail(email);
@@ -93,32 +90,5 @@ export class AuthService {
     const auth = getAuth();
     return signInWithPopup(auth, provider, browserPopupRedirectResolver);
    }
-
-   uploadImage(imagem: any, user: user) {
-    const file = imagem.item(0);
-    if (file.type.split('/')[0] !== 'image') {
-        console.error("Tipo não suportado!");
-        return;
-    }
-
-    const path = `images/${user.name}_${file.name}`;
-    const fileRef = this.storage.ref(path);
-    const task = this.storage.upload(path, file);
-
-    task.snapshotChanges().pipe(
-        finalize(async () => {
-            try {
-                const downloadURL = await fileRef.getDownloadURL().toPromise();
-                user.downloadURL = downloadURL;
-                await this.firestore.collection('users').doc(user.id).update({
-                    photoURL: downloadURL
-                });
-            } catch (error) {
-                console.error("Erro ao fazer upload da imagem:", error);
-            }
-        })
-    ).subscribe();
-
-    return task;
-}
+   
 }

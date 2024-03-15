@@ -23,7 +23,7 @@ export class RegisterPage implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
       confPassword: ['', [Validators.required, Validators.minLength(6)]],
       displayName: ['', [Validators.required, Validators.minLength(3)]],
-      number: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(12)]],
+      number: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(13)]],
       photoURL: ['']
     })
   }

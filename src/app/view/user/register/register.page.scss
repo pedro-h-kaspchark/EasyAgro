@@ -1,3 +1,36 @@
 span{
     color: red;
 }
+ion-content {
+    --background: black
+    color: white;
+  }
+  
+  ion-list.register-list {
+    background: black;
+    padding: 15px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    color: antiquewhite;
+  }
+  
+  form {
+    ion-item {
+      --background: transparent;
+      margin-bottom: 15px;
+      --border-width: 0;
+    }
+    ion-input{
+      color: #ffffff;
+    }
+  
+    ion-label {
+      color: #ffffff;
+    }
+  
+    ion-button {
+      margin-top: 15px;
+      --border-radius: 20px;
+      overflow: hidden;
+    }
+  }
