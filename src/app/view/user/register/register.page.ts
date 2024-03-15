@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/model/service/auth.service';
 })
 export class RegisterPage implements OnInit {
   registerForm! : FormGroup;
+  imagem: any;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private alert: Alert, private auth: AuthService){
 
@@ -22,12 +23,17 @@ export class RegisterPage implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
       confPassword: ['', [Validators.required, Validators.minLength(6)]],
       displayName: ['', [Validators.required, Validators.minLength(3)]],
-      photoURL: ['', [Validators.required]]
+      number: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(12)]],
+      photoURL: ['']
     })
   }
 
   getErrorControls(){
     return this.registerForm.controls;
+  }
+
+  uploadFile(imagem: any){
+    this.imagem = imagem.files;
   }
 
   submitForm(){
@@ -38,7 +44,7 @@ export class RegisterPage implements OnInit {
     }
   }
   private register(){
-    this.auth.register(this.registerForm.value['email'], this.registerForm.value['password'], this.registerForm.value['displayName'], this.registerForm.value['photoURL']).then((res) => {
+    this.auth.register(this.registerForm.value['email'], this.registerForm.value['password'], this.registerForm.value['displayName'], this.registerForm.value['photoURL'], this.registerForm.value['number']).then((res) => {
     this.alert.presentAlert("OK", "Conta Criada!");this.router.navigate(['/login'])}).catch((error) => {
     this.alert.presentAlert("Erro", "Erro ao cadastrar!"); console.log(error)});
   }

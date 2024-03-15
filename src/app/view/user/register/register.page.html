@@ -40,7 +40,21 @@
       <span *ngIf="registerForm.get('displayName')?.touched && registerForm.get('displayName')?.errors?.['required']">O nome de usuário é obrigatório!</span>
       <span *ngIf="registerForm.get('displayName')?.dirty && registerForm.get('displayName')?.errors?.['minlength']">O nome deve ter no minimo 3 caracteres!</span>
       <!-- Mensagens de erro  -->
-      <ion-button expand="full" color="success" type="submit" [disabled]="!registerForm.valid || (registerForm.get('password')?.value !== registerForm.get('confPassword')?.value)">Cadastrar</ion-button>
+      <ion-item>
+        <ion-label position="floating">numero de telefone</ion-label>
+        <ion-input type="string" formControlName="number" placeholder="Digite seu numero de telefone"></ion-input>
+      </ion-item>
+      <!-- Mensagens de erro-->
+      <span *ngIf="registerForm.get('number')?.touched && registerForm.get('number')?.errors?.['required']">O telefone é obrigatório!</span>
+      <span *ngIf="registerForm.get('number')?.dirty && registerForm.get('number')?.errors?.['minlength']">O telefone deve ter no minimo 9 caracteres!</span>
+      <span *ngIf="registerForm.get('number')?.dirty && registerForm.get('number')?.errors?.['maxlength']">O telefone deve ter no maximo 12 caracteres!</span>
+      <!-- Mensagens de erro-->
+      <ion-item>
+        <ion-button size="default" color="success" shape="round">
+          <input type="file" (change)="uploadFile($event.target)"/>
+        </ion-button>
+      </ion-item>
+      <ion-button expand="full" color="success" type="submit">Cadastrar</ion-button>
     </form>
     </ion-list>
 </ion-content>
