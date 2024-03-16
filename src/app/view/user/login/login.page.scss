@@ -1,3 +1,96 @@
-span{
-    color: red;
+ion-content {
+    --background: black;
+    color: white;
+  }
+  
+  .login-container {
+    position: relative;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: -20%;
+  }
+
+  .icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
 }
+
+.icon {
+    max-width: 25vh;
+    max-height: 25vh;
+}
+
+  .formLogin{
+    max-width: 360px;
+    margin: auto;
+  }
+
+  .login-list{
+    background: black;
+    padding: 15px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    color: antiquewhite;
+    width: 90%;
+    max-width: 400px;
+    border: 2px solid rgb(44, 44, 44);
+    position: relative;
+  }
+
+  .login-title {
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+  }
+  
+  span{
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+
+  form ion-item {
+    --background: transparent;
+    --border-style: none;
+    margin-bottom: 15px;
+  }
+  
+  form ion-input {
+    color: #ffffff;
+    border: none;
+  }
+  
+  form ion-label {
+    color: #ffffff;
+  }
+  
+  form ion-button {
+    margin-top: 15px;
+    --border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .submit-button {
+    border: 2px solid rgb(44, 44, 44);
+  }
+  
+  .register-link {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .register-link a {
+    color: white;
+    text-decoration: underline;
+  }
+  
+  .register-link a:hover {
+    color: lightgray;
+  }
+  

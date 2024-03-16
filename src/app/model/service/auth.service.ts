@@ -4,6 +4,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { signInWithPopup, browserPopupRedirectResolver, GoogleAuthProvider, Auth, User } from 'firebase/auth';
 import { getAuth } from 'firebase/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 export class AuthService {
   dataUser: any;
 
-  constructor(private firestore: AngularFirestore, private auth: AngularFireAuth, private router: Router, private ngZone: NgZone){
+  constructor(private firestore: AngularFirestore, private auth: AngularFireAuth, private router: Router, private ngZone: NgZone, private storage: AngularFireStorage){
     this.auth.authState.subscribe(user =>{
       if(user){
         this.dataUser = {
@@ -32,39 +33,56 @@ export class AuthService {
     return this.auth.signInWithEmailAndPassword(email, password);
   }
 
-  public async register(email: string, password: string, displayName: string, photoURL: string, number: string) {
+  public async register(email: string, password: string, displayName: string, photoURL: File, number: string){
     try{
       const userCredential = await this.auth.createUserWithEmailAndPassword(email, password);
       const user = userCredential.user;
-
       if(user){
+        const photoURLUploaded = await this.uploadPhotoToStorage(user.uid, photoURL);
+        await user.updateProfile({
+          displayName: displayName,
+          photoURL: photoURLUploaded
+        });
         this.dataUser ={
           uid: user.uid,
           email: user.email,
           displayName: user.displayName,
-          number: user.phoneNumber,
-          photoURL: user.photoURL
+          number: number,
+          photoURL: photoURLUploaded
         };
         localStorage.setItem('user', JSON.stringify(this.dataUser));
         await this.firestore.collection('users').doc(user.uid).set({
           uid: user.uid,
           email: user.email,
-          displayName,
-          number: '',
-          photoURL
+          displayName: displayName,
+          number: number,
+          photoURL: photoURLUploaded
         });
-        return{
+        return {
           user: this.dataUser,
-          displayName,
-          photoURL
+          displayName: displayName,
+          photoURL: photoURLUploaded
         };
       } else {
-        throw new Error('User not found after registration');
+        throw new Error('Usuário não encontrado após cadastro!');
       }
-    }catch(error){
-    throw error;
+    }catch (error){
+      throw error;
     }
   }
+
+private async uploadPhotoToStorage(userId: string, photo: File): Promise<string> {
+  const filePath = `profile-images/${userId}/${photo.name}`;
+  const fileRef = this.storage.ref(filePath);
+  const uploadTask = this.storage.upload(filePath, photo);
+  return new Promise((resolve, reject) => {
+    uploadTask.snapshotChanges().subscribe(() => {
+      fileRef.getDownloadURL().subscribe(url => {
+        resolve(url);
+      }, error => reject(error));
+    }, error => reject(error));
+  });
+}
   
   public recoverPassword(email: string){
     return this.auth.sendPasswordResetEmail(email);

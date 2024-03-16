@@ -1,9 +1,12 @@
 <ion-content class="ion-padding"> 
+  <div class="register-container">
     <ion-list class="register-list">
+      <div class="register-title">Cadastrar</div>
+      <div></div>
       <form [formGroup]="registerForm" (ngSubmit)="submitForm()" novalidate>
         <ion-item>
           <ion-label position="floating">E-mail</ion-label>
-          <ion-input type="email" formControlName="email" placeholder="Insira seu email"></ion-input>
+          <ion-input type="email" formControlName="email" placeholder="Insira seu email" color="dark"></ion-input>
         </ion-item>
       <!--Mensagens de erro-->
       <span *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['required']">E-mail é obrigatório!</span>
@@ -44,11 +47,11 @@
       <span *ngIf="registerForm.get('number')?.dirty && registerForm.get('number')?.errors?.['maxlength']">O telefone deve ter no maximo 13 caracteres!</span>
       <!-- Mensagens de erro-->
       <ion-item>
-        <ion-button size="default" color="success" shape="round">
-          <input type="file" (change)="uploadFile($event.target)"/>
-        </ion-button>
+        <label class="file-input-label" for="file-input">Selecione uma foto</label>
+        <input id="file-input" class="file-input" type="file" (change)="uploadFile($event.target)" />
       </ion-item>
-      <ion-button expand="full" color="success" type="submit">Cadastrar</ion-button>
+      <ion-button expand="full" color="white" class="submit-button" type="submit">Cadastrar</ion-button>
     </form>
     </ion-list>
+  </div>
 </ion-content>
