@@ -23,7 +23,7 @@ export class RegisterPage implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
       confPassword: ['', [Validators.required, Validators.minLength(6)]],
       displayName: ['', [Validators.required, Validators.minLength(3)]],
-      number: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(13)]],
+      phoneNumber: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(13)]],
       photoURL: ['']
     })
   }
@@ -36,17 +36,18 @@ export class RegisterPage implements OnInit {
     this.imagem = imagem.files;
   }
 
-  submitForm(){
-    if(!this.registerForm.valid){
-      this.alert.presentAlert("Erro", "Erro ao Cadastrar!")
+  submitForm() {
+    if (!this.registerForm.valid){
+      this.alert.presentAlert("Erro", "Erro ao Cadastrar!");
     }else{
-      this.register();
+      const formData = this.registerForm.value;
+      const phoneNumber = formData.phoneNumber;
+      this.auth.register(formData.email, formData.password, formData.displayName, this.imagem[0], phoneNumber).then(() =>{
+        this.alert.presentAlert('OK', 'Conta Criada!');
+        this.router.navigate(['/login']);
+      }).catch((error) => {
+        this.alert.presentAlert('Erro', 'Erro ao cadastrar!');
+        console.log(error);});
     }
   }
-  private register(){
-    this.auth.register(this.registerForm.value['email'], this.registerForm.value['password'], this.registerForm.value['displayName'], this.registerForm.value['photoURL'], this.registerForm.value['number']).then((res) => {
-    this.alert.presentAlert("OK", "Conta Criada!");this.router.navigate(['/login'])}).catch((error) => {
-    this.alert.presentAlert("Erro", "Erro ao cadastrar!"); console.log(error)});
-  }
-
 }

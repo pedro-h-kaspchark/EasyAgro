@@ -39,12 +39,12 @@
       <!-- Mensagens de erro  -->
       <ion-item>
         <ion-label position="floating">Numero de telefone</ion-label>
-        <ion-input type="string" formControlName="number" placeholder="Digite seu numero de telefone"></ion-input>
+        <ion-input type="tel" formControlName="phoneNumber" placeholder="Digite seu numero de telefone"></ion-input>
       </ion-item>
       <!-- Mensagens de erro-->
-      <span *ngIf="registerForm.get('number')?.touched && registerForm.get('number')?.errors?.['required']">O telefone é obrigatório!</span>
-      <span *ngIf="registerForm.get('number')?.dirty && registerForm.get('number')?.errors?.['minlength']">O telefone deve ter no minimo 9 caracteres!</span>
-      <span *ngIf="registerForm.get('number')?.dirty && registerForm.get('number')?.errors?.['maxlength']">O telefone deve ter no maximo 13 caracteres!</span>
+      <span *ngIf="registerForm.get('phoneNumber')?.touched && registerForm.get('phoneNumber')?.errors?.['required']">O telefone é obrigatório!</span>
+      <span *ngIf="registerForm.get('phoneNumber')?.dirty && registerForm.get('phoneNumber')?.errors?.['minlength']">O telefone deve ter no minimo 9 caracteres!</span>
+      <span *ngIf="registerForm.get('phoneNumber')?.dirty && registerForm.get('phoneNumber')?.errors?.['maxlength']">O telefone deve ter no maximo 13 caracteres!</span>
       <!-- Mensagens de erro-->
       <ion-item>
         <label class="file-input-label" for="file-input">Selecione uma foto</label>

@@ -1,7 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { signInWithPopup, browserPopupRedirectResolver, GoogleAuthProvider, Auth, User } from 'firebase/auth';
+import { signInWithPopup, browserPopupRedirectResolver, GoogleAuthProvider } from 'firebase/auth';
 import { getAuth } from 'firebase/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
@@ -11,11 +11,12 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 })
 export class AuthService {
   dataUser: any;
+  user: any
 
   constructor(private firestore: AngularFirestore, private auth: AngularFireAuth, private router: Router, private ngZone: NgZone, private storage: AngularFireStorage){
     this.auth.authState.subscribe(user =>{
       if(user){
-        this.dataUser = {
+        this.dataUser ={
           uid: user.uid,
           email: user.email,
           displayname: user.displayName,
@@ -32,38 +33,35 @@ export class AuthService {
   public signIn(email: string, password: string){
     return this.auth.signInWithEmailAndPassword(email, password);
   }
-
-  public async register(email: string, password: string, displayName: string, photoURL: File, number: string){
+  
+  public async register(email: string, password: string, displayName: string, photoURL: File, phoneNumber: string){
     try{
       const userCredential = await this.auth.createUserWithEmailAndPassword(email, password);
       const user = userCredential.user;
+      let photoURLUploaded: string | undefined = undefined;
       if(user){
-        const photoURLUploaded = await this.uploadPhotoToStorage(user.uid, photoURL);
-        await user.updateProfile({
-          displayName: displayName,
-          photoURL: photoURLUploaded
-        });
+        if (photoURL){
+          const uploadResult = await this.uploadImage(photoURL, user.uid);
+          photoURLUploaded = uploadResult;
+        }
         this.dataUser ={
           uid: user.uid,
           email: user.email,
-          displayName: user.displayName,
-          number: number,
-          photoURL: photoURLUploaded
-        };
+          displayName: displayName,
+          phoneNumber: phoneNumber,
+          photoURL: photoURLUploaded};
         localStorage.setItem('user', JSON.stringify(this.dataUser));
         await this.firestore.collection('users').doc(user.uid).set({
           uid: user.uid,
           email: user.email,
           displayName: displayName,
-          number: number,
-          photoURL: photoURLUploaded
-        });
-        return {
+          phoneNumber: phoneNumber,
+          photoURL: photoURLUploaded});
+        return{
           user: this.dataUser,
           displayName: displayName,
-          photoURL: photoURLUploaded
-        };
-      } else {
+          photoURL: photoURLUploaded};
+      }else{
         throw new Error('Usuário não encontrado após cadastro!');
       }
     }catch (error){
@@ -71,18 +69,17 @@ export class AuthService {
     }
   }
 
-private async uploadPhotoToStorage(userId: string, photo: File): Promise<string> {
-  const filePath = `profile-images/${userId}/${photo.name}`;
-  const fileRef = this.storage.ref(filePath);
-  const uploadTask = this.storage.upload(filePath, photo);
-  return new Promise((resolve, reject) => {
-    uploadTask.snapshotChanges().subscribe(() => {
-      fileRef.getDownloadURL().subscribe(url => {
-        resolve(url);
-      }, error => reject(error));
-    }, error => reject(error));
-  });
-}
+  private async uploadImage(photoURL: File, userId: string): Promise<string>{
+    try{
+      const storageRef = this.storage.ref(`users/${userId}/${photoURL.name}`);
+      const uploadTask = await storageRef.put(photoURL);
+      const downloadURL = await uploadTask.ref.getDownloadURL();
+      return downloadURL;
+    }catch (error){
+      console.error('Erro ao fazer upload da imagem:', error);
+      throw error;
+    }
+  }
   
   public recoverPassword(email: string){
     return this.auth.sendPasswordResetEmail(email);

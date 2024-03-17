@@ -91,9 +91,8 @@ form ion-button {
   border: 2px solid rgb(44, 44, 44);
   cursor: pointer;
   margin-top: 15px;
-  width: 70%;
+  width: 100%;
   box-sizing: border-box;
-  margin-left: 15%;
 }
 
 .file-input {
@@ -104,9 +103,3 @@ form ion-button {
   background-color: #515152;
 }
 
-.insertPicture {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-}
