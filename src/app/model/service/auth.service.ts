@@ -34,7 +34,7 @@ export class AuthService {
     return this.auth.signInWithEmailAndPassword(email, password);
   }
   
-  public async register(email: string, password: string, displayName: string, photoURL: File, phoneNumber: string){
+  public async register(email: string, password: string, displayName: string, photoURL: File | undefined, phoneNumber: string){
     try{
       const userCredential = await this.auth.createUserWithEmailAndPassword(email, password);
       const user = userCredential.user;
