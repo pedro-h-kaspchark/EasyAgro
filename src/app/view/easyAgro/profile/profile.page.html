@@ -1,4 +1,20 @@
-<ion-content>
+<ion-content *ngIf="userData">
+  <div class="profile-container">
+    <div class="user-info">
+      <ion-avatar class="profile-avatar">
+        <img [src]="userData.photoURL ? userData.photoURL : 'assets/default-icon.png'">
+      </ion-avatar>
+      <ion-label class="profile-data">
+        <h2 class="profile-name">{{ userData.displayName }}</h2>
+        <p class="profile-email">{{ userData.email }}</p>
+        <p class="profile-number">{{ userData.phoneNumber }}</p>
+      </ion-label>
+    </div>
+    <ion-button color="white" (click)="goToEditProfile()">
+      <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
+    </ion-button>
+  </div>
+
   <div class="buttons-container">
     <ion-button color="white" (click)="goToHomePage()">
       <ion-icon slot="icon-only" name="home-outline"></ion-icon>

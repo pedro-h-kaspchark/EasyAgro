@@ -59,7 +59,7 @@ export class AuthService {
           photoURL: photoURLUploaded});
         return{
           user: this.dataUser,
-          displayName: displayName,
+          displayName: user.displayName,
           photoURL: photoURLUploaded};
       }else{
         throw new Error('Usuário não encontrado após cadastro!');
@@ -78,6 +78,40 @@ export class AuthService {
     }catch (error){
       console.error('Erro ao fazer upload da imagem:', error);
       throw error;
+    }
+  }
+  
+  async getUserData(): Promise<any> {
+    const user = await this.auth.currentUser;
+    if (user) {
+      try {
+        const userDataSnapshot = await this.firestore.collection('users').doc(user.uid).get().toPromise();
+        if (userDataSnapshot && userDataSnapshot.exists) {
+          const userData = userDataSnapshot.data();
+          return {
+            uid: user.uid,
+            email: user.email,
+            displayName: user.displayName,
+            phoneNumber: user.phoneNumber,
+            photoURL: user.photoURL,
+            ...(userData as Record<string, any>)
+          };
+        } else {
+          return {
+            uid: user.uid,
+            email: user.email,
+            displayName: user.displayName,
+            phoneNumber: user.phoneNumber,
+            photoURL: user.photoURL
+          };
+        }
+      }catch (error){
+        console.error('Erro ao obter os dados do usuário:', error);
+        return null;
+      }
+    }else{
+      console.error('Nenhum usuário autenticado.');
+      return null;
     }
   }
   
