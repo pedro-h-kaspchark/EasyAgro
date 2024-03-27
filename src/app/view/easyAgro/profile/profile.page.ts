@@ -30,7 +30,4 @@ export class ProfilePage implements OnInit{
   goToFarmPage(){
     this.router.navigate(['/farm']);
   }
-  goToEditProfile(){
-
-  }
 }

@@ -1,27 +1,28 @@
 <ion-content *ngIf="userData">
   <div class="teste">
-  <div class="profile-container">
-
-      <div class="image">
-        <!-- <ion-avatar class="profile-avatar"> -->
-          <img [src]="userData.photoURL ? userData.photoURL : 'assets/default-icon.png'">
-        <!-- </ion-avatar> -->
-      </div>
+    <div class="image">
+      <img [src]="userData.photoURL ? userData.photoURL : 'assets/default-icon.png'">
     </div>
 
-      <div class="user-info">
-      <!-- <ion-label class="profile-data"> -->
-        <div class="name">
-        <h2 class="profile-name">{{ userData.displayName }}</h2></div>
-        <div class="email">
-        <p class="profile-email">{{ userData.email }}</p></div>
-        <div class="number">
-        <p class="profile-number">{{ userData.phoneNumber }}</p></div>
-      <!-- </ion-label> -->
+    <div class="profile-container">
+      <ion-list>
+        <ion-item lines="none">
+          <ion-label floating>Nome</ion-label>
+          <ion-input type="text" [value]="userData.displayName" disabled></ion-input>
+        </ion-item>
 
+        <ion-item lines="none">
+          <ion-label floating>Email</ion-label>
+          <ion-input type="email" [value]="userData.email" disabled></ion-input>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-label floating>Telefone</ion-label>
+          <ion-input type="tel" [value]="userData.phoneNumber" disabled></ion-input>
+        </ion-item>
+      </ion-list>
     </div>
   </div>
-
 
   <div class="buttons-container">
     <ion-button color="white" (click)="goToHomePage()">

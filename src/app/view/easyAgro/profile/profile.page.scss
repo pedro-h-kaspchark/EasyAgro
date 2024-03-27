@@ -2,24 +2,12 @@ ion-content {
     --background: black;
     color: white;
   }
-
-.image{
-  width: 185px;
-  height: 185px;
-  border-radius: 50%;
-  overflow: hidden;
-}
-
 .profile-container{
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.image img{
-  height: auto;
-  width: 100%;
-}
-.teste{
+.teste {
   background: black;
   padding: 15px;
   border-radius: 10px;
@@ -28,7 +16,27 @@ ion-content {
   width: 90%;
   max-width: 400px;
   border: 2px solid rgb(44, 44, 44);
-  position: relative;
+  position: fixed;
+  top: 30%; /* Alterado para 50% */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex; /* Adicionado */
+  flex-direction: column; /* Adicionado */
+  align-items: center; /* Adicionado */
+  justify-content: center; /* Adicionado */
+}
+
+.image {
+  width: 185px;
+  height: 185px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.image img {
+  height: auto;
+  width: 100%;
 }
   
   // .profile-container {
