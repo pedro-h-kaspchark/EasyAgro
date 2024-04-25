@@ -1,26 +1,36 @@
 <ion-content *ngIf="userData">
-  <div class="teste">
-    <div class="image">
-      <img [src]="userData.photoURL ? userData.photoURL : 'assets/default-icon.png'">
-    </div>
-
+  <div class="data">
     <div class="profile-container">
+      <div class="profile-title">Perfil</div>
+      <div class="image">
+        <img [src]="userData.photoURL ? userData.photoURL : 'assets/default-icon.png'">
+      </div>
+      <form [formGroup]="profileForm" (ngSubmit)="submitForm()" novalidate class="formContainer">
       <ion-list>
         <ion-item lines="none">
-          <ion-label floating>Nome</ion-label>
+          <ion-label position="floating">Nome</ion-label>
           <ion-input type="text" [value]="userData.displayName" disabled></ion-input>
         </ion-item>
-
+        <!-- Mensagens de erro  -->
+        <span *ngIf="profileForm.get('displayName')?.touched && profileForm.get('displayName')?.errors?.['required']">O nome de usuário é obrigatório!</span>
+        <span *ngIf="profileForm.get('displayName')?.dirty && profileForm.get('displayName')?.errors?.['minlength']">O nome deve ter no minimo 3 caracteres!</span>
+        <!-- Mensagens de erro  -->
         <ion-item lines="none">
-          <ion-label floating>Email</ion-label>
+          <ion-label position="floating">Email</ion-label>
           <ion-input type="email" [value]="userData.email" disabled></ion-input>
         </ion-item>
 
         <ion-item lines="none">
-          <ion-label floating>Telefone</ion-label>
+          <ion-label position="floating">Telefone</ion-label>
           <ion-input type="tel" [value]="userData.phoneNumber" disabled></ion-input>
         </ion-item>
+        <!-- Mensagens de erro-->
+        <span *ngIf="profileForm.get('phoneNumber')?.touched && profileForm.get('phoneNumber')?.errors?.['required']">O telefone é obrigatório!</span>
+        <span *ngIf="profileForm.get('phoneNumber')?.dirty && profileForm.get('phoneNumber')?.errors?.['minlength']">O telefone deve ter no minimo 9 caracteres!</span>
+        <span *ngIf="profileForm.get('phoneNumber')?.dirty && profileForm.get('phoneNumber')?.errors?.['maxlength']">O telefone deve ter no maximo 13 caracteres!</span>
+        <!-- Mensagens de erro-->
       </ion-list>
+    </form>
     </div>
   </div>
 

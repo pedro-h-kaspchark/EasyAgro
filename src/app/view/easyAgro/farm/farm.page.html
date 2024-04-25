@@ -1,4 +1,28 @@
 <ion-content>
+  <div class="farm">
+    <h1 class="farm-title">Fazenda</h1>
+    <ion-list class="animal-list">
+      <!-- Lista de animais -->
+      <ion-item>
+        <ion-label>animal 1</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>animal 2</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>animal 3</ion-label>
+      </ion-item>
+      <!-- Adicione mais itens conforme necessário -->
+    </ion-list>
+    <!-- Botão de adicionar animais -->
+    <ion-fab horizontal="end" vertical="bottom" class="login-fab">
+      <ion-fab-button>
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+  
+  <!-- Botões de navegação -->
   <div class="buttons-container">
     <ion-button color="white" (click)="goToHomePage()">
       <ion-icon slot="icon-only" name="home-outline"></ion-icon>

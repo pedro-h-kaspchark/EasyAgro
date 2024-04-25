@@ -34,7 +34,7 @@ export class AuthService {
     return this.auth.signInWithEmailAndPassword(email, password);
   }
   
-  public async register(email: string, password: string, displayName: string, photoURL: File | undefined, phoneNumber: string){
+  public async register(email: string, password: string, displayName: string, photoURL: File | null, phoneNumber: string | null){
     try{
       const userCredential = await this.auth.createUserWithEmailAndPassword(email, password);
       const user = userCredential.user;
@@ -64,10 +64,44 @@ export class AuthService {
       }else{
         throw new Error('Usuário não encontrado após cadastro!');
       }
-    }catch (error){
+    }catch(error){
       throw error;
     }
   }
+
+  public async registerWithoutPhoto(email: string, password: string, displayName: string, phoneNumber: string){
+    try{
+      const userCredential = await this.auth.createUserWithEmailAndPassword(email, password);
+      const user = userCredential.user;
+      if(user){
+        this.dataUser ={
+          uid: user.uid,
+          email: user.email,
+          displayName: displayName,
+          phoneNumber: phoneNumber,
+          photoURL: null // Defina como null ou omita o campo photoURL se não houver foto
+        };
+        localStorage.setItem('user', JSON.stringify(this.dataUser));
+        await this.firestore.collection('users').doc(user.uid).set({
+          uid: user.uid,
+          email: user.email,
+          displayName: displayName,
+          phoneNumber: phoneNumber
+          // Não inclua o campo photoURL no documento Firestore se não houver foto
+        });
+        return{
+          user: this.dataUser,
+          displayName: user.displayName,
+          photoURL: null // Retorne null para a URL da foto se não houver foto
+        };
+      }else{
+        throw new Error('Usuário não encontrado após cadastro!');
+      }
+    }catch(error){
+      throw error;
+    }
+  }
+  
 
   private async uploadImage(photoURL: File, userId: string): Promise<string>{
     try{

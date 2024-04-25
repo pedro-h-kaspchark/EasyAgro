@@ -1,25 +1,74 @@
 ion-content {
-    --background: black;
-    color: white;
-  }
+  --background: black;
+  color: white;
+}
 
-  .buttons-container {
-    border: 2px solid rgb(44, 44, 44);
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 10px;
-    max-width: 90%;
-    width: auto;
-  }
-ion-button{
+.buttons-container {
+  border: 2px solid rgb(44, 44, 44);
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
+  max-width: 90%;
+  width: auto;
+}
+
+ion-button {
   justify-content: space-between;
   padding: 0;
 }
-ion-icon{
+
+ion-icon {
   color: rgb(44, 44, 44);
+}
+
+ion-fab-button {
+  --background: #007bff;
+}
+
+ion-fab-button ion-icon {
+  color: white;
+}
+
+.farm {
+  border: 2px solid rgb(44, 44, 44);
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px auto;
+  max-width: 400px;
+  position: relative;
+  background-color: black; /* Fundo transparente */
+  height: calc(100vh - 80px); /* Altura quase total da tela, excluindo a altura dos botões */
+  overflow-y: auto; /* Adiciona uma barra de rolagem vertical se necessário */
+}
+
+.farm-title {
+  text-align: center;
+  margin-top: 0; /* Removendo margem superior padrão */
+  color: white; /* Cor do texto */
+}
+
+.animal-list {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 20px;
+  background-color: transparent; /* Removendo a cor de fundo padrão */
+  --inner-background: transparent; /* Removendo a sombra interna */
+}
+
+.animal-list ion-item {
+  border: 2px solid rgb(44, 44, 44);
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
+}
+
+.animal-list {
+  background-color: transparent; /* Removendo a cor de fundo padrão */
+  --inner-background: transparent; /* Removendo a sombra interna */
 }

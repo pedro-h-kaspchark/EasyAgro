@@ -37,17 +37,28 @@ export class RegisterPage implements OnInit {
   }
 
   submitForm() {
-    if (!this.registerForm.valid){
+    if(!this.registerForm.valid){
       this.alert.presentAlert("Erro", "Erro ao Cadastrar!");
     }else{
       const formData = this.registerForm.value;
       const phoneNumber = formData.phoneNumber;
-      this.auth.register(formData.email, formData.password, formData.displayName, this.imagem[0], phoneNumber).then(() =>{
-        this.alert.presentAlert('OK', 'Conta Criada!');
-        this.router.navigate(['/login']);
-      }).catch((error) => {
-        this.alert.presentAlert('Erro', 'Erro ao cadastrar!');
-        console.log(error);});
+      if (this.imagem && this.imagem.length > 0){
+        this.auth.register(formData.email, formData.password, formData.displayName, this.imagem[0], phoneNumber).then(() =>{
+          this.alert.presentAlert('OK', 'Conta Criada!');
+          this.router.navigate(['/login']);
+        }).catch((error) =>{
+          this.alert.presentAlert('Erro', 'Erro ao cadastrar!');
+          console.log(error);
+        });
+      }else{
+        this.auth.registerWithoutPhoto(formData.email, formData.password, formData.displayName, phoneNumber).then(() =>{
+          this.alert.presentAlert('OK', 'Conta Criada!');
+          this.router.navigate(['/login']);
+        }).catch((error) =>{
+          this.alert.presentAlert('Erro', 'Erro ao cadastrar!');
+          console.log(error);
+        });
+      }
     }
   }
 }
