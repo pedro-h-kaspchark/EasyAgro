@@ -1,7 +1,6 @@
 export class user{
     private _name!: string;
     private _number!: string;
-    private _location!: string;
     private _email!: string;
     private _downloadURL!: any;
     private _id!: string;
@@ -10,7 +9,6 @@ export class user{
     constructor(name: string, number: string, location: string){
         this._name = name;
         this._number = number;
-        this._location = location;
     }
 // --------------------------------------------------------
     public get name(): string {
@@ -25,13 +23,6 @@ export class user{
     }
     public set number(value: string) {
         this._number = value;
-    }
-// --------------------------------------------------------
-    public get location(): string {
-        return this._location;
-    }
-    public set location(value: string) {
-        this._location = value;
     }
 // --------------------------------------------------------
     public get email(): string {

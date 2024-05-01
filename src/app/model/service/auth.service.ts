@@ -5,6 +5,9 @@ import { signInWithPopup, browserPopupRedirectResolver, GoogleAuthProvider } fro
 import { getAuth } from 'firebase/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { Observable } from 'rxjs';
+import 'firebase/compat/auth';
+import { User as FirebaseUser } from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -79,7 +82,7 @@ export class AuthService {
           email: user.email,
           displayName: displayName,
           phoneNumber: phoneNumber,
-          photoURL: null // Defina como null ou omita o campo photoURL se não houver foto
+          photoURL: null 
         };
         localStorage.setItem('user', JSON.stringify(this.dataUser));
         await this.firestore.collection('users').doc(user.uid).set({
@@ -87,12 +90,11 @@ export class AuthService {
           email: user.email,
           displayName: displayName,
           phoneNumber: phoneNumber
-          // Não inclua o campo photoURL no documento Firestore se não houver foto
         });
         return{
           user: this.dataUser,
           displayName: user.displayName,
-          photoURL: null // Retorne null para a URL da foto se não houver foto
+          photoURL: null 
         };
       }else{
         throw new Error('Usuário não encontrado após cadastro!');
@@ -101,7 +103,6 @@ export class AuthService {
       throw error;
     }
   }
-  
 
   private async uploadImage(photoURL: File, userId: string): Promise<string>{
     try{
@@ -148,7 +149,7 @@ export class AuthService {
       return null;
     }
   }
-  
+
   public recoverPassword(email: string){
     return this.auth.sendPasswordResetEmail(email);
   }
@@ -163,15 +164,21 @@ export class AuthService {
   public isLoggedIn() : boolean{
     const user : any = JSON.parse(localStorage.getItem('user') || 'null');
     return (user !== null) ? true : false;
-   }
-   public getUserLogged(){
+  }
+  
+  public getUserLogged(){
     const user : any = JSON.parse(localStorage.getItem('user') || 'null');
     return (user !== null) ? user : null;
-   }
-   public logInWithGoogle(){
+  }
+  
+  public logInWithGoogle(){
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
     return signInWithPopup(auth, provider, browserPopupRedirectResolver);
-   }
-   
+  }
+
+  public getCurrentUser(): Observable<FirebaseUser | null> {
+    return this.auth.authState as Observable<FirebaseUser | null>;
+  }
+
 }

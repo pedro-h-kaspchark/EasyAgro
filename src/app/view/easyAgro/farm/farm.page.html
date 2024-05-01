@@ -1,37 +1,43 @@
 <ion-content>
-  <div class="farm">
-    <h1 class="farm-title">Fazenda</h1>
-    <ion-list class="animal-list">
-      <!-- Lista de animais -->
-      <ion-item>
-        <ion-label>animal 1</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>animal 2</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>animal 3</ion-label>
-      </ion-item>
-      <!-- Adicione mais itens conforme necessário -->
-    </ion-list>
-    <!-- Botão de adicionar animais -->
-    <ion-fab horizontal="end" vertical="bottom" class="login-fab">
-      <ion-fab-button>
-        <ion-icon name="add"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
-  </div>
-  
-  <!-- Botões de navegação -->
-  <div class="buttons-container">
-    <ion-button color="white" (click)="goToHomePage()">
-      <ion-icon slot="icon-only" name="home-outline"></ion-icon>
-    </ion-button>
-    <ion-button color="white">
-      <ion-icon slot="icon-only" name="leaf-outline"></ion-icon>
-    </ion-button>
-    <ion-button color="white" (click)="goToProfilePage()">
-      <ion-icon slot="icon-only" name="person-circle-outline"></ion-icon>
-    </ion-button>
-  </div>
+  <ion-content class="ion-padding">
+    <ng-container *ngIf="farms.length > 0; else noFarms">
+      <ion-list>
+        <ion-item *ngFor="let farm of farms">
+          <ion-label>{{ farm.farmName }}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ng-container>
+    <ng-template #noFarms>
+      <p>Você ainda não possui nenhuma fazenda.</p>
+      <form [formGroup]="farmForm" (ngSubmit)="createFarm()">
+        <ion-item>
+          <ion-label position="stacked">Nome da Fazenda</ion-label>
+          <ion-input formControlName="farmName" type="text"></ion-input>
+        </ion-item>
+        <!-- Mensagens de erro -->
+        <span *ngIf="farmForm.get('farmName')?.touched && farmForm.get('farmName')?.errors?.['required']">O nome da fazenda é obrigatório!</span>
+        <!-- Mensagens de erro -->
+        <ion-item>
+          <ion-label position="stacked">Localização da Fazenda</ion-label>
+          <ion-input formControlName="farmLocation" type="text"></ion-input>
+        </ion-item>
+        <!-- Mensagens de erro -->
+        <span *ngIf="farmForm.get('farmLocation')?.touched && farmForm.get('farmLocation')?.errors?.['required']">A Localização da fazenda é obrigatória!</span>
+        <!-- Mensagens de erro -->
+        <ion-button type="submit" expand="block" [disabled]="farmForm.invalid">Criar Fazenda</ion-button>
+      </form>
+    </ng-template>
+
+    <div class="buttons-container">
+      <ion-button color="white" (click)="goToHomePage()">
+        <ion-icon slot="icon-only" name="home-outline"></ion-icon>
+      </ion-button>
+      <ion-button color="white">
+        <ion-icon slot="icon-only" name="leaf-outline"></ion-icon>
+      </ion-button>
+      <ion-button color="white" (click)="goToProfilePage()">
+        <ion-icon slot="icon-only" name="person-circle-outline"></ion-icon>
+      </ion-button>
+    </div>
+  </ion-content>
 </ion-content>

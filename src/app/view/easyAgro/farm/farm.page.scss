@@ -26,49 +26,49 @@ ion-icon {
   color: rgb(44, 44, 44);
 }
 
-ion-fab-button {
-  --background: #007bff;
-}
+// ion-fab-button {
+//   --background: #007bff;
+// }
 
-ion-fab-button ion-icon {
-  color: white;
-}
+// ion-fab-button ion-icon {
+//   color: white;
+// }
 
-.farm {
-  border: 2px solid rgb(44, 44, 44);
-  padding: 20px;
-  border-radius: 10px;
-  margin: 20px auto;
-  max-width: 400px;
-  position: relative;
-  background-color: black; /* Fundo transparente */
-  height: calc(100vh - 80px); /* Altura quase total da tela, excluindo a altura dos botões */
-  overflow-y: auto; /* Adiciona uma barra de rolagem vertical se necessário */
-}
+// .farm {
+//   border: 2px solid rgb(44, 44, 44);
+//   padding: 20px;
+//   border-radius: 10px;
+//   margin: 20px auto;
+//   max-width: 400px;
+//   position: relative;
+//   background-color: black; 
+//   height: calc(100vh - 80px);
+//   overflow-y: auto;
+// }
 
-.farm-title {
-  text-align: center;
-  margin-top: 0; /* Removendo margem superior padrão */
-  color: white; /* Cor do texto */
-}
+// .farm-title {
+//   text-align: center;
+//   margin-top: 0; 
+//   color: white; 
+// }
 
-.animal-list {
-  list-style-type: none;
-  padding: 0;
-  margin-top: 20px;
-  background-color: transparent; /* Removendo a cor de fundo padrão */
-  --inner-background: transparent; /* Removendo a sombra interna */
-}
+// .animal-list {
+//   list-style-type: none;
+//   padding: 0;
+//   margin-top: 20px;
+//   background-color: transparent;
+//   --inner-background: transparent; 
+// }
 
-.animal-list ion-item {
-  border: 2px solid rgb(44, 44, 44);
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
-}
+// .animal-list ion-item {
+//   border: 2px solid rgb(44, 44, 44);
+//   margin-bottom: 10px;
+//   padding: 10px;
+//   border-radius: 5px;
+//   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
+// }
 
-.animal-list {
-  background-color: transparent; /* Removendo a cor de fundo padrão */
-  --inner-background: transparent; /* Removendo a sombra interna */
-}
+// .animal-list {
+//   background-color: transparent;
+//   --inner-background: transparent;
+// }

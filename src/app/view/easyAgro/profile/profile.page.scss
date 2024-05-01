@@ -70,8 +70,9 @@ ion-button{
 ion-icon{
   color: rgb(44, 44, 44);
 }
-.formContainer{
+.formContainer {
   margin-top: 15%;
+  background: transparent; /* Remover o fundo padrão */
 }
 .profile-title {
   display: flex;
