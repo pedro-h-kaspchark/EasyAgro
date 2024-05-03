@@ -1,10 +1,84 @@
 ion-content {
-  --background: black;
+  --background: black; 
+}
+
+span{
+  color: red;
+}
+
+.spanNoFarm {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  width: 100%;
+}
+
+
+.form-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: black;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid gray;
+  width: 80%; 
+  max-width: 500px; 
+}
+
+.farm-title {
+  display: flex;
+  justify-content: center;
   color: white;
+  font-size: 24px;
+}
+
+form ion-item {
+  --background: transparent;
+  --border-style: none;
+}
+
+form ion-input {
+  color: #ffffff;
+  border: none;
+}
+
+form ion-label {
+  color: #ffffff;
+  margin-top: 15%;
+}
+
+.createFarmButton {
+  background-color: black; 
+  color: gray; 
+  border: 2px solid gray;
+  border-radius: 5px;
+}
+
+.createFarmButton:hover {
+  background-color: darkgray;
+}
+
+ion-list{
+  background-color: black;
+  margin-top: 4%;
+}
+
+ion-item {
+  background-color: black;
+}
+
+.list-container ion-item {
+  --background: transparent;
+  border: 2px solid gray;
+  border-radius: 5px;
 }
 
 .buttons-container {
-  border: 2px solid rgb(44, 44, 44);
+  border: 2px solid gray;
   position: fixed;
   bottom: 0;
   left: 50%;
@@ -23,52 +97,11 @@ ion-button {
 }
 
 ion-icon {
-  color: rgb(44, 44, 44);
+  color: gray;
 }
 
-// ion-fab-button {
-//   --background: #007bff;
-// }
-
-// ion-fab-button ion-icon {
-//   color: white;
-// }
-
-// .farm {
-//   border: 2px solid rgb(44, 44, 44);
-//   padding: 20px;
-//   border-radius: 10px;
-//   margin: 20px auto;
-//   max-width: 400px;
-//   position: relative;
-//   background-color: black; 
-//   height: calc(100vh - 80px);
-//   overflow-y: auto;
-// }
-
-// .farm-title {
-//   text-align: center;
-//   margin-top: 0; 
-//   color: white; 
-// }
-
-// .animal-list {
-//   list-style-type: none;
-//   padding: 0;
-//   margin-top: 20px;
-//   background-color: transparent;
-//   --inner-background: transparent; 
-// }
-
-// .animal-list ion-item {
-//   border: 2px solid rgb(44, 44, 44);
-//   margin-bottom: 10px;
-//   padding: 10px;
-//   border-radius: 5px;
-//   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
-// }
-
-// .animal-list {
-//   background-color: transparent;
-//   --inner-background: transparent;
-// }
+ion-fab{
+  bottom: 90px;
+  border: 2px solid gray;
+  border-radius: 50%;
+}

@@ -18,13 +18,15 @@ export class FirebaseService {
   }
 
   registerFarm(farm: Farm){
-    return this.firestore.collection(this.PATH).add({farmName: farm.farmName, location: farm.location, uid: farm.uid});
+    return this.firestore.collection(this.PATH).add({farmName: farm.farmName, location: farm.location, uid: farm.uid, id: farm.id});
   }
 
   getAllFarms(){
     this.user = this.injectAuthService().getUserLogged();
     return this.firestore.collection(this.PATH, ref => ref.where('uid', '==', this.user.uid)).snapshotChanges();
   }
+
+  createAnimal(){}
 
   // async userHasFarm(): Promise<boolean>{
   //   try {

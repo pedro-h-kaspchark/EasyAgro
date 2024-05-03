@@ -31,6 +31,11 @@ const routes: Routes = [
     path: 'profile',
     loadChildren: () => import('./view/easyAgro/profile/profile.module').then( m => m.ProfilePageModule)
   },
+  {
+    path: 'farm-details',
+    loadChildren: () => import('./view/easyAgro/farm-details/farm-details.module').then( m => m.FarmDetailsPageModule)
+  },
+
 
 
 ];

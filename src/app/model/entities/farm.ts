@@ -1,8 +1,11 @@
+import { Animal } from "./Animal";
+
 export class Farm{
     private _farmLocation!: string;
     private _farmName!: string;
-    private _id!: string;
+    private _id!: number;
     private _uid!: string;
+    private animals?: Animal[];
 
     // --------------------------------------------------------
     public get location(): string {
@@ -19,10 +22,10 @@ export class Farm{
         this._farmName = value;
     }
 // --------------------------------------------------------
-    public get id(): string {
+    public get id(): number {
         return this._id;
     }
-    public set id(value: string) {
+    public set id(value: number) {
         this._id = value;
     }
 // --------------------------------------------------------

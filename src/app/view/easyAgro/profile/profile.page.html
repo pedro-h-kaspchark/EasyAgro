@@ -9,7 +9,7 @@
       <ion-list>
         <ion-item lines="none">
           <ion-label position="floating">Nome</ion-label>
-          <ion-input type="text" [value]="userData.displayName" disabled></ion-input>
+          <ion-input type="text" [value]="userData.displayName"></ion-input>
         </ion-item>
         <!-- Mensagens de erro  -->
         <span *ngIf="profileForm.get('displayName')?.touched && profileForm.get('displayName')?.errors?.['required']">O nome de usuário é obrigatório!</span>
@@ -22,7 +22,7 @@
 
         <ion-item lines="none">
           <ion-label position="floating">Telefone</ion-label>
-          <ion-input type="tel" [value]="userData.phoneNumber" disabled></ion-input>
+          <ion-input type="tel" [value]="userData.phoneNumber"></ion-input>
         </ion-item>
         <!-- Mensagens de erro-->
         <span *ngIf="profileForm.get('phoneNumber')?.touched && profileForm.get('phoneNumber')?.errors?.['required']">O telefone é obrigatório!</span>

@@ -1,0 +1,6 @@
+<ion-content>
+    <button *ngIf="!showCreateForm" (click)="openCreateForm()">Criar animal</button>
+    <button *ngIf="showCreateForm" (click)="closeCreateForm()">Fechar formulário</button>
+  
+    <app-animal-create-form *ngIf="showCreateForm"></app-animal-create-form>
+  </ion-content>

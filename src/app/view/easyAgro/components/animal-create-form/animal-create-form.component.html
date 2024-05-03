@@ -1,0 +1,23 @@
+<div class="floating-form">
+  <form [formGroup]="animalForm">
+    <ion-label>Nome do animal:</ion-label>
+    <input formControlName="name" type="text">
+    <br>
+    <ion-label>Espécie:</ion-label>
+    <input formControlName="species" type="text">
+    <br>
+    <ion-label>Data de nascimento:</ion-label>
+    <input formControlName="birthDate" type="date">
+    <br>
+    <ion-label>Número:</ion-label>
+    <input formControlName="number" type="text">
+    <br>
+    <ion-label>Histórico de doenças:</ion-label>
+    <input formControlName="historyOfIllnesses" type="text">
+    <br>
+    <ion-label>Histórico de tratamentos:</ion-label>
+    <input formControlName="treatmentHistory" type="text">
+    <br>
+    <button type="submit">Criar animal</button>
+  </form>
+</div>
