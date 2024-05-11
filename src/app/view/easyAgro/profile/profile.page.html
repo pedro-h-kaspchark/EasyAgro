@@ -2,42 +2,43 @@
   <div class="data">
     <div class="profile-container">
       <div class="profile-title">Perfil</div>
-      <div class="image">
-        <img [src]="userData.photoURL ? userData.photoURL : 'assets/default-icon.png'">
+      <div class="image" (click)="fileInput.click()">
+        <input type="file" accept="image/*" (change)="uploadPhoto($event)" #fileInput style="display:none;">
+        <img [src]="userData.photoURL ? userData.photoURL : 'assets/default-icon.png'" style="cursor:pointer;">
       </div>
       <form [formGroup]="profileForm" (ngSubmit)="submitForm()" novalidate class="formContainer">
-      <ion-list>
-        <ion-item lines="none">
-          <ion-label position="floating">Nome</ion-label>
-          <ion-input type="text" [value]="userData.displayName"></ion-input>
-        </ion-item>
-        <!-- Mensagens de erro  -->
-        <span *ngIf="profileForm.get('displayName')?.touched && profileForm.get('displayName')?.errors?.['required']">O nome de usuário é obrigatório!</span>
-        <span *ngIf="profileForm.get('displayName')?.dirty && profileForm.get('displayName')?.errors?.['minlength']">O nome deve ter no minimo 3 caracteres!</span>
-        <!-- Mensagens de erro  -->
-        <ion-item lines="none">
-          <ion-label position="floating">Email</ion-label>
-          <ion-input type="email" [value]="userData.email" disabled></ion-input>
-        </ion-item>
+        <ion-list>
+          <ion-item lines="none">
+            <ion-label position="floating">Nome</ion-label>
+            <ion-input type="text" formControlName="displayName"></ion-input>
+          </ion-item>
+          <!-- Mensagens de erro -->
+          <span *ngIf="profileForm.get('displayName')?.touched && profileForm.get('displayName')?.errors?.['required']">O nome de usuário é obrigatório!</span>
+          <span *ngIf="profileForm.get('displayName')?.dirty && profileForm.get('displayName')?.errors?.['minlength']">O nome deve ter no mínimo 3 caracteres!</span>
+          <!-- Mensagens de erro -->
+          <ion-item lines="none">
+            <ion-label position="floating">Email</ion-label>
+            <ion-input type="email" [value]="userData.email" disabled></ion-input>
+          </ion-item>
 
-        <ion-item lines="none">
-          <ion-label position="floating">Telefone</ion-label>
-          <ion-input type="tel" [value]="userData.phoneNumber"></ion-input>
-        </ion-item>
-        <!-- Mensagens de erro-->
-        <span *ngIf="profileForm.get('phoneNumber')?.touched && profileForm.get('phoneNumber')?.errors?.['required']">O telefone é obrigatório!</span>
-        <span *ngIf="profileForm.get('phoneNumber')?.dirty && profileForm.get('phoneNumber')?.errors?.['minlength']">O telefone deve ter no minimo 9 caracteres!</span>
-        <span *ngIf="profileForm.get('phoneNumber')?.dirty && profileForm.get('phoneNumber')?.errors?.['maxlength']">O telefone deve ter no maximo 13 caracteres!</span>
-        <!-- Mensagens de erro-->
-      </ion-list>
-    </form>
+          <ion-item lines="none">
+            <ion-label position="floating">Telefone</ion-label>
+            <ion-input type="tel" formControlName="phoneNumber"></ion-input>
+          </ion-item>
+          <!-- Mensagens de erro-->
+          <span *ngIf="profileForm.get('phoneNumber')?.touched && profileForm.get('phoneNumber')?.errors?.['required']">O telefone é obrigatório!</span>
+          <span *ngIf="profileForm.get('phoneNumber')?.dirty && profileForm.get('phoneNumber')?.errors?.['minlength']">O telefone deve ter no mínimo 9 caracteres!</span>
+          <span *ngIf="profileForm.get('phoneNumber')?.dirty && profileForm.get('phoneNumber')?.errors?.['maxlength']">O telefone deve ter no máximo 13 caracteres!</span>
+          <!-- Mensagens de erro-->
+        </ion-list>
+        <ion-button color="white" type="submit" expand="block">
+          <ion-icon name="checkmark-outline" type="submit"></ion-icon> Salvar
+        </ion-button>
+      </form>
     </div>
   </div>
 
   <div class="buttons-container">
-    <ion-button color="white" (click)="goToHomePage()">
-      <ion-icon slot="icon-only" name="home-outline"></ion-icon>
-    </ion-button>
     <ion-button color="white" (click)="goToFarmPage()">
       <ion-icon slot="icon-only" name="leaf-outline"></ion-icon>
     </ion-button>

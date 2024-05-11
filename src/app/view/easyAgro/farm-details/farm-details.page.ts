@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Animal } from 'src/app/model/entities/Animal';
+import { Farm } from 'src/app/model/entities/farm';
+import { user } from 'src/app/model/entities/user';
+import { AuthService } from 'src/app/model/service/auth.service';
+import { FirebaseService } from 'src/app/model/service/firebase.service';
 
 @Component({
   selector: 'app-farm-details',
@@ -7,11 +12,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FarmDetailsPage implements OnInit{
   showCreateForm = false;
+  public animals: Animal[] = [];
+  user!: user;
+  farm!: Farm;
+  farmName!: string;
 
-  constructor() { }
+  constructor(private authService: AuthService, private firebaseService: FirebaseService){
+    this.user = this.authService.getUserLogged();
+  }
 
-  ngOnInit() {
-
+  ngOnInit(){
+    this.farm = history.state.farm;
+    this.farmName = this.farm.farmName;
+    this.firebaseService.getAllAnimalsByFarmId().subscribe(res => {
+      this.animals = res.map(animal => {
+        return { id: animal.payload.doc.id, ...animal.payload.doc.data() as any } as Animal;
+      });
+    });
   }
  
   openCreateForm(){

@@ -1,5 +1,6 @@
 export class Animal {
     private _id!: string;
+    private _uid!: string;
     private _name!: string;
     private _species!: string;
     private _number!: string;
@@ -12,6 +13,13 @@ export class Animal {
     }
     public set id(value: string) {
         this._id = value;
+    }
+// --------------------------------------------------------
+    public get uid(): string {
+        return this._uid;
+    }
+    public set uid(value: string) {
+        this._uid = value;
     }
 // --------------------------------------------------------
     public get name(): string {

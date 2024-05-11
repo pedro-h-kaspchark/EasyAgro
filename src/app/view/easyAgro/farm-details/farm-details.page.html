@@ -1,6 +1,17 @@
 <ion-content>
-    <button *ngIf="!showCreateForm" (click)="openCreateForm()">Criar animal</button>
-    <button *ngIf="showCreateForm" (click)="closeCreateForm()">Fechar formulário</button>
+  <div *ngIf="farmName" class="farm-name"> {{ farmName }} </div>
+  <app-animal-create-form *ngIf="showCreateForm"></app-animal-create-form>
+
+  <ion-list class="list-container">
+    <ion-item *ngFor="let animal of animals">
+      <ion-label>{{ animal.name }}</ion-label>
+      <ion-icon name="share-outline"></ion-icon>
+      <ion-icon name="create-outline"></ion-icon>
+    </ion-item>
+  </ion-list>
   
-    <app-animal-create-form *ngIf="showCreateForm"></app-animal-create-form>
-  </ion-content>
+  <div class="buttons-container">
+    <ion-button color="white" *ngIf="!showCreateForm" (click)="openCreateForm()"> Registrar animal </ion-button>
+    <ion-button color="white" *ngIf="showCreateForm" (click)="closeCreateForm()"> Fechar formulário </ion-button>
+  </div>
+</ion-content>

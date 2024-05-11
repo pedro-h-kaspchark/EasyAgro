@@ -104,6 +104,49 @@ export class AuthService {
     }
   }
 
+  //-------------------------------------------------------------------------//
+  public async updateProfile(displayName: string, phoneNumber: string){
+    try{
+      const user = await this.auth.currentUser;
+      if (user) {
+        await user.updateProfile({
+          displayName: displayName
+        });
+        await this.firestore.collection('users').doc(user.uid).update({
+          displayName: displayName,
+          phoneNumber: phoneNumber
+        });
+        return true;
+      }
+      return false;
+    }catch (error){
+      console.error('Erro ao atualizar perfil:', error);
+      throw error;
+    }
+  }
+
+  public async uploadPhoto(photoURL: File){
+    try{
+      const user = await this.auth.currentUser;
+      if (user){
+        const downloadURL = await this.uploadImage(photoURL, user.uid);
+        await user.updateProfile({
+          photoURL: downloadURL
+        });
+        await this.firestore.collection('users').doc(user.uid).update({
+          photoURL: downloadURL
+        });
+        return downloadURL;
+      }
+      return null;
+    }catch (error){
+      console.error('Erro ao fazer upload da foto de perfil:', error);
+      throw error;
+    }
+  }
+
+  //-------------------------------------------------------------------------//
+
   private async uploadImage(photoURL: File, userId: string): Promise<string>{
     try{
       const storageRef = this.storage.ref(`users/${userId}/${photoURL.name}`);

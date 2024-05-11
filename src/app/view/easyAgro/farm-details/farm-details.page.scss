@@ -2,3 +2,45 @@ ion-content {
     --background: black;
     color: white;
   }
+  
+  ion-button {
+    margin: 10px;
+    border: 2px solid gray;
+    border-radius: 2%;
+  }
+  
+  .farm-name{
+    margin-top: 10%;
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+  }
+
+  .buttons-container {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    justify-content: space-between;
+    align-items: center;
+    max-width: 90%;
+    width: auto;
+  }
+
+  ion-list{
+    background-color: black;
+    margin-top: 4%;
+  }
+
+  .list-container ion-item {
+    --background: transparent;
+    border: 2px solid gray;
+    border-radius: 5px;
+  }
+
+  ion-icon{
+    margin-right: 5px;
+  }
+  
+  

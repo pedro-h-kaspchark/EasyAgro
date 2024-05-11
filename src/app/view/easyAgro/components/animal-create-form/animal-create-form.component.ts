@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { AuthService } from 'src/app/model/service/auth.service';
 import { FirebaseService } from 'src/app/model/service/firebase.service';
 
 @Component({
@@ -10,9 +11,8 @@ import { FirebaseService } from 'src/app/model/service/firebase.service';
 
 export class AnimalCreateFormComponent implements OnInit {
   animalForm!: FormGroup;
-  showCreateForm!: Boolean;
 
-  constructor(private formBuilder: FormBuilder, private firebaseService: FirebaseService) { }
+  constructor(private formBuilder: FormBuilder, private firebaseService: FirebaseService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.animalForm = this.formBuilder.group({
@@ -26,9 +26,14 @@ export class AnimalCreateFormComponent implements OnInit {
   }
 
 
-  onSubmit(): void {
-    console.log(this.animalForm.value);
-    this.firebaseService.createAnimal()
-    };
-
+  registerAnimal(){
+    if (this.animalForm.valid) {
+      const animalData = this.animalForm.value;
+      animalData.uid = this.authService.getUserLogged().uid;
+      this.firebaseService.registerAnimal(animalData).then(() => {
+          console.log('Animal registrado com sucesso!');
+          this.animalForm.reset();
+        }).catch(error => {console.error('Erro ao registrar animal:', error);});
+    }
   }
+}

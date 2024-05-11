@@ -36,12 +36,12 @@ export class LoginPage implements OnInit {
   }
   signIn(){
     this.auth.signIn(this.loginForm.value['email'], this.loginForm.value['password']).then((res) => {
-    this.alert.presentAlert("OK", "Bem vindo!"); this.router.navigate(['/home'])}).catch((error) => {
+    this.alert.presentAlert("OK", "Bem vindo!"); this.router.navigate(['/farm'])}).catch((error) => {
     this.alert.presentAlert("Erro", "Erro ao efetuar o login!"); console.log(error);})
   }
   
   loginWithGmail(){
-    this.auth.logInWithGoogle().then((res)=>{this.alert.presentAlert("OK", "Seja bem Vindo!"); this.router.navigate(['/home']); }).catch((error)=>{
+    this.auth.logInWithGoogle().then((res)=>{this.alert.presentAlert("OK", "Seja bem Vindo!"); this.router.navigate(['/farm']); }).catch((error)=>{
     this.alert.presentAlert("OK", "Erro ao Logar! Tente Novamente"); console.log(error);});
   }
 

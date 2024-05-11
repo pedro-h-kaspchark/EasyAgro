@@ -16,6 +16,7 @@ export class FarmPage implements OnInit {
   farmForm!: FormGroup;
   public farms: Farm[] = [];
   showNoFarms: boolean = false;
+  farmID: number | null = null;
   user: any;
 
   constructor(private router: Router, private formBuilder: FormBuilder, private firebaseService: FirebaseService, private auth: AuthService, private alert: Alert) {
@@ -35,7 +36,6 @@ export class FarmPage implements OnInit {
       this.showNoFarms = true;
     }
     this.firebaseService.getAllFarms().subscribe(res => {this.farms = res.map(user => {
-      console.log("Farms", res)
       return{id:user.payload.doc.id,...user.payload.doc.data() as any}as Farm})})
   }
 
@@ -51,7 +51,7 @@ export class FarmPage implements OnInit {
   
         this.firebaseService.registerFarm(newFarm).then(() => {
           this.farmForm.reset();
-          this.router.navigate(['/home']);
+          this.router.navigate(['/farm']);
         }).catch(error => {
           console.error('Erro ao criar a fazenda:', error);
           this.alert.presentAlert('Erro!', 'Ocorreu um erro ao criar a fazenda.');
@@ -68,7 +68,8 @@ export class FarmPage implements OnInit {
     this.showNoFarms = true;
   }
 
-  openFarm(farm: Farm) {
+  openFarm(farm: Farm){
+    this.farmID = farm.id;
     this.router.navigateByUrl('/farm-details', {state: {farm: farm}});
   }
 
@@ -76,7 +77,4 @@ export class FarmPage implements OnInit {
     this.router.navigate(['/profile']);
   }
 
-  goToHomePage() {
-    this.router.navigate(['/home']);
-  }
 }
