@@ -3,6 +3,7 @@ export class Animal {
     private _uid!: string;
     private _name!: string;
     private _species!: string;
+    private _birthDate!: string;
     private _number!: string;
     private _historyOfIllnesses!: string;
     private _treatmentHistory!: string;
@@ -34,6 +35,13 @@ export class Animal {
     }
     public set species(value: string) {
         this._species = value;
+    }
+// --------------------------------------------------------
+    public get birthDate(): string {
+        return this._birthDate;
+    }
+    public set birthDate(value: string) {
+        this._birthDate = value;
     }
 // --------------------------------------------------------
     public get number(): string {

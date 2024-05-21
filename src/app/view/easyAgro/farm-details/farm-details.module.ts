@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { FarmDetailsPageRoutingModule } from './farm-details-routing.module';
 import { FarmDetailsPage } from './farm-details.page';
 import { AnimalCreateFormComponent } from '../components/animal-create-form/animal-create-form.component';
+import { AnimalEditFormComponent } from '../components/animal-edit-form/animal-edit-form.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { AnimalCreateFormComponent } from '../components/animal-create-form/anim
   ],
   declarations: [
     FarmDetailsPage,
-    AnimalCreateFormComponent
+    AnimalCreateFormComponent,
+    AnimalEditFormComponent
   ]
 })
 export class FarmDetailsPageModule {}

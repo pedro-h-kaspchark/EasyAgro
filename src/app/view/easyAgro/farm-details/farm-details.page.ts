@@ -10,18 +10,20 @@ import { FirebaseService } from 'src/app/model/service/firebase.service';
   templateUrl: './farm-details.page.html',
   styleUrls: ['./farm-details.page.scss'],
 })
-export class FarmDetailsPage implements OnInit{
+export class FarmDetailsPage implements OnInit {
   showCreateForm = false;
+  showEditForm = false;
+  selectedAnimal!: Animal;
   public animals: Animal[] = [];
   user!: user;
   farm!: Farm;
   farmName!: string;
 
-  constructor(private authService: AuthService, private firebaseService: FirebaseService){
+  constructor(private authService: AuthService, private firebaseService: FirebaseService) {
     this.user = this.authService.getUserLogged();
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.farm = history.state.farm;
     this.farmName = this.farm.farmName;
     this.firebaseService.getAllAnimalsByFarmId().subscribe(res => {
@@ -30,12 +32,23 @@ export class FarmDetailsPage implements OnInit{
       });
     });
   }
- 
-  openCreateForm(){
+
+  openCreateForm() {
     this.showCreateForm = true;
+    this.showEditForm = false;
   }
-  closeCreateForm(){
+  
+  closeCreateForm() {
     this.showCreateForm = false;
   }
 
+  openEditForm(animal: Animal) {
+    this.selectedAnimal = animal;
+    this.showEditForm = true;
+    this.showCreateForm = false;
+  }
+
+  closeEditForm() {
+    this.showEditForm = false;
+  }
 }

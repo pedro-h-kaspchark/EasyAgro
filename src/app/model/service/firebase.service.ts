@@ -10,7 +10,7 @@ import { Animal } from '../entities/Animal';
 })
 export class FirebaseService {
   private PATHFarm: string = "farm";
-  private PATHAnimal: string = "animals"
+  private PATHAnimal: string = "animal"
   user: any;
   farm: any;
 
@@ -26,6 +26,10 @@ export class FirebaseService {
 
   registerAnimal(animal: Animal){
     return this.firestore.collection(this.PATHAnimal).add({animalName: animal.name, species: animal.species, uid: animal.uid, animalNumber: animal.number, historyOfIllnesses: animal.historyOfIllnesses, treatmentHistory: animal.treatmentHistory});
+  }
+
+  editAnimal(animal: Animal, id: string){
+    return this.firestore.collection(this.PATHAnimal).doc(id).update({animalName: animal.name, species: animal.species, uid: animal.uid, animalNumber: animal.number, historyOfIllnesses: animal.historyOfIllnesses, treatmentHistory: animal.treatmentHistory});
   }
 
   getAllFarms(){

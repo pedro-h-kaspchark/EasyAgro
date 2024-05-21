@@ -1,0 +1,35 @@
+<div class="floating-form">
+  <form [formGroup]="animalForm" (ngSubmit)="editAnimal()">
+    <ion-label>Nome do animal:</ion-label>
+    <input formControlName="name" type="text">
+    <br>
+    <span *ngIf="animalForm.get('name')?.touched && animalForm.get('name')?.errors?.['required']">O nome do animal é obrigatório!</span><br>
+    
+    <ion-label>Espécie:</ion-label>
+    <input formControlName="species" type="text">
+    <br>
+    <span *ngIf="animalForm.get('species')?.touched && animalForm.get('species')?.errors?.['required']">A espécie do animal é obrigatória!</span><br>
+    
+    <ion-label>Data de nascimento:</ion-label>
+    <input formControlName="birthDate" type="date">
+    <br>
+    <span *ngIf="animalForm.get('birthDate')?.touched && animalForm.get('birthDate')?.errors?.['required']">A data de nascimento do animal é obrigatória!</span><br>
+    
+    <ion-label>Número:</ion-label>
+    <input formControlName="number" type="text">
+    <br>
+    <span *ngIf="animalForm.get('number')?.touched && animalForm.get('number')?.errors?.['required']">O número do animal é obrigatório!</span><br>
+    
+    <ion-label>Histórico de doenças:</ion-label>
+    <input formControlName="historyOfIllnesses" type="text">
+    <br>
+    <span *ngIf="animalForm.get('historyOfIllnesses')?.touched && animalForm.get('historyOfIllnesses')?.errors?.['required']">O histórico de doenças é obrigatório!</span><br>
+    
+    <ion-label>Histórico de tratamentos:</ion-label>
+    <input formControlName="treatmentHistory" type="text">
+    <br>
+    <span *ngIf="animalForm.get('treatmentHistory')?.touched && animalForm.get('treatmentHistory')?.errors?.['required']">O histórico de tratamentos é obrigatório!</span><br>
+    
+    <ion-button color="white" expand="block" class="editAnimalButton" type="submit">Atualizar animal</ion-button>
+  </form>
+</div>
