@@ -25,11 +25,11 @@ export class FirebaseService {
   }
 
   registerAnimal(animal: Animal){
-    return this.firestore.collection(this.PATHAnimal).add({animalName: animal.name, species: animal.species, uid: animal.uid, animalNumber: animal.number, historyOfIllnesses: animal.historyOfIllnesses, treatmentHistory: animal.treatmentHistory});
+    return this.firestore.collection(this.PATHAnimal).add({name: animal.name, species: animal.species, birthDate: animal.birthDate, uid: animal.uid, number: animal.number, historyOfIllnesses: animal.historyOfIllnesses, treatmentHistory: animal.treatmentHistory});
   }
 
   editAnimal(animal: Animal, id: string){
-    return this.firestore.collection(this.PATHAnimal).doc(id).update({animalName: animal.name, species: animal.species, uid: animal.uid, animalNumber: animal.number, historyOfIllnesses: animal.historyOfIllnesses, treatmentHistory: animal.treatmentHistory});
+    return this.firestore.collection(this.PATHAnimal).doc(id).update({name: animal.name, species: animal.species, birthDate: animal.birthDate, uid: animal.uid, number: animal.number, historyOfIllnesses: animal.historyOfIllnesses, treatmentHistory: animal.treatmentHistory});
   }
 
   getAllFarms(){
@@ -37,9 +37,9 @@ export class FirebaseService {
     return this.firestore.collection(this.PATHFarm, ref => ref.where('uid', '==', this.user.uid)).snapshotChanges();
   }
 
-  getAllAnimalsByFarmId(){
+  getAllAnimals(){
     this.user = this.injectAuthService().getUserLogged();
-    return this.firestore.collection(this.PATHAnimal, ref => ref.where('uid', '==', this.user.uid)).snapshotChanges();//.where('farmId', '==', this.farm.id)
+    return this.firestore.collection(this.PATHAnimal, ref => ref.where('uid', '==', this.user.uid)).snapshotChanges();
   }
 
 }

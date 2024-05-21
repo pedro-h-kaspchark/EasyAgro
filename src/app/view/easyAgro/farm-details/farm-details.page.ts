@@ -26,7 +26,7 @@ export class FarmDetailsPage implements OnInit {
   ngOnInit() {
     this.farm = history.state.farm;
     this.farmName = this.farm.farmName;
-    this.firebaseService.getAllAnimalsByFarmId().subscribe(res => {
+    this.firebaseService.getAllAnimals().subscribe(res => {
       this.animals = res.map(animal => {
         return { id: animal.payload.doc.id, ...animal.payload.doc.data() as any } as Animal;
       });

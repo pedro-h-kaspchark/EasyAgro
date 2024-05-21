@@ -5,7 +5,7 @@
 
   <ion-list class="list-container">
     <ion-item *ngFor="let animal of animals">
-      <ion-label>{{ animal.species }}</ion-label>
+      <ion-label>{{ animal.number }} {{ animal.name }}</ion-label>
       <ion-icon name="share-outline"></ion-icon>
       <ion-icon name="create-outline" (click)="openEditForm(animal)"></ion-icon>
     </ion-item>
