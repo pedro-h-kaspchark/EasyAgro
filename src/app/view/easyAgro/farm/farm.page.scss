@@ -1,9 +1,28 @@
 ion-content {
-  --background: black; 
+  --background: black;
 }
 
-span{
-  color: red;
+.register-buttons-container {
+  position: fixed;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.register-farm-container {
+  margin: 10px 0;
+}
+
+.register-farm {
+  border: 2px solid gray;
+  border-radius: 2%;
+}
+
+ion-button {
+  color: white;
 }
 
 .spanNoFarm {
@@ -15,7 +34,6 @@ span{
   width: 100%;
 }
 
-
 .form-container {
   position: absolute;
   top: 50%;
@@ -25,8 +43,8 @@ span{
   padding: 20px;
   border-radius: 10px;
   border: 2px solid gray;
-  width: 80%; 
-  max-width: 500px; 
+  width: 80%;
+  max-width: 500px;
 }
 
 .farm-title {
@@ -52,8 +70,8 @@ form ion-label {
 }
 
 .createFarmButton {
-  background-color: black; 
-  color: gray; 
+  background-color: black;
+  color: gray;
   border: 2px solid gray;
   border-radius: 5px;
 }
@@ -62,7 +80,7 @@ form ion-label {
   background-color: darkgray;
 }
 
-ion-list{
+ion-list {
   background-color: black;
   margin-top: 4%;
 }
@@ -74,7 +92,7 @@ ion-item {
 
 .list-container ion-item {
   --background: transparent;
-  border: 2px solid gray;
+  --border-color: gray;
   border-radius: 5px;
 }
 
@@ -92,16 +110,11 @@ ion-item {
   width: auto;
 }
 
-ion-button {
-  justify-content: space-between;
-  padding: 0;
-}
-
 ion-icon {
   color: gray;
 }
 
-ion-fab{
+ion-fab {
   bottom: 90px;
   border: 2px solid gray;
   border-radius: 50%;

@@ -1,12 +1,12 @@
 <ion-content>
   <div *ngIf="farmName" class="farm-name"> {{ farmName }} </div>
-  <app-animal-create-form *ngIf="showCreateForm"></app-animal-create-form>
-  <app-animal-edit-form *ngIf="showEditForm" [animal]="selectedAnimal"></app-animal-edit-form>
+  <app-animal-create-form [farm]="farm" *ngIf="showCreateForm" (animalRegistered)="onAnimalRegistered()" (animalRegistered)="closeCreateForm()"></app-animal-create-form>
+  <app-animal-edit-form [farm]="farm" *ngIf="showEditForm" [animal]="selectedAnimal" (animalUpdated)="closeEditForm()"></app-animal-edit-form>
 
   <ion-list class="list-container">
     <ion-item *ngFor="let animal of animals">
       <ion-label>{{ animal.number }} {{ animal.name }}</ion-label>
-      <ion-icon name="share-outline"></ion-icon>
+      <ion-icon name="share-outline" (click)="shareAnimalDetails(animal)"></ion-icon>
       <ion-icon name="create-outline" (click)="openEditForm(animal)"></ion-icon>
     </ion-item>
   </ion-list>

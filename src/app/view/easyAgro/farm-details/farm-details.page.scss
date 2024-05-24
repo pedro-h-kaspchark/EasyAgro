@@ -8,7 +8,7 @@ ion-content {
     border: 2px solid gray;
     border-radius: 2%;
   }
-  
+
   .farm-name{
     margin-top: 10%;
     display: flex;
@@ -35,7 +35,7 @@ ion-content {
 
   .list-container ion-item {
     --background: transparent;
-    border: 2px solid gray;
+    --border-color: gray;
     border-radius: 5px;
   }
 

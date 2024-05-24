@@ -3,7 +3,7 @@ import { Animal } from "./Animal";
 export class Farm{
     private _farmLocation!: string;
     private _farmName!: string;
-    private _id!: number;
+    private _id!: string;
     private _uid!: string;
     private animals?: Animal[];
 
@@ -22,10 +22,10 @@ export class Farm{
         this._farmName = value;
     }
 // --------------------------------------------------------
-    public get id(): number {
+    public get id(): string {
         return this._id;
     }
-    public set id(value: number) {
+    public set id(value: string) {
         this._id = value;
     }
 // --------------------------------------------------------

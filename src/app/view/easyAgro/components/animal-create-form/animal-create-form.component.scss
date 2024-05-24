@@ -9,16 +9,18 @@
   border: 1px solid gray;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 80%;
+  max-width: 600px;
 }
 
-.floating-form input {
+.floating-form ion-input {
   padding: 10px;
   margin-bottom: 10px;
-  border: 1px solid gray;
   border-radius: 5px;
   background-color: black;
   color: white;
-  opacity: 0.5;
+  opacity: 0.8;
+  width: 100%;
 }
 
 .floating-form button {
@@ -43,12 +45,25 @@ span {
 }
 
 .createAnimalButton {
-  background-color: black; 
-  color: gray; 
+  background-color: black;
+  color: gray;
   border: 2px solid gray;
   border-radius: 5px;
 }
 
 .createAnimalButton:hover {
   background-color: darkgray;
+}
+
+.warning-message {
+  color: red;
+  font-size: 0.9em;
+}
+
+.create-title{
+  display: flex;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+  margin-bottom: 3px;
 }

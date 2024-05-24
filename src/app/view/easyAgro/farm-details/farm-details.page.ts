@@ -26,18 +26,28 @@ export class FarmDetailsPage implements OnInit {
   ngOnInit() {
     this.farm = history.state.farm;
     this.farmName = this.farm.farmName;
-    this.firebaseService.getAllAnimals().subscribe(res => {
+    this.firebaseService.getAllAnimalsByFarm(this.farm.id).subscribe(res => {
       this.animals = res.map(animal => {
         return { id: animal.payload.doc.id, ...animal.payload.doc.data() as any } as Animal;
       });
     });
   }
 
+  async shareAnimalDetails(animal: Animal) {
+    try {
+      const pdfUrl = await this.firebaseService.uploadPDF(animal);
+      console.log('PDF URL:', pdfUrl);
+      window.open(pdfUrl, '_blank');
+    } catch (error) {
+      console.error('Erro para gerar o pdf:', error);
+    }
+  }
+
   openCreateForm() {
     this.showCreateForm = true;
     this.showEditForm = false;
   }
-  
+
   closeCreateForm() {
     this.showCreateForm = false;
   }
@@ -50,5 +60,23 @@ export class FarmDetailsPage implements OnInit {
 
   closeEditForm() {
     this.showEditForm = false;
+  }
+
+  onAnimalRegistered() {
+    this.closeCreateForm();
+    this.firebaseService.getAllAnimalsByFarm(this.farm.id).subscribe(res => {
+      this.animals = res.map(animal => {
+        return { id: animal.payload.doc.id, ...animal.payload.doc.data() as any } as Animal;
+      });
+    });
+  }
+
+  onAnimalUpdated() {
+    this.closeEditForm();
+    this.firebaseService.getAllAnimalsByFarm(this.farm.id).subscribe(res => {
+      this.animals = res.map(animal => {
+        return { id: animal.payload.doc.id, ...animal.payload.doc.data() as any } as Animal;
+      });
+    });
   }
 }

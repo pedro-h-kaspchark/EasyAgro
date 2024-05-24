@@ -1,8 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { FirebaseService } from 'src/app/model/service/firebase.service';
 import { AuthService } from 'src/app/model/service/auth.service';
 import { Animal } from 'src/app/model/entities/Animal';
+import { Alert } from 'src/app/common/alert';
+import { Farm } from 'src/app/model/entities/farm';
 
 @Component({
   selector: 'app-animal-edit-form',
@@ -10,30 +12,42 @@ import { Animal } from 'src/app/model/entities/Animal';
   styleUrls: ['./animal-edit-form.component.scss'],
 })
 export class AnimalEditFormComponent implements OnInit {
+  @Input() farm!: Farm;
   @Input() animal!: Animal;
+  @Output() animalUpdated = new EventEmitter<void>();
   animalForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private firebaseService: FirebaseService, private authService: AuthService) {}
+  constructor(private formBuilder: FormBuilder, private firebaseService: FirebaseService, private authService: AuthService, private alert: Alert) {}
 
   ngOnInit(): void {
     this.animalForm = this.formBuilder.group({
-      name: [this.animal.name, Validators.required],
-      species: [this.animal.species, Validators.required],
-      birthDate: [this.animal.birthDate, Validators.required],
-      number: [this.animal.number, Validators.required],
+      name: [{ value:this.animal.name, disabled: true }, Validators.required],
+      species: [{ value:this.animal.species, disabled: true }, Validators.required],
+      birthDate: [{ value:this.animal.birthDate, disabled: true }, Validators.required],
+      number: [{ value:this.animal.number, disabled: true }, Validators.required],
       historyOfIllnesses: [this.animal.historyOfIllnesses, Validators.required],
       treatmentHistory: [this.animal.treatmentHistory, Validators.required]
     });
   }
 
   editAnimal() {
-    if (this.animalForm.valid) {
-      const updatedAnimal = { ...this.animal, ...this.animalForm.value };
+    if (this.animalForm.valid){
+      const updatedAnimal: Animal = new Animal();
+      updatedAnimal.name = this.animal.name;
+      updatedAnimal.species = this.animal.species;
+      updatedAnimal.birthDate = this.animal.birthDate;
+      updatedAnimal.number = this.animal.number;
+      updatedAnimal.historyOfIllnesses = this.animalForm.value.historyOfIllnesses;
+      updatedAnimal.treatmentHistory = this.animalForm.value.treatmentHistory;
+      updatedAnimal.uid = this.authService.getUserLogged().uid;
+      updatedAnimal.farmId = this.animal.farmId;
       this.firebaseService.editAnimal(updatedAnimal, this.animal.id).then(() => {
-        console.log('Animal atualizado com sucesso!');
+        this.alert.presentAlert("Ok", "Animal atualizado");
+        this.animalUpdated.emit();
       }).catch(error => {
-        console.error('Erro ao atualizar animal:', error);
+        this.alert.presentAlert("Erro", "Erro ao atualizar o animal");
       });
     }
   }
+  
 }

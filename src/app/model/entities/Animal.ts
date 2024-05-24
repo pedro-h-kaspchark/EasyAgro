@@ -4,9 +4,10 @@ export class Animal {
     private _name!: string;
     private _species!: string;
     private _birthDate!: string;
-    private _number!: string;
+    private _number!: number;
     private _historyOfIllnesses!: string;
     private _treatmentHistory!: string;
+    private _farmId!: string;
 
 // --------------------------------------------------------
     public get id(): string {
@@ -44,10 +45,10 @@ export class Animal {
         this._birthDate = value;
     }
 // --------------------------------------------------------
-    public get number(): string {
+    public get number(): number {
         return this._number;
     }
-    public set number(value: string) {
+    public set number(value: number) {
         this._number = value;
     }
 // --------------------------------------------------------
@@ -63,5 +64,12 @@ export class Animal {
     }
     public set treatmentHistory(value: string) {
         this._treatmentHistory = value;
+    }
+// --------------------------------------------------------
+    public get farmId(): string {
+        return this._farmId;
+    }
+    public set farmId(value: string) {
+        this._farmId = value;
     }
   }
