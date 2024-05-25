@@ -1,15 +1,6 @@
-<ion-content class="ion-padding">
-  <ng-container *ngIf="farms.length > 0; else noFarms">
-    <div class="farm-title">Fazendas</div>
-    <ion-list class="list-container">
-      <ion-item *ngFor="let farm of farms" (click)="openFarm(farm)">
-        <ion-label>{{ farm.farmName }}</ion-label>
-      </ion-item>
-    </ion-list>
-  </ng-container>
-  <ng-template #noFarms>
-    <div class="spanNoFarm" *ngIf="farms.length == 0">Crie uma fazenda!</div>
-    <div class="form-container" *ngIf="showNoFarms">
+<ion-content>
+<div class="spanNoFarm">Crie uma fazenda!</div>
+    <div class="form-container">
       <div class="farm-title">Fazendas</div>
       <form [formGroup]="farmForm" (ngSubmit)="createFarm()">
         <ion-item>
@@ -29,21 +20,9 @@
         <ion-button type="submit" expand="block" color="white" class="createFarmButton">Criar Fazenda</ion-button>
       </form>
     </div>
-  </ng-template>
-  <div class="register-buttons-container">
-    <div class="register-farm-container">
-      <ion-button class="register-farm" color="white" (click)="disableFarmsListAndShowNoFarms()">Registrar fazenda</ion-button>
+    <div class="register-buttons-container">
+      <div class="register-farm-container">
+        <ion-button class="register-farm" color="white" (click)="enableFarmsList()">Fechar registro</ion-button>
+      </div>
     </div>
-  </div>
-
-  <div class="buttons-container">
-    <ion-button color="white">
-      <ion-icon slot="icon-only" name="leaf-outline"></ion-icon>
-    </ion-button>
-    <ion-button color="white" (click)="goToProfilePage()">
-      <ion-icon slot="icon-only" name="person-circle-outline"></ion-icon>
-    </ion-button>
-  </div>
 </ion-content>
-
-

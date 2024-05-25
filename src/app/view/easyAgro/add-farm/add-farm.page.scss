@@ -1,0 +1,122 @@
+ion-content {
+    --background: black;
+  }
+  
+  .register-buttons-container {
+    position: fixed;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .register-farm-container {
+    margin: 10px 0;
+  }
+  
+  .register-farm {
+    border: 2px solid gray;
+    border-radius: 2%;
+  }
+  
+  ion-button {
+    color: white;
+  }
+  
+  .spanNoFarm {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 100%;
+  }
+  
+  .form-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: black;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid gray;
+    width: 80%;
+    max-width: 500px;
+  }
+  
+  .farm-title {
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+  }
+  
+  form ion-item {
+    --background: transparent;
+    --border-style: none;
+  }
+  
+  form ion-input {
+    color: #ffffff;
+    border: none;
+  }
+  
+  form ion-label {
+    color: #ffffff;
+    margin-top: 15%;
+  }
+  
+  .createFarmButton {
+    background-color: black;
+    color: gray;
+    border: 2px solid gray;
+    border-radius: 5px;
+  }
+  
+  .createFarmButton:hover {
+    background-color: darkgray;
+  }
+  
+  ion-list {
+    background-color: black;
+    margin-top: 4%;
+  }
+  
+  ion-item {
+    background-color: black;
+    margin-top: 4px;
+  }
+  
+  .list-container ion-item {
+    --background: transparent;
+    --border-color: gray;
+    border-radius: 5px;
+  }
+  
+  .buttons-container {
+    border: 2px solid gray;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    max-width: 90%;
+    width: auto;
+  }
+  
+  ion-icon {
+    color: gray;
+  }
+  
+  ion-fab {
+    bottom: 90px;
+    border: 2px solid gray;
+    border-radius: 50%;
+  }
+  
