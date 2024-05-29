@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Alert } from 'src/app/common/alert';
+import { loading } from 'src/app/common/loading';
 import { Farm } from 'src/app/model/entities/farm';
 import { AuthService } from 'src/app/model/service/auth.service';
 import { FirebaseService } from 'src/app/model/service/firebase.service';
@@ -17,7 +18,7 @@ export class AnimalCreateFormComponent implements OnInit {
   @Output() animalRegistered = new EventEmitter<void>();
   @Output() closeForm = new EventEmitter<void>();
 
-  constructor(private formBuilder: FormBuilder, private firebaseService: FirebaseService, private authService: AuthService, private alert: Alert) { }
+  constructor(private formBuilder: FormBuilder, private firebaseService: FirebaseService, private authService: AuthService, private alert: Alert, private loading: loading) { }
 
   ngOnInit(): void {
     this.animalForm = this.formBuilder.group({
@@ -37,6 +38,7 @@ export class AnimalCreateFormComponent implements OnInit {
 
   registerAnimal(){
     if (this.animalForm.valid) {
+      this.loading.showLoading(10);
       const animalData = this.animalForm.value;
       animalData.uid = this.authService.getUserLogged().uid;
       animalData.id = this.farm.id;

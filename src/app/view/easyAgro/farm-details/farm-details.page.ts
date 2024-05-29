@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { loading } from 'src/app/common/loading';
 import { Animal } from 'src/app/model/entities/Animal';
 import { Farm } from 'src/app/model/entities/farm';
 import { user } from 'src/app/model/entities/user';
@@ -19,7 +20,7 @@ export class FarmDetailsPage implements OnInit {
   farm!: Farm;
   farmName!: string;
 
-  constructor(private authService: AuthService, private firebaseService: FirebaseService) {
+  constructor(private authService: AuthService, private firebaseService: FirebaseService, private loading: loading) {
     this.user = this.authService.getUserLogged();
   }
 
@@ -33,11 +34,11 @@ export class FarmDetailsPage implements OnInit {
     });
   }
 
-  async shareAnimalDetails(animal: Animal) {
+  async shareAnimalDetails(animal: Animal){
+    this.loading.showLoading(1200);
     try {
       const pdfUrl = await this.firebaseService.uploadPDF(animal);
       console.log('PDF URL:', pdfUrl);
-
       if (navigator.share) {
         await navigator.share({
           title: `Detalhes do animal: ${animal.name}`,

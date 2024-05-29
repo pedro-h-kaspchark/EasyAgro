@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
 import { Alert } from 'src/app/common/alert';
+import { loading } from 'src/app/common/loading';
 import { Farm } from 'src/app/model/entities/farm';
 import { AuthService } from 'src/app/model/service/auth.service';
 import { FirebaseService } from 'src/app/model/service/firebase.service';
@@ -19,7 +20,7 @@ export class FarmPage implements OnInit {
   farmID: string | null = null;
   user: any;
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private firebaseService: FirebaseService, private auth: AuthService, private alert: Alert) {
+  constructor(private router: Router, private formBuilder: FormBuilder, private firebaseService: FirebaseService, private auth: AuthService, private alert: Alert, private loading: loading) {
     this.getFarms();
     this.user = this.auth.getUserLogged();
     this.farmForm = new FormGroup({
@@ -39,8 +40,9 @@ export class FarmPage implements OnInit {
     this.getFarms();
   }
 
-  createFarm() {
+  createFarm(){
     if (this.farmForm.valid) {
+      this.loading.showLoading(50);
       const newFarm: Farm = new Farm();
         newFarm.farmName = this.farmForm.value.farmName,
         newFarm.location = this.farmForm.value.farmLocation;
@@ -76,7 +78,8 @@ export class FarmPage implements OnInit {
     });
   }
 
-  openFarm(farm: Farm) {
+  openFarm(farm: Farm){
+    this.loading.showLoading(50);
     this.farmID = farm.id;
     this.router.navigateByUrl('/farm-details', { state: { farm } });
   }

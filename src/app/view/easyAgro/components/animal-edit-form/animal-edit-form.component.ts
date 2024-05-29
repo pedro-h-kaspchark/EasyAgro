@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/model/service/auth.service';
 import { Animal } from 'src/app/model/entities/Animal';
 import { Alert } from 'src/app/common/alert';
 import { Farm } from 'src/app/model/entities/farm';
+import { loading } from 'src/app/common/loading';
 
 @Component({
   selector: 'app-animal-edit-form',
@@ -18,7 +19,7 @@ export class AnimalEditFormComponent implements OnInit {
   @Output() closeEditForm = new EventEmitter<void>();
   animalForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private firebaseService: FirebaseService, private authService: AuthService, private alert: Alert) {}
+  constructor(private formBuilder: FormBuilder, private firebaseService: FirebaseService, private authService: AuthService, private alert: Alert, private loading: loading) {}
 
   ngOnInit(): void {
     this.animalForm = this.formBuilder.group({
@@ -37,6 +38,7 @@ export class AnimalEditFormComponent implements OnInit {
 
   editAnimal() {
     if (this.animalForm.valid){
+      this.loading.showLoading(10);
       const updatedAnimal: Animal = new Animal();
       updatedAnimal.name = this.animal.name;
       updatedAnimal.species = this.animal.species;

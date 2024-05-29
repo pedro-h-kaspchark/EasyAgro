@@ -2,8 +2,7 @@
   <ng-container *ngIf="farms.length > 0; else noFarms">
     <div class="farm-title">Fazendas</div>
     <ion-list class="list-container">
-      <ion-item *ngFor="let farm of farms" (click)="openFarm(farm)" id="open-loading">
-        <ion-loading trigger="open-loading" message="Carregando..." [duration]="50" spinner="circles"></ion-loading>
+      <ion-item *ngFor="let farm of farms" (click)="openFarm(farm)">
         <ion-label>{{ farm.farmName }}</ion-label>
       </ion-item>
     </ion-list>

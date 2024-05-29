@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Alert } from 'src/app/common/alert';
+import { loading } from 'src/app/common/loading';
 import { AuthService } from 'src/app/model/service/auth.service';
 
 @Component({
@@ -13,7 +14,7 @@ import { AuthService } from 'src/app/model/service/auth.service';
 export class LoginPage implements OnInit {
   loginForm!: FormGroup;
   
-  constructor(private formBuilder: FormBuilder, private alert: Alert, private auth: AuthService, private router: Router, private firestore: AngularFirestore){
+  constructor(private formBuilder: FormBuilder, private alert: Alert, private auth: AuthService, private router: Router, private loading: loading){
     
   }
 
@@ -35,6 +36,7 @@ export class LoginPage implements OnInit {
     }
   }
   signIn(){
+    this.loading.showLoading(400);
     this.auth.signIn(this.loginForm.value['email'], this.loginForm.value['password']).then((res) => {
     this.alert.presentAlert("OK", "Bem vindo!"); this.router.navigate(['/farm'])}).catch((error) => {
     this.alert.presentAlert("Erro", "Erro ao efetuar o login!"); console.log(error);})

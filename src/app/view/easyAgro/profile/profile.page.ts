@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Alert } from 'src/app/common/alert';
 import { confirmAlert } from 'src/app/common/confirmAlert';
+import { loading } from 'src/app/common/loading';
 import { AuthService } from 'src/app/model/service/auth.service';
-import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +16,7 @@ export class ProfilePage implements OnInit {
   profileForm!: FormGroup;
   editMode: boolean = true;
 
-  constructor(private router: Router, private auth: AuthService, private formBuilder: FormBuilder, private alert: Alert, private confirmAlert: confirmAlert, private loadingCtrl: LoadingController) {}
+  constructor(private router: Router, private auth: AuthService, private formBuilder: FormBuilder, private alert: Alert, private confirmAlert: confirmAlert, private loading: loading) {}
 
   ngOnInit() {
     this.loadUserData();
@@ -40,6 +40,7 @@ export class ProfilePage implements OnInit {
   }
 
   async submitForm(){
+    this.loading.showLoading(200);
     try{
       const { displayName, phoneNumber } = this.profileForm.value;
       await this.auth.updateProfile(displayName, phoneNumber);
@@ -50,10 +51,10 @@ export class ProfilePage implements OnInit {
   }
 
   async uploadPhoto(event: any){
-    this.showLoading();
+    this.loading.showLoading(800);
     try{
       const file = event.target.files[0];
-      if (file) {
+      if(file){
         const downloadURL = await this.auth.uploadPhoto(file);
         this.alert.presentAlert("Ok", "Foto atualizada com sucesso!")
       }
@@ -70,12 +71,4 @@ export class ProfilePage implements OnInit {
     this.router.navigate(['/farm']);
   }
 
-  async showLoading() {
-    const loading = await this.loadingCtrl.create({
-      message: 'Carregando...',
-      duration: 800,
-    });
-
-    loading.present();
-  }
 }

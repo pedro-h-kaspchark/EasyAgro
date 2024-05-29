@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Alert } from 'src/app/common/alert';
+import { loading } from 'src/app/common/loading';
 import { Farm } from 'src/app/model/entities/farm';
 import { AuthService } from 'src/app/model/service/auth.service';
 import { FirebaseService } from 'src/app/model/service/firebase.service';
@@ -15,7 +16,7 @@ export class AddFarmPage implements OnInit {
   user!: any;
   farmForm!: FormGroup;
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private firebaseService: FirebaseService, private auth: AuthService, private alert: Alert){
+  constructor(private router: Router, private formBuilder: FormBuilder, private firebaseService: FirebaseService, private auth: AuthService, private alert: Alert, private loading: loading){
     this.user = this.auth.getUserLogged();
     this.farmForm = new FormGroup({
       farmName: new FormControl(''),
@@ -34,8 +35,9 @@ export class AddFarmPage implements OnInit {
     this.router.navigate(['/farm']);
   }
 
-  createFarm() {
+  createFarm(){
     if (this.farmForm.valid) {
+      this.loading.showLoading(50);
       const newFarm: Farm = new Farm();
         newFarm.farmName = this.farmForm.value.farmName,
         newFarm.location = this.farmForm.value.farmLocation;

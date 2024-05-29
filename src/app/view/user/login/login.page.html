@@ -20,8 +20,7 @@
       <span *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['required']">A senha é obrigatória!</span>
       <span *ngIf="loginForm.get('password')?.dirty && loginForm.get('password')?.errors?.['minlength']">A senha deve ter no mínimo 6 caracteres</span>
       <!--Mensagens de erro-->
-      <ion-button expand="full" color="white" class="submit-button" id="open-loading" type="submit">Entrar</ion-button>
-      <ion-loading trigger="open-loading" message="Carregando..." [duration]="400" spinner="circles"></ion-loading>
+      <ion-button expand="full" color="white" class="submit-button" type="submit">Entrar</ion-button>
     </form>
     <ion-label>Não tem cadastro?</ion-label>
     <a (click)="goToRegisterPage()"> Clique Aqui!</a>

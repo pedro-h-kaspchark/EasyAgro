@@ -25,6 +25,7 @@
     "@capacitor/filesystem": "^6.0.0",
     "@capacitor/share": "^6.0.0",
     "@ionic/angular": "^7.0.0",
+    "@types/jspdf": "^2.0.0",
     "firebase": "^10.8.1",
     "ionicons": "^7.0.0",
     "jspdf": "^2.5.1",
