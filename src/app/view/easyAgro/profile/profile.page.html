@@ -31,10 +31,9 @@
           <span *ngIf="profileForm.get('phoneNumber')?.dirty && profileForm.get('phoneNumber')?.errors?.['maxlength']">O telefone deve ter no máximo 13 caracteres!</span>
           <!-- Mensagens de erro-->
         </ion-list>
-        <ion-button (click)="logOut()" color="white" expand="block"><ion-icon name="log-out-outline"></ion-icon>Sair</ion-button>
-        <ion-button color="white" type="submit" expand="block">
-          <ion-icon name="checkmark-outline" type="submit"></ion-icon> Salvar
-        </ion-button>
+        <ion-button (click)="logOut()" color="white" expand="block"><ion-icon name="log-out-outline"></ion-icon> Sair</ion-button>
+        <ion-button color="white" type="submit" expand="block" id="open-loading"><ion-icon name="checkmark-outline"></ion-icon> Salvar</ion-button>
+        <ion-loading trigger="open-loading" message="Carregando..." [duration]="250" spinner="circles"></ion-loading>
       </form>
     </div>
   </div>

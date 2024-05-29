@@ -6,7 +6,8 @@
   <ion-list class="list-container">
     <ion-item *ngFor="let animal of animals">
       <ion-label>{{ animal.number }} {{ animal.name }}</ion-label>
-      <ion-icon name="share-outline" (click)="shareAnimalDetails(animal)"></ion-icon>
+      <ion-icon name="share-outline" (click)="shareAnimalDetails(animal)" id="open-loading"></ion-icon>
+      <ion-loading trigger="open-loading" message="Carregando..." [duration]="400" spinner="circles"></ion-loading>
       <ion-icon name="create-outline" (click)="openEditForm(animal)"></ion-icon>
     </ion-item>
   </ion-list>

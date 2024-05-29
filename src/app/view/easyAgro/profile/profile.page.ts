@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Alert } from 'src/app/common/alert';
 import { confirmAlert } from 'src/app/common/confirmAlert';
 import { AuthService } from 'src/app/model/service/auth.service';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +16,7 @@ export class ProfilePage implements OnInit {
   profileForm!: FormGroup;
   editMode: boolean = true;
 
-  constructor(private router: Router, private auth: AuthService, private formBuilder: FormBuilder, private alert: Alert, private confirmAlert: confirmAlert) {}
+  constructor(private router: Router, private auth: AuthService, private formBuilder: FormBuilder, private alert: Alert, private confirmAlert: confirmAlert, private loadingCtrl: LoadingController) {}
 
   ngOnInit() {
     this.loadUserData();
@@ -49,6 +50,7 @@ export class ProfilePage implements OnInit {
   }
 
   async uploadPhoto(event: any){
+    this.showLoading();
     try{
       const file = event.target.files[0];
       if (file) {
@@ -66,5 +68,14 @@ export class ProfilePage implements OnInit {
 
   goToFarmPage() {
     this.router.navigate(['/farm']);
+  }
+
+  async showLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Carregando...',
+      duration: 800,
+    });
+
+    loading.present();
   }
 }

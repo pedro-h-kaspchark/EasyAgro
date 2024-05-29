@@ -2,7 +2,8 @@
   <ng-container *ngIf="farms.length > 0; else noFarms">
     <div class="farm-title">Fazendas</div>
     <ion-list class="list-container">
-      <ion-item *ngFor="let farm of farms" (click)="openFarm(farm)">
+      <ion-item *ngFor="let farm of farms" (click)="openFarm(farm)" id="open-loading">
+        <ion-loading trigger="open-loading" message="Carregando..." [duration]="50" spinner="circles"></ion-loading>
         <ion-label>{{ farm.farmName }}</ion-label>
       </ion-item>
     </ion-list>
@@ -31,7 +32,8 @@
         <!-- Mensagens de erro -->
         <span *ngIf="farmForm.get('farmLocation')?.touched && farmForm.get('farmLocation')?.errors?.['required']">A Localização da fazenda é obrigatória!</span>
         <!-- Mensagens de erro -->
-        <ion-button type="submit" expand="block" color="white" class="createFarmButton">Criar Fazenda</ion-button>
+        <ion-button type="submit" expand="block" color="white" class="createFarmButton" id="open-loading">Criar Fazenda</ion-button>
+        <ion-loading trigger="open-loading" message="Carregando..." [duration]="50" spinner="circles"></ion-loading>
       </form>
     </div>
   </ng-template>

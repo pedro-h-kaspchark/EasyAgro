@@ -48,9 +48,10 @@
       <!-- Mensagens de erro-->
       <ion-item>
         <label class="file-input-label" for="file-input">Selecione uma foto</label>
-        <input id="file-input" class="file-input" type="file" (change)="uploadFile($event.target)" />
+        <input id="file-input" class="file-input" type="file" (change)="uploadFile($event.target)"/>
       </ion-item>
-      <ion-button expand="full" color="white" class="submit-button" type="submit" [disabled]="registerForm.invalid">Cadastrar</ion-button>
+      <ion-button expand="full" color="white" id="open-loading" class="submit-button" type="submit" [disabled]="registerForm.invalid">Cadastrar</ion-button>
+      <ion-loading trigger="open-loading" message="Carregando..." [duration]="1400" spinner="circles"></ion-loading>
     </form>
     </ion-list>
   </div>

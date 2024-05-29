@@ -44,6 +44,7 @@ export class RegisterPage implements OnInit {
 
   uploadFile(imagem: any){
     this.imagem = imagem.files;
+    this.alert.presentAlert("Ok", "Imagem salva!");
   }
 
   submitForm() {
