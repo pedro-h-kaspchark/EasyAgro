@@ -19,7 +19,7 @@ ion-content {
   width: 90%;
   border: 2px solid gray;
   position: fixed;
-  top: 40%; 
+  top: 45%; 
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex; 
@@ -40,7 +40,6 @@ form ion-input {
 
 form ion-label {
   color: gray;
-  margin-top: 15%;
 }
 
 .image {
@@ -70,7 +69,6 @@ form ion-label {
   }
 
   .buttons-container {
-    border: 2px solid gray;
     position: fixed;
     bottom: 0;
     left: 50%;

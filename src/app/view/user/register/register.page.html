@@ -50,7 +50,7 @@
         <label class="file-input-label" for="file-input">Selecione uma foto</label>
         <input id="file-input" class="file-input" type="file" (change)="uploadFile($event.target)" />
       </ion-item>
-      <ion-button expand="full" color="white" class="submit-button" type="submit">Cadastrar</ion-button>
+      <ion-button expand="full" color="white" class="submit-button" type="submit" [disabled]="registerForm.invalid">Cadastrar</ion-button>
     </form>
     </ion-list>
   </div>

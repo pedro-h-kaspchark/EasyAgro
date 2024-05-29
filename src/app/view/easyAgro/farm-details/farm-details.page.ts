@@ -37,10 +37,30 @@ export class FarmDetailsPage implements OnInit {
     try {
       const pdfUrl = await this.firebaseService.uploadPDF(animal);
       console.log('PDF URL:', pdfUrl);
-      window.open(pdfUrl, '_blank');
+
+      if (navigator.share) {
+        await navigator.share({
+          title: `Detalhes do animal: ${animal.name}`,
+          url: pdfUrl,
+        });
+      } else {
+        this.copyToClipboard(pdfUrl);
+        alert('Link do PDF copiado para a área de transferência. Você pode compartilhar manualmente.');
+      }
     } catch (error) {
-      console.error('Erro para gerar o pdf:', error);
+      console.error('Erro ao gerar o PDF:', error);
     }
+  }
+
+  copyToClipboard(text: string) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.left = '-999999px';
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
   }
 
   openCreateForm() {

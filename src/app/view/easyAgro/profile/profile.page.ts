@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Alert } from 'src/app/common/alert';
+import { confirmAlert } from 'src/app/common/confirmAlert';
 import { AuthService } from 'src/app/model/service/auth.service';
 
 @Component({
@@ -13,7 +15,7 @@ export class ProfilePage implements OnInit {
   profileForm!: FormGroup;
   editMode: boolean = true;
 
-  constructor(private router: Router, private auth: AuthService, private formBuilder: FormBuilder) {}
+  constructor(private router: Router, private auth: AuthService, private formBuilder: FormBuilder, private alert: Alert, private confirmAlert: confirmAlert) {}
 
   ngOnInit() {
     this.loadUserData();
@@ -40,9 +42,9 @@ export class ProfilePage implements OnInit {
     try{
       const { displayName, phoneNumber } = this.profileForm.value;
       await this.auth.updateProfile(displayName, phoneNumber);
-      console.log('Perfil atualizado com sucesso!');
+      this.alert.presentAlert("Ok", "Perfil atualizado!");
     }catch (error){
-      console.error('Erro ao atualizar perfil:', error);
+      console.error('Erro ao atualizar perfil');
     }
   }
 
@@ -51,11 +53,15 @@ export class ProfilePage implements OnInit {
       const file = event.target.files[0];
       if (file) {
         const downloadURL = await this.auth.uploadPhoto(file);
-        console.log('Foto de perfil atualizada com sucesso:', downloadURL);
+        this.alert.presentAlert("Ok", "Foto atualizada com sucesso!")
       }
     }catch (error){
-      console.error('Erro ao fazer upload da foto de perfil:', error);
+      console.error('Erro ao fazer upload da foto de perfil');
     }
+  }
+
+  logOut(){
+    this.confirmAlert.presentConfirmAlert("ATENÇÃO", "Deseja realmente sair da conta?", (confirmed) =>{if(confirmed){this.auth.signOut()}});
   }
 
   goToFarmPage() {

@@ -1,7 +1,7 @@
 <ion-content>
   <div *ngIf="farmName" class="farm-name"> {{ farmName }} </div>
-  <app-animal-create-form [farm]="farm" *ngIf="showCreateForm" (animalRegistered)="onAnimalRegistered()" (animalRegistered)="closeCreateForm()"></app-animal-create-form>
-  <app-animal-edit-form [farm]="farm" *ngIf="showEditForm" [animal]="selectedAnimal" (animalUpdated)="closeEditForm()"></app-animal-edit-form>
+  <app-animal-create-form [farm]="farm" *ngIf="showCreateForm" (animalRegistered)="onAnimalRegistered()" (animalRegistered)="closeCreateForm()" (closeForm)="closeCreateForm();"></app-animal-create-form>
+  <app-animal-edit-form [farm]="farm" *ngIf="showEditForm" [animal]="selectedAnimal" (animalUpdated)="closeEditForm()" (closeEditForm)="closeEditForm()"></app-animal-edit-form>
 
   <ion-list class="list-container">
     <ion-item *ngFor="let animal of animals">
@@ -12,8 +12,6 @@
   </ion-list>
   
   <div class="buttons-container">
-    <ion-button color="white" *ngIf="!showCreateForm && !showEditForm" (click)="openCreateForm()">Registrar animal</ion-button>
-    <ion-button color="white" *ngIf="showCreateForm" (click)="closeCreateForm()">Fechar formulário</ion-button>
-    <ion-button color="white" *ngIf="showEditForm" (click)="closeEditForm()">Fechar edição</ion-button>
+    <ion-button color="white" (click)="openCreateForm()">Registrar animal</ion-button>
   </div>
 </ion-content>

@@ -20,6 +20,7 @@ export class FarmPage implements OnInit {
   user: any;
 
   constructor(private router: Router, private formBuilder: FormBuilder, private firebaseService: FirebaseService, private auth: AuthService, private alert: Alert) {
+    this.getFarms();
     this.user = this.auth.getUserLogged();
     this.farmForm = new FormGroup({
       farmName: new FormControl(''),

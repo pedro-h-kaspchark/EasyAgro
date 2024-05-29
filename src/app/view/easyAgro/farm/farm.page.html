@@ -6,9 +6,14 @@
         <ion-label>{{ farm.farmName }}</ion-label>
       </ion-item>
     </ion-list>
+    <div class="register-buttons-container">
+      <div class="register-farm-container">
+        <ion-button class="register-farm" color="white" (click)="disableFarmsListAndShowNoFarms()">Registrar uma nova fazenda</ion-button>
+      </div>
+    </div>
   </ng-container>
   <ng-template #noFarms>
-    <div class="spanNoFarm" *ngIf="farms.length == 0">Crie uma fazenda!</div>
+    <div class="spanNoFarm" *ngIf="farms.length == 0">Você não possui uma fazenda, crie uma!</div>
     <div class="form-container" *ngIf="showNoFarms">
       <div class="farm-title">Fazendas</div>
       <form [formGroup]="farmForm" (ngSubmit)="createFarm()">
@@ -30,11 +35,7 @@
       </form>
     </div>
   </ng-template>
-  <div class="register-buttons-container">
-    <div class="register-farm-container">
-      <ion-button class="register-farm" color="white" (click)="disableFarmsListAndShowNoFarms()">Registrar fazenda</ion-button>
-    </div>
-  </div>
+  
 
   <div class="buttons-container">
     <ion-button color="white">

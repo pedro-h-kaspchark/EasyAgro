@@ -35,6 +35,8 @@
     <!-- Mensagens de erro -->
     <span *ngIf="animalForm.get('treatmentHistory')?.touched && animalForm.get('treatmentHistory')?.errors?.['required']">O histórico de tratamentos é obrigatório!</span><br>
     <!-- Mensagens de erro -->
+    <ion-button color="white" expand="block" class="closeCreateForm" (click)="closeCreateForm()">Fechar formulário</ion-button>
     <ion-button color="white" expand="block" class="createAnimalButton" type="submit">Criar animal</ion-button>
+    
   </form>
 </div>

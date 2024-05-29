@@ -26,6 +26,7 @@ ion-button {
 }
 
 .spanNoFarm {
+  color: red;
   position: absolute;
   top: 30%;
   left: 50%;
@@ -97,7 +98,6 @@ ion-item {
 }
 
 .buttons-container {
-  border: 2px solid gray;
   position: fixed;
   bottom: 0;
   left: 50%;

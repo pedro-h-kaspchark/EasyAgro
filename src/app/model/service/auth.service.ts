@@ -120,7 +120,7 @@ export class AuthService {
       }
       return false;
     }catch (error){
-      console.error('Erro ao atualizar perfil:', error);
+      console.error('Erro ao atualizar perfil:');
       throw error;
     }
   }
@@ -140,7 +140,7 @@ export class AuthService {
       }
       return null;
     }catch (error){
-      console.error('Erro ao fazer upload da foto de perfil:', error);
+      console.error('Erro ao fazer upload da foto de perfil:');
       throw error;
     }
   }
@@ -154,7 +154,7 @@ export class AuthService {
       const downloadURL = await uploadTask.ref.getDownloadURL();
       return downloadURL;
     }catch (error){
-      console.error('Erro ao fazer upload da imagem:', error);
+      console.error('Erro ao fazer upload da imagem:');
       throw error;
     }
   }
@@ -184,7 +184,7 @@ export class AuthService {
           };
         }
       }catch (error){
-        console.error('Erro ao obter os dados do usuário:', error);
+        console.error('Erro ao obter os dados do usuário:');
         return null;
       }
     }else{
@@ -204,9 +204,9 @@ export class AuthService {
     });
   }
 
-  public isLoggedIn() : boolean{
-    const user : any = JSON.parse(localStorage.getItem('user') || 'null');
-    return (user !== null) ? true : false;
+  public isLoggedIn(): boolean {
+    const user = JSON.parse(localStorage.getItem('user') || 'null');
+    return user !== null;
   }
   
   public getUserLogged(){

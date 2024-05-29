@@ -15,6 +15,7 @@ export class AnimalEditFormComponent implements OnInit {
   @Input() farm!: Farm;
   @Input() animal!: Animal;
   @Output() animalUpdated = new EventEmitter<void>();
+  @Output() closeEditForm = new EventEmitter<void>();
   animalForm!: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private firebaseService: FirebaseService, private authService: AuthService, private alert: Alert) {}
@@ -28,6 +29,10 @@ export class AnimalEditFormComponent implements OnInit {
       historyOfIllnesses: [this.animal.historyOfIllnesses, Validators.required],
       treatmentHistory: [this.animal.treatmentHistory, Validators.required]
     });
+  }
+
+  closeEdit(){
+    this.closeEditForm.emit();
   }
 
   editAnimal() {
@@ -47,6 +52,8 @@ export class AnimalEditFormComponent implements OnInit {
       }).catch(error => {
         this.alert.presentAlert("Erro", "Erro ao atualizar o animal");
       });
+    }else{
+      this.alert.presentAlert("Erro", "campos inválidos!");
     }
   }
   

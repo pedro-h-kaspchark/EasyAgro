@@ -25,7 +25,17 @@ export class RegisterPage implements OnInit {
       displayName: ['', [Validators.required, Validators.minLength(3)]],
       phoneNumber: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(13)]],
       photoURL: ['']
-    })
+    }, { validator: this.passwordMatchValidator });
+  }
+
+  passwordMatchValidator(form: FormGroup) {
+    const password = form.get('password');
+    const confPassword = form.get('confPassword');
+    if (password && confPassword && password.value !== confPassword.value) {
+      confPassword.setErrors({ passwordMismatch: true });
+    } else {
+      confPassword?.setErrors(null);
+    }
   }
 
   getErrorControls(){
