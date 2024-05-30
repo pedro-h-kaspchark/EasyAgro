@@ -10,11 +10,11 @@
         <ion-list>
           <ion-item lines="none">
             <ion-label position="floating">Nome</ion-label>
-            <ion-input type="text" formControlName="displayName"></ion-input>
+            <ion-input type="text" formControlName="name"></ion-input>
           </ion-item>
           <!-- Mensagens de erro -->
-          <span *ngIf="profileForm.get('displayName')?.touched && profileForm.get('displayName')?.errors?.['required']">O nome de usuário é obrigatório!</span>
-          <span *ngIf="profileForm.get('displayName')?.dirty && profileForm.get('displayName')?.errors?.['minlength']">O nome deve ter no mínimo 3 caracteres!</span>
+          <span *ngIf="profileForm.get('name')?.touched && profileForm.get('name')?.errors?.['required']">O nome de usuário é obrigatório!</span>
+          <span *ngIf="profileForm.get('name')?.dirty && profileForm.get('name')?.errors?.['minlength']">O nome deve ter no mínimo 3 caracteres!</span>
           <!-- Mensagens de erro -->
           <ion-item lines="none">
             <ion-label position="floating">Email</ion-label>
@@ -23,12 +23,12 @@
 
           <ion-item lines="none">
             <ion-label position="floating">Telefone</ion-label>
-            <ion-input type="tel" formControlName="phoneNumber"></ion-input>
+            <ion-input type="tel" formControlName="number"></ion-input>
           </ion-item>
           <!-- Mensagens de erro-->
-          <span *ngIf="profileForm.get('phoneNumber')?.touched && profileForm.get('phoneNumber')?.errors?.['required']">O telefone é obrigatório!</span>
-          <span *ngIf="profileForm.get('phoneNumber')?.dirty && profileForm.get('phoneNumber')?.errors?.['minlength']">O telefone deve ter no mínimo 9 caracteres!</span>
-          <span *ngIf="profileForm.get('phoneNumber')?.dirty && profileForm.get('phoneNumber')?.errors?.['maxlength']">O telefone deve ter no máximo 13 caracteres!</span>
+          <span *ngIf="profileForm.get('number')?.touched && profileForm.get('number')?.errors?.['required']">O telefone é obrigatório!</span>
+          <span *ngIf="profileForm.get('number')?.dirty && profileForm.get('number')?.errors?.['minlength']">O telefone deve ter no mínimo 9 caracteres!</span>
+          <span *ngIf="profileForm.get('number')?.dirty && profileForm.get('number')?.errors?.['maxlength']">O telefone deve ter no máximo 13 caracteres!</span>
           <!-- Mensagens de erro-->
         </ion-list>
         <ion-button (click)="logOut()" color="white" expand="block"><ion-icon name="log-out-outline"></ion-icon> Sair</ion-button>

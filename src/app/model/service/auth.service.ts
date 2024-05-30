@@ -22,7 +22,7 @@ export class AuthService {
         this.dataUser ={
           uid: user.uid,
           email: user.email,
-          displayname: user.displayName,
+          name: user.displayName,
           number: user.phoneNumber,
           photoURL: user.photoURL
         }
@@ -50,19 +50,19 @@ export class AuthService {
         this.dataUser ={
           uid: user.uid,
           email: user.email,
-          displayName: displayName,
-          phoneNumber: phoneNumber,
+          name: displayName,
+          number: phoneNumber,
           photoURL: photoURLUploaded};
         localStorage.setItem('user', JSON.stringify(this.dataUser));
         await this.firestore.collection('users').doc(user.uid).set({
           uid: user.uid,
           email: user.email,
-          displayName: displayName,
-          phoneNumber: phoneNumber,
+          name: displayName,
+          number: phoneNumber,
           photoURL: photoURLUploaded});
         return{
           user: this.dataUser,
-          displayName: user.displayName,
+          name: user.displayName,
           photoURL: photoURLUploaded};
       }else{
         throw new Error('Usuário não encontrado após cadastro!');
@@ -80,20 +80,20 @@ export class AuthService {
         this.dataUser ={
           uid: user.uid,
           email: user.email,
-          displayName: displayName,
-          phoneNumber: phoneNumber,
+          name: displayName,
+          number: phoneNumber,
           photoURL: null 
         };
         localStorage.setItem('user', JSON.stringify(this.dataUser));
         await this.firestore.collection('users').doc(user.uid).set({
           uid: user.uid,
           email: user.email,
-          displayName: displayName,
-          phoneNumber: phoneNumber
+          name: displayName,
+          number: phoneNumber
         });
         return{
           user: this.dataUser,
-          displayName: user.displayName,
+          name: user.displayName,
           photoURL: null 
         };
       }else{
@@ -113,8 +113,8 @@ export class AuthService {
           displayName: displayName
         });
         await this.firestore.collection('users').doc(user.uid).update({
-          displayName: displayName,
-          phoneNumber: phoneNumber
+          name: displayName,
+          number: phoneNumber
         });
         return true;
       }
@@ -169,8 +169,8 @@ export class AuthService {
           return {
             uid: user.uid,
             email: user.email,
-            displayName: user.displayName,
-            phoneNumber: user.phoneNumber,
+            name: user.displayName,
+            number: user.phoneNumber,
             photoURL: user.photoURL,
             ...(userData as Record<string, any>)
           };
@@ -178,8 +178,8 @@ export class AuthService {
           return {
             uid: user.uid,
             email: user.email,
-            displayName: user.displayName,
-            phoneNumber: user.phoneNumber,
+            name: user.displayName,
+            number: user.phoneNumber,
             photoURL: user.photoURL
           };
         }

@@ -37,6 +37,7 @@ export class FarmDetailsPage implements OnInit {
   async shareAnimalDetails(animal: Animal){
     this.loading.showLoading(1200);
     try {
+      const farm = await this.firebaseService.getFarm(animal);
       const pdfUrl = await this.firebaseService.uploadPDF(animal);
       console.log('PDF URL:', pdfUrl);
       if (navigator.share) {

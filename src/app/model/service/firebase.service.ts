@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import { Farm } from '../entities/farm';
 import { Animal } from '../entities/Animal';
 import jsPDF from 'jspdf';
+import { user } from '../entities/user';
 
 @Injectable({
   providedIn: 'root'
@@ -48,28 +49,77 @@ export class FirebaseService {
     return this.firestore.createId();
   }
 
-  async generatePDF(animal: Animal): Promise<Blob>{
-    const doc = new jsPDF();
+  async getProfile(): Promise<user> {
+    const user = await this.injectAuthService().getUserLogged();
+    if (!user) {
+      throw new Error('Usuário não autenticado');
+    }
 
+    const userProfileDoc = await this.firestore
+      .collection('users')
+      .doc(user.uid)
+      .get()
+      .toPromise();
+
+    if (!userProfileDoc?.exists) {
+      throw new Error('Perfil do usuário não encontrado');
+    }
+
+    const profileData = userProfileDoc.data() as user;
+    return profileData;
+  }
+
+  async getFarm(animal: Animal): Promise<Farm> {
+    const farmDoc = await this.firestore.collection(this.PATHFarm, ref => ref.where('id', '==', animal.farmId)).get().toPromise();
+  
+    if (!farmDoc || farmDoc.empty || farmDoc.docs.length === 0) {
+      console.error('Fazenda não encontrada');
+      throw new Error('Fazenda não encontrada');
+    }
+  
+    const farmData = farmDoc.docs[0].data() as Farm;
+    return farmData;
+  }
+
+
+  async generatePDF(animal: Animal): Promise<Blob> {
+    const doc = new jsPDF();
+    const user = await this.getProfile();
+    const farm = await this.getFarm(animal);
+  
     doc.setFontSize(16);
-    doc.text('Detalhes do animal', 10, 10);
+    doc.text('Informações do Perfil', 10, 10);
+    doc.setFontSize(12);
+    doc.text(`Nome: ${user.name}`, 10, 20);
+    doc.text(`Email: ${user.email}`, 10, 30);
+    doc.text(`Telefone: ${user.number}`, 10, 40);
+  
+    doc.setFontSize(16);
+    doc.text('Informações da Fazenda', 10, 50);
+    doc.setFontSize(12);
+    doc.text(`Nome da Fazenda: ${farm.farmName}`, 10, 60);
+    doc.text(`Localização: ${farm.location}`, 10, 70);
+  
+    doc.setFontSize(16);
+    doc.text('Detalhes do Animal', 10, 90);
     doc.setFontSize(12);
     const textWidth = 180;
     const wrapText = (text: string, width: number) => {
       return doc.splitTextToSize(text, width);
     };
-
-    doc.text(`Nome do animal: ${animal.name}`, 10, 20);
-    doc.text(`Espécie do animal: ${animal.species}`, 10, 30);
-    doc.text(`Data de nascimento do animal: ${animal.birthDate}`, 10, 40);
-    doc.text(`Numero de identificação: ${animal.number}`, 10, 50);
-    doc.text(`Histórico de doenças:`, 10, 60);
+  
+    doc.text(`Nome do animal: ${animal.name}`, 10, 100);
+    doc.text(`Espécie do animal: ${animal.species}`, 10, 110);
+    doc.text(`Data de nascimento do animal: ${animal.birthDate}`, 10, 120);
+    doc.text(`Número de identificação: ${animal.number}`, 10, 130);
+    doc.text(`Histórico de doenças:`, 10, 140);
     const illnessText = wrapText(animal.historyOfIllnesses, textWidth);
-    doc.text(illnessText, 10, 70);
-    const newYPosition = 70 + (illnessText.length * 10);
+    doc.text(illnessText, 10, 150);
+    const newYPosition = 150 + (illnessText.length * 10);
     doc.text(`Histórico de tratamentos:`, 10, newYPosition + 10);
     const treatmentText = wrapText(animal.treatmentHistory, textWidth);
     doc.text(treatmentText, 10, newYPosition + 20);
+  
     return new Promise((resolve) => {
       const pdfBlob = doc.output('blob');
       resolve(pdfBlob);

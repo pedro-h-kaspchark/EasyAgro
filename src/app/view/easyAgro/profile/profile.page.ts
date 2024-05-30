@@ -21,8 +21,8 @@ export class ProfilePage implements OnInit {
   ngOnInit() {
     this.loadUserData();
     this.profileForm = this.formBuilder.group({
-      displayName: ['', [Validators.required, Validators.minLength(3)]],
-      phoneNumber: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(13)]],
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      number: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(13)]],
       photoURL: ['']
     });
   }
@@ -31,8 +31,8 @@ export class ProfilePage implements OnInit {
     try{
       this.userData = await this.auth.getUserData();
       this.profileForm.patchValue({
-        displayName: this.userData.displayName,
-        phoneNumber: this.userData.phoneNumber
+        name: this.userData.name,
+        number: this.userData.number
       });
     }catch (error){
       console.error('Erro ao carregar dados do usuário:', error);
@@ -42,8 +42,8 @@ export class ProfilePage implements OnInit {
   async submitForm(){
     this.loading.showLoading(200);
     try{
-      const { displayName, phoneNumber } = this.profileForm.value;
-      await this.auth.updateProfile(displayName, phoneNumber);
+      const { name, number } = this.profileForm.value;
+      await this.auth.updateProfile(name, number);
       this.alert.presentAlert("Ok", "Perfil atualizado!");
     }catch (error){
       console.error('Erro ao atualizar perfil');
