@@ -8,7 +8,7 @@
     </ion-list>
     <div class="register-buttons-container">
       <div class="register-farm-container">
-        <ion-button class="register-farm" color="white" (click)="disableFarmsListAndShowNoFarms()">Registrar uma nova fazenda</ion-button>
+        <ion-button color="white" (click)="disableFarmsListAndShowNoFarms()" fill="outline" shape="round">Registrar uma nova fazenda</ion-button>
       </div>
     </div>
   </ng-container>
@@ -31,8 +31,7 @@
         <!-- Mensagens de erro -->
         <span *ngIf="farmForm.get('farmLocation')?.touched && farmForm.get('farmLocation')?.errors?.['required']">A Localização da fazenda é obrigatória!</span>
         <!-- Mensagens de erro -->
-        <ion-button type="submit" expand="block" color="white" class="createFarmButton" id="open-loading">Criar Fazenda</ion-button>
-        <ion-loading trigger="open-loading" message="Carregando..." [duration]="50" spinner="circles"></ion-loading>
+        <ion-button type="submit" expand="block" color="white" class="createFarmButton">Criar Fazenda</ion-button>
       </form>
     </div>
   </ng-template>

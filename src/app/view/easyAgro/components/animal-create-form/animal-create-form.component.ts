@@ -26,8 +26,8 @@ export class AnimalCreateFormComponent implements OnInit {
       species: ['', Validators.required],
       birthDate: ['', Validators.required],
       number: ['', Validators.required],
-      historyOfIllnesses: ['', Validators.required],
-      treatmentHistory: ['', Validators.required]
+      historyOfIllnesses: ['nenhum', Validators.required],
+      treatmentHistory: ['nenhum', Validators.required]
     });
   }
 
