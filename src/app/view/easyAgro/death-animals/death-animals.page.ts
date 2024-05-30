@@ -11,10 +11,10 @@ import { FirebaseService } from 'src/app/model/service/firebase.service';
 
 @Component({
   selector: 'app-farm-details',
-  templateUrl: './farm-details.page.html',
-  styleUrls: ['./farm-details.page.scss'],
+  templateUrl: './death-animals.page.html',
+  styleUrls: ['./death-animals.page.scss'],
 })
-export class FarmDetailsPage implements OnInit {
+export class DeathAnimalsPage implements OnInit {
   showCreateForm = false;
   showEditForm = false;
   selectedAnimal!: Animal;
@@ -32,7 +32,7 @@ export class FarmDetailsPage implements OnInit {
   ngOnInit() {
     this.farm = history.state.farm;
     this.farmName = this.farm.farmName;
-    this.firebaseService.getAllAnimalsByFarm(this.farm.id).subscribe(res => {
+    this.firebaseService.getAllAnimalsDeathByFarm(this.farm.id).subscribe(res => {
       this.animals = res.map(animal => {
         return { id: animal.payload.doc.id, ...animal.payload.doc.data() as any } as Animal;
       });
@@ -54,7 +54,7 @@ export class FarmDetailsPage implements OnInit {
         this.copyToClipboard(pdfUrl);
         alert('Link do PDF copiado para a área de transferência. Você pode compartilhar manualmente.');
       }
-    }catch (error){
+    } catch (error) {
       console.error('Erro ao gerar o PDF:', error);
     }
   }
@@ -74,19 +74,10 @@ export class FarmDetailsPage implements OnInit {
     return this.animals.some(animal => animal.life === false);
   }
 
-  setLifeFalse(animal: Animal){
-    this.confirmAlert.presentConfirmAlert("ATENÇÃO", "Deseja realmente declarar o óbito do animal?", (confirmed) =>{if(confirmed){this.loading.showLoading(10);
-      animal.life = false;
+  setLifeTrue(animal: Animal){
+    this.confirmAlert.presentConfirmAlert("ATENÇÃO", "Deseja realmente retornar o animal como vivo?", (confirmed) =>{if(confirmed){this.loading.showLoading(10);
+      animal.life = true;
       this.firebaseService.editAnimal(animal, animal.id).then(() => {}).catch(error =>{});}});
-  }
-
-  openCreateForm() {
-    this.showCreateForm = true;
-    this.showEditForm = false;
-  }
-
-  closeCreateForm() {
-    this.showCreateForm = false;
   }
 
   openEditForm(animal: Animal) {
@@ -99,27 +90,10 @@ export class FarmDetailsPage implements OnInit {
     this.showEditForm = false;
   }
 
-  openDeathAnimals(farm: Farm){
+  openAliveAnimails(farm: Farm){
     this.loading.showLoading(50);
     this.farmID = farm.id;
-    this.router.navigateByUrl('/death-animals', { state: { farm } });
+    this.router.navigateByUrl('/farm-details', { state: { farm } });
   }
 
-  onAnimalRegistered() {
-    this.closeCreateForm();
-    this.firebaseService.getAllAnimalsByFarm(this.farm.id).subscribe(res => {
-      this.animals = res.map(animal => {
-        return { id: animal.payload.doc.id, ...animal.payload.doc.data() as any } as Animal;
-      });
-    });
-  }
-
-  onAnimalUpdated() {
-    this.closeEditForm();
-    this.firebaseService.getAllAnimalsByFarm(this.farm.id).subscribe(res => {
-      this.animals = res.map(animal => {
-        return { id: animal.payload.doc.id, ...animal.payload.doc.data() as any } as Animal;
-      });
-    });
-  }
 }

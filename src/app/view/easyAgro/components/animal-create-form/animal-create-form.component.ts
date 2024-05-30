@@ -42,6 +42,7 @@ export class AnimalCreateFormComponent implements OnInit {
       const animalData = this.animalForm.value;
       animalData.uid = this.authService.getUserLogged().uid;
       animalData.id = this.farm.id;
+      animalData.life = true;
       this.firebaseService.registerAnimal(animalData).then(() => {
           this.animalRegistered.emit();
           this.animalForm.reset();

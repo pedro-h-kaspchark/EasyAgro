@@ -36,6 +36,12 @@ const routes: Routes = [
     loadChildren: () => import('./view/easyAgro/add-farm/add-farm.module').then(m => m.AddFarmPageModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'death-animals',
+    loadChildren: () => import('./view/easyAgro/death-animals/death-animals.module').then( m => m.DeathAnimalsPageModule),
+    canActivate: [AuthGuard]
+  },
+
 ];
 
 @NgModule({

@@ -8,6 +8,7 @@ export class Animal {
     private _historyOfIllnesses!: string;
     private _treatmentHistory!: string;
     private _farmId!: string;
+    private _life!: boolean;
 
 // --------------------------------------------------------
     public get id(): string {
@@ -71,5 +72,12 @@ export class Animal {
     }
     public set farmId(value: string) {
         this._farmId = value;
+    }
+// --------------------------------------------------------
+    public get life(): boolean {
+        return this._life;
+    }
+    public set life(value: boolean) {
+        this._life = value;
     }
   }

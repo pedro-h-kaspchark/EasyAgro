@@ -48,6 +48,7 @@ export class AnimalEditFormComponent implements OnInit {
       updatedAnimal.treatmentHistory = this.animalForm.value.treatmentHistory;
       updatedAnimal.uid = this.authService.getUserLogged().uid;
       updatedAnimal.farmId = this.animal.farmId;
+      updatedAnimal.life = true;
       this.firebaseService.editAnimal(updatedAnimal, this.animal.id).then(() => {
         this.alert.presentAlert("Ok", "Animal atualizado");
         this.animalUpdated.emit();

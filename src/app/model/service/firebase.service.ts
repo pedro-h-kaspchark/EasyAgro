@@ -28,11 +28,15 @@ export class FirebaseService {
   }
 
   registerAnimal(animal: Animal){
-    return this.firestore.collection(this.PATHAnimal).add({name: animal.name, species: animal.species, birthDate: animal.birthDate, uid: animal.uid, farmId: animal.id, number: animal.number, historyOfIllnesses: animal.historyOfIllnesses, treatmentHistory: animal.treatmentHistory});
+    return this.firestore.collection(this.PATHAnimal).add({name: animal.name, species: animal.species, birthDate: animal.birthDate, uid: animal.uid, farmId: animal.id, number: animal.number, historyOfIllnesses: animal.historyOfIllnesses, treatmentHistory: animal.treatmentHistory, life: animal.life});
   }
 
   editAnimal(animal: Animal, id: string){
-    return this.firestore.collection(this.PATHAnimal).doc(id).update({name: animal.name, species: animal.species, birthDate: animal.birthDate, uid: animal.uid, farmId: animal.farmId, number: animal.number, historyOfIllnesses: animal.historyOfIllnesses, treatmentHistory: animal.treatmentHistory});
+    return this.firestore.collection(this.PATHAnimal).doc(id).update({name: animal.name, species: animal.species, birthDate: animal.birthDate, uid: animal.uid, farmId: animal.farmId, number: animal.number, historyOfIllnesses: animal.historyOfIllnesses, treatmentHistory: animal.treatmentHistory, life: animal.life});
+  }
+
+  setLife(animal: Animal, id: string){
+    return this.firestore.collection(this.PATHAnimal).doc(id).update({life: animal.life});
   }
 
   getAllFarms(){
@@ -42,7 +46,12 @@ export class FirebaseService {
 
   getAllAnimalsByFarm(farmId: string) {
     this.user = this.injectAuthService().getUserLogged();
-    return this.firestore.collection(this.PATHAnimal, ref => ref.where('uid', '==', this.user.uid).where('farmId', '==', farmId)).snapshotChanges();
+    return this.firestore.collection(this.PATHAnimal, ref => ref.where('uid', '==', this.user.uid).where('farmId', '==', farmId).where('life', '==', true)).snapshotChanges();
+  }
+
+  getAllAnimalsDeathByFarm(farmId: string) {
+    this.user = this.injectAuthService().getUserLogged();
+    return this.firestore.collection(this.PATHAnimal, ref => ref.where('uid', '==', this.user.uid).where('farmId', '==', farmId).where('life', '==', false)).snapshotChanges();
   }
 
   generateId() {
@@ -112,10 +121,11 @@ export class FirebaseService {
     doc.text(`Espécie do animal: ${animal.species}`, 10, 110);
     doc.text(`Data de nascimento do animal: ${animal.birthDate}`, 10, 120);
     doc.text(`Número de identificação: ${animal.number}`, 10, 130);
-    doc.text(`Histórico de doenças:`, 10, 140);
+    doc.text(`Estado do animal: ${animal.life ? 'Vivo' : 'Morto'}`, 10, 140);
+    doc.text(`Histórico de doenças:`, 10, 150);
     const illnessText = wrapText(animal.historyOfIllnesses, textWidth);
-    doc.text(illnessText, 10, 150);
-    const newYPosition = 150 + (illnessText.length * 10);
+    doc.text(illnessText, 10, 160);
+    const newYPosition = 160 + (illnessText.length * 10);
     doc.text(`Histórico de tratamentos:`, 10, newYPosition + 10);
     const treatmentText = wrapText(animal.treatmentHistory, textWidth);
     doc.text(treatmentText, 10, newYPosition + 20);

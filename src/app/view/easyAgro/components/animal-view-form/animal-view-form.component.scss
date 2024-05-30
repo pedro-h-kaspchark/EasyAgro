@@ -1,0 +1,80 @@
+.floating-form {
+    z-index: 1000;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: black;
+    padding: 20px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 80vw; 
+    max-width: 600px; 
+    height: auto;
+    max-height: 65vh; 
+    overflow-y: auto; 
+  }
+  
+  .floating-form input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    opacity: 0.8; 
+    width: 100%;
+  }
+  
+  .floating-form button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: black;
+    border: 1px solid gray;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .floating-form button:hover {
+    background-color: rgb(19, 18, 18);
+  }
+  
+  span {
+    color: red;
+  }
+  
+  .editAnimalButton {
+    background-color: black; 
+    color: gray; 
+    border: 2px solid gray;
+    border-radius: 5px;
+  }
+  
+  .editAnimalButton:hover {
+    background-color: darkgray;
+  }
+  
+  .closeEditForm{
+    background-color: black;
+    color: gray;
+    border-top: 2px solid gray;
+  }
+  
+  .closeEditForm:hover {
+    background-color: darkgray;
+    border-radius: 5px;
+  }
+  
+  .edit-title{
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    margin-bottom: 3px;
+  }
+  
