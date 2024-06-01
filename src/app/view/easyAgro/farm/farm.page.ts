@@ -3,7 +3,9 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
 import { Alert } from 'src/app/common/alert';
+import { confirmAlert } from 'src/app/common/confirmAlert';
 import { loading } from 'src/app/common/loading';
+import { Animal } from 'src/app/model/entities/Animal';
 import { Farm } from 'src/app/model/entities/farm';
 import { AuthService } from 'src/app/model/service/auth.service';
 import { FirebaseService } from 'src/app/model/service/firebase.service';
@@ -19,8 +21,9 @@ export class FarmPage implements OnInit {
   showNoFarms: boolean = false;
   farmID: string | null = null;
   user: any;
+  animal!: Animal;
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private firebaseService: FirebaseService, private auth: AuthService, private alert: Alert, private loading: loading) {
+  constructor(private router: Router, private formBuilder: FormBuilder, private firebaseService: FirebaseService, private auth: AuthService, private alert: Alert, private loading: loading, private confirmAlert: confirmAlert) {
     this.getFarms();
     this.user = this.auth.getUserLogged();
     this.farmForm = new FormGroup({
@@ -59,6 +62,21 @@ export class FarmPage implements OnInit {
     } else {
       this.alert.presentAlert('Erro!', 'Todos os campos são obrigatórios!');
     }
+  }
+
+  deleteFarm(farm: Farm) {
+    this.confirmAlert.presentConfirmAlert("ATENÇÃO", "Você realmente deseja deletar essa fazenda?", (confirmed) => {
+      if (confirmed) {
+        this.loading.showLoading(10);
+        this.firebaseService.deleteFarm(farm.id).then(() => {
+          this.alert.presentAlert('Sucesso', 'Fazenda excluída com sucesso!');
+          this.getFarms(); // Atualiza a lista de fazendas após a exclusão
+        }).catch((error) => {
+          console.log(error);
+          this.alert.presentAlert('Erro', 'Erro ao excluir a fazenda!');
+        });
+      }
+    });
   }
 
   disableFarmsListAndShowNoFarms() {

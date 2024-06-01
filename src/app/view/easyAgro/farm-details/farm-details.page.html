@@ -1,5 +1,6 @@
 <ion-content>
-  <div *ngIf="farmName" class="farm-name"> {{ farmName }} </div>
+  <div class="header"><ion-icon class="back" name="arrow-back-outline" (click)="backFarmPage()"></ion-icon>
+  <div *ngIf="farmName"> {{ farmName }} </div></div>
   <app-animal-create-form [farm]="farm" *ngIf="showCreateForm" (animalRegistered)="onAnimalRegistered()" (animalRegistered)="closeCreateForm()" (closeForm)="closeCreateForm();"></app-animal-create-form>
   <app-animal-edit-form [farm]="farm" *ngIf="showEditForm" [animal]="selectedAnimal" (animalUpdated)="closeEditForm()" (closeEditForm)="closeEditForm()"></app-animal-edit-form>
   <div><ion-button color="white" class="death-animals" (click)="openDeathAnimals(farm)">Animais Vivos</ion-button></div>
@@ -13,6 +14,7 @@
       </ion-item>
       <ion-item-options side="end">
         <ion-item-option color="white" (click)="setLifeFalse(animal)"><ion-icon color="danger" name="skull-outline"></ion-icon>Declarar óbito</ion-item-option>
+        <ion-item-option color="white" (click)="deleteAnimal(animal)"><ion-icon color="danger" name="trash-outline"></ion-icon></ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>

@@ -80,6 +80,19 @@ export class FarmDetailsPage implements OnInit {
       this.firebaseService.editAnimal(animal, animal.id).then(() => {}).catch(error =>{});}});
   }
 
+  deleteAnimal(animal: Animal) {
+    this.confirmAlert.presentConfirmAlert("ATENÇÃO", "Você realmente deseja deletar esse animal?", (confirmed) => {
+      if (confirmed) {
+        this.loading.showLoading(10);
+        this.firebaseService.deleteAnimal(animal.id).then(() => {
+        }).catch((error) => {
+          console.log(error);
+          this.alert.presentAlert('Erro', 'Erro ao excluir o animal!');
+        });
+      }
+    });
+  }
+
   openCreateForm() {
     this.showCreateForm = true;
     this.showEditForm = false;
@@ -103,6 +116,10 @@ export class FarmDetailsPage implements OnInit {
     this.loading.showLoading(50);
     this.farmID = farm.id;
     this.router.navigateByUrl('/death-animals', { state: { farm } });
+  }
+
+  backFarmPage(){
+    this.router.navigate(['/farm']);
   }
 
   onAnimalRegistered() {

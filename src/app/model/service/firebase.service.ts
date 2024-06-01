@@ -24,7 +24,7 @@ export class FirebaseService {
   }
 
   registerFarm(farm: Farm){
-    return this.firestore.collection(this.PATHFarm).add({farmName: farm.farmName, location: farm.location, uid: farm.uid, id: farm.id});
+    return this.firestore.collection(this.PATHFarm).add({farmName: farm.farmName, location: farm.location, uid: farm.uid, farmId: farm.id});
   }
 
   registerAnimal(animal: Animal){
@@ -33,10 +33,6 @@ export class FirebaseService {
 
   editAnimal(animal: Animal, id: string){
     return this.firestore.collection(this.PATHAnimal).doc(id).update({name: animal.name, species: animal.species, birthDate: animal.birthDate, uid: animal.uid, farmId: animal.farmId, number: animal.number, historyOfIllnesses: animal.historyOfIllnesses, treatmentHistory: animal.treatmentHistory, life: animal.life});
-  }
-
-  setLife(animal: Animal, id: string){
-    return this.firestore.collection(this.PATHAnimal).doc(id).update({life: animal.life});
   }
 
   getAllFarms(){
@@ -52,6 +48,14 @@ export class FirebaseService {
   getAllAnimalsDeathByFarm(farmId: string) {
     this.user = this.injectAuthService().getUserLogged();
     return this.firestore.collection(this.PATHAnimal, ref => ref.where('uid', '==', this.user.uid).where('farmId', '==', farmId).where('life', '==', false)).snapshotChanges();
+  }
+
+  deleteAnimal(id: string){
+    return this.firestore.collection(this.PATHAnimal).doc(id).delete();
+  }
+  
+  deleteFarm(id: string) {
+    return this.firestore.collection(this.PATHFarm).doc(id).delete()
   }
 
   generateId() {
