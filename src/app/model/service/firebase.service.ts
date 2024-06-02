@@ -24,7 +24,7 @@ export class FirebaseService {
   }
 
   registerFarm(farm: Farm){
-    return this.firestore.collection(this.PATHFarm).add({farmName: farm.farmName, location: farm.location, uid: farm.uid, farmId: farm.id});
+    return this.firestore.collection(this.PATHFarm).add({farmName: farm.farmName, location: farm.location, uid: farm.uid, id: farm.id});
   }
 
   registerAnimal(animal: Animal){
@@ -55,7 +55,7 @@ export class FirebaseService {
   }
   
   deleteFarm(id: string) {
-    return this.firestore.collection(this.PATHFarm).doc(id).delete()
+    return this.firestore.doc(`${this.PATHFarm}/${id}`).delete();
   }
 
   generateId() {

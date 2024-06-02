@@ -6,7 +6,7 @@
   <div class="overlay" *ngIf="showCreateForm || showEditForm"></div>
 
   <app-animal-create-form [farm]="farm" *ngIf="showCreateForm" class="floating-form create-form" (animalRegistered)="onAnimalRegistered()" (closeForm)="closeCreateForm()"></app-animal-create-form>
-  <app-animal-edit-form [farm]="farm" *ngIf="showEditForm" [animal]="selectedAnimal" class="floating-form edit-form" (animalUpdated)="closeEditForm()" (closeForm)="closeEditForm()"></app-animal-edit-form>
+  <app-animal-edit-form [farm]="farm" *ngIf="showEditForm" [animal]="selectedAnimal" class="floating-form edit-form" (animalUpdated)="onAnimalUpdated()" (closeEditForm)="closeEditForm()"></app-animal-edit-form>
 
   <div>
     <ion-button color="white" class="death-animals" (click)="openDeathAnimals(farm)">Animais Vivos</ion-button>
