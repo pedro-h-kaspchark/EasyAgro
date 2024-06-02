@@ -17,6 +17,7 @@ import { FirebaseService } from 'src/app/model/service/firebase.service';
 export class DeathAnimalsPage implements OnInit {
   showCreateForm = false;
   showEditForm = false;
+  isClosingForm = false;
   selectedAnimal!: Animal;
   public animals: Animal[] = [];
   farmID: string | null = null;
@@ -25,7 +26,7 @@ export class DeathAnimalsPage implements OnInit {
   farmName!: string;
   animal!: Animal;
 
-  constructor(private authService: AuthService, private firebaseService: FirebaseService, private loading: loading, private alert: Alert, private confirmAlert: confirmAlert, private router: Router){
+  constructor(private authService: AuthService, private firebaseService: FirebaseService, private loading: loading, private alert: Alert, private confirmAlert: confirmAlert, private router: Router) {
     this.user = this.authService.getUserLogged();
   }
 
@@ -74,10 +75,14 @@ export class DeathAnimalsPage implements OnInit {
     return this.animals.some(animal => animal.life === false);
   }
 
-  setLifeTrue(animal: Animal){
-    this.confirmAlert.presentConfirmAlert("ATENÇÃO", "Deseja realmente retornar o animal como vivo?", (confirmed) =>{if(confirmed){this.loading.showLoading(10);
-      animal.life = true;
-      this.firebaseService.editAnimal(animal, animal.id).then(() => {}).catch(error =>{});}});
+  setLifeTrue(animal: Animal) {
+    this.confirmAlert.presentConfirmAlert("ATENÇÃO", "Deseja realmente retornar o animal como vivo?", (confirmed) => {
+      if (confirmed) {
+        this.loading.showLoading(10);
+        animal.life = true;
+        this.firebaseService.editAnimal(animal, animal.id).then(() => {}).catch(error => {});
+      }
+    });
   }
 
   openEditForm(animal: Animal) {
@@ -87,13 +92,16 @@ export class DeathAnimalsPage implements OnInit {
   }
 
   closeEditForm() {
-    this.showEditForm = false;
+    this.isClosingForm = true;
+    setTimeout(() => {
+      this.showEditForm = false;
+      this.isClosingForm = false;
+    }, 500); // Tempo da animação de fadeOut
   }
 
-  openAliveAnimails(farm: Farm){
+  openAliveAnimails(farm: Farm) {
     this.loading.showLoading(50);
     this.farmID = farm.id;
     this.router.navigateByUrl('/farm-details', { state: { farm } });
   }
-
 }

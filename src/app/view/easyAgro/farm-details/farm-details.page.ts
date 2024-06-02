@@ -99,7 +99,13 @@ export class FarmDetailsPage implements OnInit {
   }
 
   closeCreateForm() {
-    this.showCreateForm = false;
+    const form = document.querySelector('.create-form');
+    if (form) {
+      form.classList.add('hidden');
+      form.addEventListener('animationend', () => {
+        this.showCreateForm = false;
+      }, { once: true });
+    }
   }
 
   openEditForm(animal: Animal) {
@@ -109,7 +115,13 @@ export class FarmDetailsPage implements OnInit {
   }
 
   closeEditForm() {
-    this.showEditForm = false;
+    const form = document.querySelector('.edit-form');
+    if (form) {
+      form.classList.add('hidden');
+      form.addEventListener('animationend', () => {
+        this.showEditForm = false;
+      }, { once: true });
+    }
   }
 
   openDeathAnimals(farm: Farm){
