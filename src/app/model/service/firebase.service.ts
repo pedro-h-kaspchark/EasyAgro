@@ -24,7 +24,7 @@ export class FirebaseService {
   }
 
   registerFarm(farm: Farm){
-    return this.firestore.collection(this.PATHFarm).add({farmName: farm.farmName, location: farm.location, uid: farm.uid, id: farm.id});
+    return this.firestore.collection(this.PATHFarm).add({farmName: farm.farmName, location: farm.location, uid: farm.uid, farmId: farm.farmId});
   }
 
   registerAnimal(animal: Animal){
@@ -55,7 +55,7 @@ export class FirebaseService {
   }
   
   deleteFarm(id: string) {
-    return this.firestore.doc(`${this.PATHFarm}/${id}`).delete();
+    return this.firestore.collection(this.PATHFarm).doc(id).delete();
   }
 
   generateId() {
@@ -83,13 +83,11 @@ export class FirebaseService {
   }
 
   async getFarm(animal: Animal): Promise<Farm> {
-    const farmDoc = await this.firestore.collection(this.PATHFarm, ref => ref.where('id', '==', animal.farmId)).get().toPromise();
-  
+    const farmDoc = await this.firestore.collection(this.PATHFarm, ref => ref.where('farmId', '==', animal.farmId)).get().toPromise();
     if (!farmDoc || farmDoc.empty || farmDoc.docs.length === 0) {
       console.error('Fazenda não encontrada');
       throw new Error('Fazenda não encontrada');
     }
-  
     const farmData = farmDoc.docs[0].data() as Farm;
     return farmData;
   }

@@ -33,7 +33,7 @@ export class DeathAnimalsPage implements OnInit {
   ngOnInit() {
     this.farm = history.state.farm;
     this.farmName = this.farm.farmName;
-    this.firebaseService.getAllAnimalsDeathByFarm(this.farm.id).subscribe(res => {
+    this.firebaseService.getAllAnimalsDeathByFarm(this.farm.farmId).subscribe(res => {
       this.animals = res.map(animal => {
         return { id: animal.payload.doc.id, ...animal.payload.doc.data() as any } as Animal;
       });
@@ -96,12 +96,12 @@ export class DeathAnimalsPage implements OnInit {
     setTimeout(() => {
       this.showEditForm = false;
       this.isClosingForm = false;
-    }, 500); // Tempo da animação de fadeOut
+    }, 500);
   }
 
   openAliveAnimails(farm: Farm) {
     this.loading.showLoading(50);
-    this.farmID = farm.id;
+    this.farmID = farm.farmId;
     this.router.navigateByUrl('/farm-details', { state: { farm } });
   }
 }

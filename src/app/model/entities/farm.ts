@@ -5,6 +5,7 @@ export class Farm{
     private _farmName!: string;
     private _farmId!: string;
     private _uid!: string;
+    private _id!: any;
     private animals?: Animal[];
 
     // --------------------------------------------------------
@@ -22,10 +23,10 @@ export class Farm{
         this._farmName = value;
     }
 // --------------------------------------------------------
-    public get id(): string {
+    public get farmId(): string {
         return this._farmId;
     }
-    public set id(value: string) {
+    public set farmId(value: string) {
         this._farmId = value;
     }
 // --------------------------------------------------------
@@ -34,5 +35,12 @@ export class Farm{
     }
     public set uid(value: string) {
         this._uid = value;
+    }
+// --------------------------------------------------------
+    public get id(): any {
+        return this._id;
+    }
+    public set id(value: any) {
+        this._id = value;
     }
 }

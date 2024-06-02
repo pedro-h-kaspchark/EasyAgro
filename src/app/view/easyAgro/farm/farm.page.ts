@@ -50,7 +50,7 @@ export class FarmPage implements OnInit {
         newFarm.farmName = this.farmForm.value.farmName,
         newFarm.location = this.farmForm.value.farmLocation;
         newFarm.uid = this.user.uid,
-        newFarm.id = this.firebaseService.generateId()
+        newFarm.farmId = this.firebaseService.generateId()
 
       this.firebaseService.registerFarm(newFarm).then(() => {
         this.farmForm.reset();
@@ -70,7 +70,7 @@ export class FarmPage implements OnInit {
         this.loading.showLoading(10);
         this.firebaseService.deleteFarm(farm.id).then(() => {
           this.alert.presentAlert('Sucesso', 'Fazenda excluída com sucesso!');
-          this.getFarms(); // Atualiza a lista de fazendas após a exclusão
+          this.getFarms();
         }).catch((error) => {
           console.log(error);
           this.alert.presentAlert('Erro', 'Erro ao excluir a fazenda!');
@@ -98,7 +98,7 @@ export class FarmPage implements OnInit {
 
   openFarm(farm: Farm){
     this.loading.showLoading(50);
-    this.farmID = farm.id;
+    this.farmID = farm.farmId;
     this.router.navigateByUrl('/farm-details', { state: { farm } });
   }
 

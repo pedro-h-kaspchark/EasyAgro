@@ -32,7 +32,7 @@ export class FarmDetailsPage implements OnInit {
   ngOnInit() {
     this.farm = history.state.farm;
     this.farmName = this.farm.farmName;
-    this.firebaseService.getAllAnimalsByFarm(this.farm.id).subscribe(res => {
+    this.firebaseService.getAllAnimalsByFarm(this.farm.farmId).subscribe(res => {
       this.animals = res.map(animal => {
         return { id: animal.payload.doc.id, ...animal.payload.doc.data() as any } as Animal;
       });
@@ -126,7 +126,7 @@ export class FarmDetailsPage implements OnInit {
 
   openDeathAnimals(farm: Farm){
     this.loading.showLoading(50);
-    this.farmID = farm.id;
+    this.farmID = farm.farmId;
     this.router.navigateByUrl('/death-animals', { state: { farm } });
   }
 
@@ -136,7 +136,7 @@ export class FarmDetailsPage implements OnInit {
 
   onAnimalRegistered() {
     this.closeCreateForm();
-    this.firebaseService.getAllAnimalsByFarm(this.farm.id).subscribe(res => {
+    this.firebaseService.getAllAnimalsByFarm(this.farm.farmId).subscribe(res => {
       this.animals = res.map(animal => {
         return { id: animal.payload.doc.id, ...animal.payload.doc.data() as any } as Animal;
       });
@@ -145,7 +145,7 @@ export class FarmDetailsPage implements OnInit {
 
   onAnimalUpdated() {
     this.closeEditForm();
-    this.firebaseService.getAllAnimalsByFarm(this.farm.id).subscribe(res => {
+    this.firebaseService.getAllAnimalsByFarm(this.farm.farmId).subscribe(res => {
       this.animals = res.map(animal => {
         return { id: animal.payload.doc.id, ...animal.payload.doc.data() as any } as Animal;
       });
