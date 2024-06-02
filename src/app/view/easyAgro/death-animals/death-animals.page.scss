@@ -1,38 +1,22 @@
 ion-content {
-  --background: black;
-  color: white;
+  --background: #ffffff;
+  color: black;
   position: relative;
 }
 
 ion-button {
-  color: white;
-  margin: 10px;
-  border-radius: 2%;
+  --background: #007bff;
+  --color: white; 
+  --border-radius: 8px;
+  --padding-start: 12px;
+  --padding-end: 12px;
 }
 
-.farm-name {
+.header {
   margin-top: 10%;
   display: flex;
   justify-content: center;
-  color: white;
-  font-size: 24px;
-}ion-content {
-  --background: black;
-  color: white;
-  position: relative;
-}
-
-ion-button {
-  color: white;
-  margin: 10px;
-  border-radius: 2%;
-}
-
-.farm-name {
-  margin-top: 10%;
-  display: flex;
-  justify-content: center;
-  color: white;
+  color: black;
   font-size: 24px;
 }
 
@@ -54,13 +38,13 @@ ion-button {
   top: 15%;
   left: 50%;
   transform: translate(-50%, 0);
-  background-color: black;
+  background-color: #f8f9fa;
   padding: 20px;
-  border: 1px solid gray;
+  border: 1px solid #dee2e6;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  width: 80vw;
-  max-width: 600px;
+   width: 80vw; 
+  max-width: 600px; 
   height: 80vh;
   max-height: 65vh;
   overflow-y: auto;
@@ -105,7 +89,7 @@ ion-button {
 }
 
 ion-list {
-  background-color: black;
+  background-color: #f8f9fa;
   margin-top: 4%;
 }
 
@@ -120,163 +104,19 @@ ion-icon {
 }
 
 ion-item {
-  background-color: black;
+  background-color: #f8f9fa;
+  color: black;
 }
 
 ion-item-option {
   color: green;
+  background: #ffffff;
 }
 
 .death-animals {
   display: flex;
-  background-color: black;
-  border-bottom: 2px solid;
-  align-items: center;
-  justify-content: center;
-  max-width: 50%;
-  margin: 0 auto;
-}
-
-.death-animals:hover {
-  background-color: darkgray;
-  border-radius: 5px;
-}
-
-.floating-form ion-label,
-.floating-form ion-input,
-.floating-form ion-button {
-  display: block;
-  width: 100%;
-  margin-bottom: 10px;
-  color: white;
-}
-
-.floating-form ion-input {
-  padding: 10px;
-  border-radius: 5px;
-  background-color: black;
-  border: 1px solid gray;
-}
-
-.floating-form ion-button {
-  padding: 10px;
-  background-color: black;
-  border: 1px solid gray;
-  border-radius: 5px;
-}
-
-.floating-form ion-button:hover {
-  background-color: darkgray;
-}
-
-.warning-message {
-  color: red;
-  font-size: 0.9em;
-}
-
-.create-title {
-  display: flex;
-  justify-content: center;
-  color: white;
-  font-size: 20px;
-  margin-bottom: 10px;
-}
-
-
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  backdrop-filter: blur(5px);
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
-  transition: opacity 0.3s;
-}
-
-.floating-form {
-  z-index: 1001;
-  position: fixed;
-  top: 15%;
-  left: 50%;
-  transform: translate(-50%, 0);
-  background-color: black;
-  padding: 20px;
-  border: 1px solid gray;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  width: 80vw;
-  max-width: 600px;
-  height: 80vh;
-  max-height: 65vh;
-  overflow-y: auto;
-  animation: fadeIn 0.5s forwards;
-}
-
-.floating-form.hidden {
-  animation: fadeOut 0.5s forwards;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translate(-50%, 5%);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-}
-
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-  to {
-    opacity: 0;
-    transform: translate(-50%, 5%);
-  }
-}
-
-.buttons-container {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  justify-content: space-between;
-  align-items: center;
-  max-width: 90%;
-  width: auto;
-}
-
-ion-list {
-  background-color: black;
-  margin-top: 4%;
-}
-
-.list-container ion-item {
-  --background: transparent;
-  --border-color: gray;
-  border-radius: 5px;
-}
-
-ion-icon {
-  margin-right: 5px;
-}
-
-ion-item {
-  background-color: black;
-}
-
-ion-item-option {
-  color: green;
-}
-
-.death-animals {
-  display: flex;
-  background-color: black;
+  background-color: #ffffff;
+  color: black;
   border-bottom: 2px solid;
   align-items: center;
   justify-content: center;
@@ -324,7 +164,11 @@ ion-item-option {
 .create-title {
   display: flex;
   justify-content: center;
-  color: white;
+  color: black;
   font-size: 20px;
   margin-bottom: 10px;
+}
+
+ion-icon {
+  color: #007bff; 
 }

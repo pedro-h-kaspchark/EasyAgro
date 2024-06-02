@@ -1,20 +1,22 @@
 ion-content {
-  --background: black;
-  color: white;
+  --background: #ffffff;
+  color: black;
   position: relative;
 }
 
 ion-button {
-  color: white;
-  margin: 10px;
-  border-radius: 2%;
+  --background: #007bff;
+  --color: white; 
+  --border-radius: 8px;
+  --padding-start: 12px;
+  --padding-end: 12px;
 }
 
 .header {
   margin-top: 10%;
   display: flex;
   justify-content: center;
-  color: white;
+  color: black;
   font-size: 24px;
 }
 
@@ -36,9 +38,9 @@ ion-button {
   top: 15%;
   left: 50%;
   transform: translate(-50%, 0);
-  background-color: black;
+  background-color: #f8f9fa;
   padding: 20px;
-  border: 1px solid gray;
+  border: 1px solid #dee2e6;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
    width: 80vw; 
@@ -87,7 +89,7 @@ ion-button {
 }
 
 ion-list {
-  background-color: black;
+  background-color: #f8f9fa;
   margin-top: 4%;
 }
 
@@ -102,16 +104,19 @@ ion-icon {
 }
 
 ion-item {
-  background-color: black;
+  background-color: #f8f9fa;
+  color: black;
 }
 
 ion-item-option {
   color: red;
+  background: #ffffff;
 }
 
 .death-animals {
   display: flex;
-  background-color: black;
+  background-color: #ffffff;
+  color: black;
   border-bottom: 2px solid;
   align-items: center;
   justify-content: center;
@@ -159,7 +164,11 @@ ion-item-option {
 .create-title {
   display: flex;
   justify-content: center;
-  color: white;
+  color: #007bff;
   font-size: 20px;
   margin-bottom: 10px;
+}
+
+ion-icon {
+  color: #007bff; 
 }

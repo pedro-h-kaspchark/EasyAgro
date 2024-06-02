@@ -1,5 +1,8 @@
 <ion-content>
-  <div *ngIf="farmName" class="farm-name">{{ farmName }}</div>
+  <div class="header">
+    <ion-icon class="back" name="arrow-back-outline" (click)="openAliveAnimails(farm)"></ion-icon>
+    <div *ngIf="farmName">{{ farmName }}</div>
+  </div>
   <div class="overlay" *ngIf="showEditForm && !isClosingForm"></div>
   <app-animal-view-form [farm]="farm" *ngIf="showEditForm" [animal]="selectedAnimal" class="floating-form" [ngClass]="{ 'hidden': isClosingForm }" (closeEditForm)="closeEditForm()"></app-animal-view-form>
   <div>

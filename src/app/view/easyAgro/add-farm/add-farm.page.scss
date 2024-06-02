@@ -1,119 +1,130 @@
 ion-content {
-    --background: black;
-  }
-  
-  .register-buttons-container {
-    position: fixed;
-    bottom: 60px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .register-farm-container {
-    margin: 10px 0;
-  }
-  
-  ion-button {
-    color: white;
-  }
-  
-  .no-farms-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    text-align: center;
-    color: white;
-  }
-  
-  .spanNoFarm {
-    margin-bottom: 20px;
-  }
-  
-  .form-container {
-    background-color: black;
-    padding: 20px;
-    border-radius: 10px;
-    border: 2px solid gray;
-    width: 80%;
-    max-width: 500px;
-    color: white;
-  }
-  
-  .farm-title {
-    display: flex;
-    justify-content: center;
-    color: white;
-    font-size: 24px;
-  }
-  
-  form ion-item {
-    --background: transparent;
-    --border-style: none;
-  }
-  
-  form ion-input {
-    color: #ffffff;
-    border: none;
-  }
-  
-  form ion-label {
-    color: #ffffff;
-    margin-top: 15%;
-  }
-  
-  .createFarmButton {
-    background-color: black;
-    color: gray;
-    border: 2px solid gray;
-    border-radius: 5px;
-  }
-  
-  .createFarmButton:hover {
-    background-color: darkgray;
-  }
-  
-  ion-list {
-    background-color: black;
-    margin-top: 4%;
-  }
-  
-  ion-item {
-    background-color: black;
-    margin-top: 4px;
-  }
-  
-  .list-container ion-item {
-    --background: transparent;
-    --border-color: gray;
-    border-radius: 5px;
-  }
-  
-  .buttons-container {
-    border: 2px solid gray;
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 10px;
-    max-width: 90%;
-    width: auto;
-  }
-  
-  ion-icon {
-    color: gray;
-  }
-  
-  ion-fab {
-    bottom: 90px;
-    border: 2px solid gray;
-    border-radius: 50%;
-  }
-  
+  --background: #ffffff;
+}
+
+.register-buttons-container {
+  position: fixed;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.register-farm-container {
+  margin: 10px 0;
+}
+
+ion-button {
+  color: #007bff;
+  --background: #f8f9fa;
+  --border-radius: 8px;
+  --padding-start: 12px;
+  --padding-end: 12px;
+}
+
+.no-farms-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  color: #212529;
+}
+
+.spanNoFarm {
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.form-container {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid #dee2e6;
+  width: 80%;
+  max-width: 500px;
+  color: #212529;
+}
+
+.farm-title {
+  display: flex;
+  justify-content: center;
+  color: #212529;
+  font-size: 24px;
+}
+
+form ion-item {
+  --background: transparent;
+  --border-style: none;
+}
+
+form ion-input {
+  color: #212529;
+  border: none;
+  --placeholder-color: #6c757d;
+}
+
+form ion-label {
+  color: #212529;
+  margin-top: 15%;
+}
+
+.createFarmButton {
+  background-color: #007bff;
+  color: #ffffff;
+  border: 2px solid #007bff;
+  border-radius: 5px;
+}
+
+.createFarmButton:hover {
+  background-color: #0056b3;
+}
+
+ion-list {
+  background-color: #ffffff;
+  margin-top: 4%;
+}
+
+ion-item {
+  background-color: #f8f9fa;
+  margin-top: 4px;
+}
+
+.list-container ion-item {
+  --background: transparent;
+  --border-color: #dee2e6;
+  border-radius: 5px;
+}
+
+.buttons-container {
+  border: 2px solid #dee2e6;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
+  max-width: 90%;
+  width: auto;
+  background-color: #ffffff;
+}
+
+ion-icon {
+  color: #007bff;
+}
+
+ion-fab {
+  bottom: 90px;
+  border: 2px solid #007bff;
+  border-radius: 50%;
+  --background: #ffffff;
+}
+
+span{
+  color: red;
+}

@@ -1,5 +1,5 @@
 ion-content {
-  --background: black;
+  --background: #ffffff; 
 }
 
 .register-buttons-container {
@@ -17,7 +17,11 @@ ion-content {
 }
 
 ion-button {
-  color: white;
+  --background: #007bff;
+  --color: white; 
+  --border-radius: 8px;
+  --padding-start: 12px;
+  --padding-end: 12px;
 }
 
 .no-farms-container {
@@ -27,27 +31,28 @@ ion-button {
   justify-content: center;
   height: 100%;
   text-align: center;
-  color: red;
+  color: #dc3545; 
 }
 
 .spanNoFarm {
   margin-bottom: 20px;
+  font-size: 18px;
 }
 
 .form-container {
-  background-color: black;
+  background-color: #f8f9fa; 
   padding: 20px;
   border-radius: 10px;
-  border: 2px solid gray;
+  border: 2px solid #dee2e6; 
   width: 80%;
   max-width: 500px;
-  color: white;
+  color: #212529; 
 }
 
 .farm-title {
   display: flex;
   justify-content: center;
-  color: white;
+  color: #212529;
   font-size: 24px;
 }
 
@@ -57,39 +62,40 @@ form ion-item {
 }
 
 form ion-input {
-  color: #ffffff;
+  color: #212529; 
   border: none;
+  --placeholder-color: #6c757d; 
 }
 
 form ion-label {
-  color: #ffffff;
+  color: #212529; 
   margin-top: 15%;
 }
 
 .createFarmButton {
-  background-color: black;
-  color: gray;
-  border: 2px solid gray;
+  background: #007bff;
+  --color: white; 
+  border: 2px solid #007bff;
   border-radius: 5px;
 }
 
 .createFarmButton:hover {
-  background-color: darkgray;
+  background: #0056b3; 
 }
 
 ion-list {
-  background-color: black;
+  background-color: #ffffff; 
   margin-top: 4%;
 }
 
 ion-item {
-  background-color: black;
+  background-color: #f8f9fa; 
   margin-top: 4px;
 }
 
 .list-container ion-item {
   --background: transparent;
-  --border-color: gray;
+  --border-color: #dee2e6; 
   border-radius: 5px;
 }
 
@@ -104,14 +110,21 @@ ion-item {
   padding: 5px 10px;
   max-width: 90%;
   width: auto;
+  background-color: #ffffff; 
+  border-top: 2px solid #dee2e6; 
 }
 
 ion-icon {
-  color: gray;
+  color: #007bff; 
 }
 
 ion-fab {
   bottom: 90px;
-  border: 2px solid gray;
+  --background: #ffffff; 
+  border: 2px solid #007bff; 
   border-radius: 50%;
+}
+
+span{
+  color: red;
 }

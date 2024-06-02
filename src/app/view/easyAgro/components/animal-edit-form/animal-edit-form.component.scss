@@ -4,26 +4,25 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: black;
+  background-color: #ffffff;
   padding: 20px;
-  border: 1px solid gray;
+  border: 1px solid #cccccc;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  width: 80vw; 
-  max-width: 600px; 
+  width: 80vw;
+  max-width: 600px;
   height: auto;
-  max-height: 65vh; 
-  overflow-y: auto; 
+  max-height: 65vh;
+  overflow-y: auto;
 }
 
 .floating-form input {
   padding: 10px;
   margin-bottom: 10px;
-  border: 1px solid gray;
+  border: 1px solid #cccccc;
   border-radius: 5px;
-  background-color: black;
-  color: white;
-  opacity: 0.8; 
+  background-color: #ffffff;
+  color: #333333;
   width: 100%;
 }
 
@@ -34,14 +33,14 @@
   margin-bottom: 10px;
   border: none;
   border-radius: 5px;
-  background-color: black;
-  border: 1px solid gray;
-  color: white;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  color: #333333;
   cursor: pointer;
 }
 
 .floating-form button:hover {
-  background-color: rgb(19, 18, 18);
+  background-color: #f0f0f0;
 }
 
 span {
@@ -49,31 +48,31 @@ span {
 }
 
 .editAnimalButton {
-  background-color: black; 
-  color: gray; 
-  border: 2px solid gray;
+  background-color: #ffffff;
+  color: #333333;
+  border: 2px solid #cccccc;
   border-radius: 5px;
 }
 
 .editAnimalButton:hover {
-  background-color: darkgray;
+  background-color: #f0f0f0;
 }
 
-.closeEditForm{
-  background-color: black;
-  color: gray;
-  border-top: 2px solid gray;
+.closeEditForm {
+  background-color: #ffffff;
+  color: #333333;
+  border-top: 2px solid #cccccc;
 }
 
 .closeEditForm:hover {
-  background-color: darkgray;
+  background-color: #f0f0f0;
   border-radius: 5px;
 }
 
-.edit-title{
+.edit-title {
   display: flex;
   justify-content: center;
-  color: white;
+  color: #333333;
   font-size: 20px;
   margin-bottom: 3px;
 }

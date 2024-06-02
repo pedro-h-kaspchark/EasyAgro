@@ -1,6 +1,6 @@
 ion-content {
-  --background: black;
-  color: white;
+  --background: #ffffff;
+  color: #333333;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,33 +18,33 @@ ion-content {
 }
 
 .register-list {
-  background: black;
+  background: #ffffff;
   padding: 15px;
   border-radius: 10px;
-  backdrop-filter: blur(10px);
-  color: antiquewhite;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: #333333;
   width: 90%;
   max-width: 400px;
-  border: 2px solid gray;
+  border: 2px solid #cccccc;
   position: relative;
 }
 
 .register-title {
   display: flex;
   justify-content: center;
-  color: white;
+  color: #333333;
   font-size: 24px;
 }
 
-.icon{
+.icon {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 50vh;
-  background-color: #fff;
+  background-color: #ffffff;
 }
 
-.icon2{
+.icon2 {
   width: 75%;
   height: auto;
 }
@@ -63,27 +63,25 @@ form ion-item {
 }
 
 form ion-input {
-  color: #ffffff;
-  border: none;
+  color: #333333;
+  border-radius: 5px;
+  padding: 10px;
 }
 
 form ion-label {
-  color: #ffffff;
+  color: #333333;
 }
 
 form ion-button {
   margin-top: 15px;
   --border-radius: 20px;
   overflow: hidden;
+  background-color: #ffffff;
+  color: #333333;
 }
 
-.submit-button {
-  border: 2px solid gray;
-  border-radius: 5px;
-}
-.submit-button:hover {
-  background-color: #515152;
-  border-radius: 5px;
+form ion-button:hover {
+  background-color: #f0f0f0;
 }
 
 .file-input-label {
@@ -91,21 +89,20 @@ form ion-button {
   align-items: center;
   justify-content: center;
   padding: 10px 15px;
-  background-color: #000000;
-  color: #fff;
-  border-top: 2px solid gray;
+  background-color: #ffffff;
+  color: #333333;
+  border-top: 2px solid #cccccc;
   cursor: pointer;
   margin-top: 15px;
   width: 100%;
   box-sizing: border-box;
 }
 
-.file-input {
-  display: none;
-}
-
 .file-input-label:hover {
-  background-color: #515152;
+  background-color: #f0f0f0;
   border-radius: 5px;
 }
 
+.file-input {
+  display: none;
+}
