@@ -20,6 +20,7 @@
     </div>
   </ng-container>
   <ng-template #noFarms>
+    <div class="no-farms-container">
     <div class="spanNoFarm" *ngIf="farms.length == 0">Você não possui uma fazenda, crie uma!</div>
     <div class="form-container" *ngIf="showNoFarms">
       <div class="farm-title">Fazendas</div>
@@ -41,6 +42,7 @@
         <ion-button type="submit" expand="block" color="white" class="createFarmButton">Criar Fazenda</ion-button>
       </form>
     </div>
+  </div>
   </ng-template>
 
   <div class="buttons-container">

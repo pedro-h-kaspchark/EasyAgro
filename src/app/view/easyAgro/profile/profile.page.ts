@@ -56,6 +56,7 @@ export class ProfilePage implements OnInit {
       const file = event.target.files[0];
       if(file){
         const downloadURL = await this.auth.uploadPhoto(file);
+        this.userData.photoURL = downloadURL;
         this.alert.presentAlert("Ok", "Foto atualizada com sucesso!")
       }
     }catch (error){
