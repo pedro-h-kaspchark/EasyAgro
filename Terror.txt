@@ -1,0 +1,73 @@
+Apenas copie todo o codigo abaixo e cole no arquivo de interfaces com o problema <T>
+--------------------------------------------------------------------------------------
+
+import firebase from 'firebase/compat/app';
+import { Observable } from 'rxjs';
+
+export type FirebaseOperation = string | firebase.database.Reference | firebase.database.DataSnapshot;
+
+export interface AngularFireList<T> {
+  query: firebase.database.Query;
+  valueChanges(events?: ChildEvent[], options?: { idField: string }): Observable<(T & { [K in string]?: string })[]>;
+  snapshotChanges(events?: ChildEvent[]): Observable<SnapshotAction<T>[]>;
+  stateChanges(events?: ChildEvent[]): Observable<SnapshotAction<T>>;
+  auditTrail(events?: ChildEvent[]): Observable<SnapshotAction<T>[]>;
+  update(item: FirebaseOperation, data: Partial<T>): Promise<void>;
+  set(item: FirebaseOperation, data: T): Promise<void>;
+  push(data: T): firebase.database.ThenableReference;
+  remove(item?: FirebaseOperation): Promise<void>;
+}
+
+export interface AngularFireObject<T> {
+  query: firebase.database.Query;
+  valueChanges(): Observable<T | null>;
+  snapshotChanges(): Observable<SnapshotAction<T>>;
+  update(data: Partial<T>): Promise<void>;
+  set(data: T): Promise<void>;
+  remove(): Promise<void>;
+}
+
+export interface FirebaseOperationCases {
+  stringCase: () => Promise<void>;
+  firebaseCase?: () => Promise<void>;
+  snapshotCase?: () => Promise<void>;
+  unwrappedSnapshotCase?: () => Promise<void>;
+}
+
+export type QueryFn = (ref: DatabaseReference) => firebase.database.Query;
+
+export type ChildEvent = 'child_added' | 'child_removed' | 'child_changed' | 'child_moved';
+
+export type ListenEvent = 'value' | ChildEvent;
+
+export interface Action<T> {
+  type: ListenEvent;
+  payload: T;
+}
+
+export interface AngularFireAction<T> extends Action<T> {
+  prevKey: string | null | undefined;
+  key: string | null;
+}
+
+export type SnapshotAction<T> = AngularFireAction<DatabaseSnapshot<T>>;
+
+export type Primitive = number | string | boolean;
+
+export interface DatabaseSnapshotExists<T> extends firebase.database.DataSnapshot {
+  exists(): true;
+  val(): T;
+}
+
+export interface DatabaseSnapshotDoesNotExist<T> extends firebase.database.DataSnapshot {
+  exists(): false;
+  val(): null;
+}
+
+export type DatabaseSnapshot<T> = DatabaseSnapshotExists<T> | DatabaseSnapshotDoesNotExist<T>;
+
+export type DatabaseReference = firebase.database.Reference;
+export type DatabaseQuery = firebase.database.Query;
+export type DataSnapshot = firebase.database.DataSnapshot;
+export type QueryReference = DatabaseReference | DatabaseQuery;
+export type PathReference = QueryReference | string;
