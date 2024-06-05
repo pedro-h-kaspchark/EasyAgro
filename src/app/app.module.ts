@@ -10,10 +10,10 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage'
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { EasyAgroPipe } from './app/view/easy-agro.pipe';
+
 
 @NgModule({
-  declarations: [AppComponent, EasyAgroPipe],
+  declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AngularFireModule.initializeApp(environment.firebaseConfig), AngularFirestoreModule, AngularFireStorageModule, AngularFireAuthModule, AngularFireDatabaseModule, AppRoutingModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

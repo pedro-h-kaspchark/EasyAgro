@@ -25,6 +25,7 @@ export class AnimalViewFormComponent  implements OnInit {
       name: [{ value:this.animal.name, disabled: true }, Validators.required],
       species: [{ value:this.animal.species, disabled: true }, Validators.required],
       birthDate: [{ value:this.animal.birthDate, disabled: true }, Validators.required],
+      deathDate: [{ value:this.animal.deathDate, disabled: true }, Validators.required],
       number: [{ value:this.animal.number, disabled: true }, Validators.required],
       historyOfIllnesses: [{ value:this.animal.historyOfIllnesses, disabled: true } , Validators.required],
       treatmentHistory: [{ value:this.animal.treatmentHistory, disabled: true }, Validators.required]

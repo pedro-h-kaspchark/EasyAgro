@@ -74,10 +74,28 @@ export class FarmDetailsPage implements OnInit {
     return this.animals.some(animal => animal.life === false);
   }
 
-  setLifeFalse(animal: Animal){
-    this.confirmAlert.presentConfirmAlert("ATENÇÃO", "Deseja realmente declarar o óbito do animal?", (confirmed) =>{if(confirmed){this.loading.showLoading(10);
-      animal.life = false;
-      this.firebaseService.editAnimal(animal, animal.id).then(() => {}).catch(error =>{});}});
+  setLifeFalse(animal: Animal) {
+    this.confirmAlert.presentConfirmAlert("ATENÇÃO", "Deseja realmente declarar o óbito do animal?", (confirmed) => {
+      if (confirmed) {
+        this.loading.showLoading(10);
+        animal.life = false;
+        const currentDate = new Date();
+        const year = currentDate.getFullYear();
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+        const day = String(currentDate.getDate()).padStart(2, '0');
+        animal.deathDate = `${year}-${month}-${day}`;
+        this.firebaseService.setDeathDate(animal, animal.id).then(() => {
+          this.firebaseService.getAllAnimalsByFarm(this.farm.farmId).subscribe(res => {
+            this.animals = res.map(animal => {
+              return { id: animal.payload.doc.id, ...animal.payload.doc.data() as any } as Animal;
+            });
+          });
+        }).catch(error => {
+          console.error('Erro ao atualizar o animal:', error);
+          this.alert.presentAlert('Erro', 'Erro ao atualizar o animal!');
+        });
+      }
+    });
   }
 
   deleteAnimal(animal: Animal) {

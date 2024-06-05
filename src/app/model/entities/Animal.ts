@@ -4,6 +4,7 @@ export class Animal {
     private _name!: string;
     private _species!: string;
     private _birthDate!: string;
+    private _deathDate?: string | undefined;
     private _number!: number;
     private _historyOfIllnesses!: string;
     private _treatmentHistory!: string;
@@ -44,6 +45,13 @@ export class Animal {
     }
     public set birthDate(value: string) {
         this._birthDate = value;
+    }
+// --------------------------------------------------------
+    public get deathDate(): string | undefined {
+        return this._deathDate;
+    }
+    public set deathDate(value: string | undefined) {
+        this._deathDate = value;
     }
 // --------------------------------------------------------
     public get number(): number {

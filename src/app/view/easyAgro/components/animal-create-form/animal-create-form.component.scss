@@ -48,20 +48,20 @@ span {
 }
 
 .createAnimalButton {
-  background-color: #f0f0f0;
-  color: #666;
-  border: 2px solid #ccc;
+  background-color: #007bff;
+  color: white;
+  border: 2px solid #007bff;
   border-radius: 5px;
 }
 
 .createAnimalButton:hover {
-  background-color: #e0e0e0;
+  background-color: #0056b3;
 }
 
 .closeCreateForm {
-  background-color: #f0f0f0;
-  color: #666;
-  border-top: 2px solid #ccc;
+  background-color: #ffffff;
+  color: #007bff;
+  border-top: 2px solid #007bff;
 }
 
 .closeCreateForm:hover {

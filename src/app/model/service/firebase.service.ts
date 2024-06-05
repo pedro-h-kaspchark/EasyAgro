@@ -35,6 +35,10 @@ export class FirebaseService {
     return this.firestore.collection(this.PATHAnimal).doc(id).update({name: animal.name, species: animal.species, birthDate: animal.birthDate, uid: animal.uid, farmId: animal.farmId, number: animal.number, historyOfIllnesses: animal.historyOfIllnesses, treatmentHistory: animal.treatmentHistory, life: animal.life});
   }
 
+  setDeathDate(animal: Animal, id: string){
+    return this.firestore.collection(this.PATHAnimal).doc(id).update({name: animal.name, species: animal.species, birthDate: animal.birthDate, uid: animal.uid, farmId: animal.farmId, number: animal.number, historyOfIllnesses: animal.historyOfIllnesses, treatmentHistory: animal.treatmentHistory, life: animal.life, deathDate: animal.deathDate});
+  }
+
   getAllFarms(){
     this.user = this.injectAuthService().getUserLogged();
     return this.firestore.collection(this.PATHFarm, ref => ref.where('uid', '==', this.user.uid)).snapshotChanges();
@@ -121,16 +125,28 @@ export class FirebaseService {
   
     doc.text(`Nome do animal: ${animal.name}`, 10, 100);
     doc.text(`Espécie do animal: ${animal.species}`, 10, 110);
-    doc.text(`Data de nascimento do animal: ${animal.birthDate}`, 10, 120);
-    doc.text(`Número de identificação: ${animal.number}`, 10, 130);
-    doc.text(`Estado do animal: ${animal.life ? 'Vivo' : 'Morto'}`, 10, 140);
-    doc.text(`Histórico de doenças:`, 10, 150);
+    doc.text(`Data de nascimento: ${animal.birthDate}`, 10, 120);
+    
+    let currentPosition = 130;
+  
+    if (animal.deathDate) {
+      doc.text(`Data de óbito: ${animal.deathDate}`, 10, currentPosition);
+      currentPosition += 10;
+    }
+  
+    doc.text(`Número de identificação: ${animal.number}`, 10, currentPosition);
+    currentPosition += 10;
+    doc.text(`Estado do animal: ${animal.life ? 'Vivo' : 'Morto'}`, 10, currentPosition);
+    currentPosition += 10;
+  
+    doc.text(`Histórico de doenças:`, 10, currentPosition);
     const illnessText = wrapText(animal.historyOfIllnesses, textWidth);
-    doc.text(illnessText, 10, 160);
-    const newYPosition = 160 + (illnessText.length * 10);
-    doc.text(`Histórico de tratamentos:`, 10, newYPosition + 10);
+    doc.text(illnessText, 10, currentPosition + 10);
+    currentPosition += (illnessText.length * 10) + 10;
+  
+    doc.text(`Histórico de tratamentos:`, 10, currentPosition);
     const treatmentText = wrapText(animal.treatmentHistory, textWidth);
-    doc.text(treatmentText, 10, newYPosition + 20);
+    doc.text(treatmentText, 10, currentPosition + 10);
   
     return new Promise((resolve) => {
       const pdfBlob = doc.output('blob');

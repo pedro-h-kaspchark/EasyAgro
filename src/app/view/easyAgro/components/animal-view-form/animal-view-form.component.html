@@ -16,6 +16,11 @@
     <!-- Mensagens de erro -->
     <span *ngIf="animalForm.get('birthDate')?.touched && animalForm.get('birthDate')?.errors?.['required']">A data de nascimento do animal é obrigatória!</span><br>
     <!-- Mensagens de erro -->
+    <ion-label>Data de morte</ion-label>
+    <ion-input formControlName="deathDate" type="date" [disabled]="true"></ion-input>
+    <!-- Mensagens de erro -->
+    <span *ngIf="animalForm.get('deathDate')?.touched && animalForm.get('deathDate')?.errors?.['required']">A data de morte do animal é obrigatória!</span><br>
+    <!-- Mensagens de erro -->
     <ion-label>Número</ion-label>
     <ion-input formControlName="number" type="number"></ion-input>
     <!-- Mensagens de erro -->
@@ -31,6 +36,6 @@
     <!-- Mensagens de erro -->
     <span *ngIf="animalForm.get('treatmentHistory')?.touched && animalForm.get('treatmentHistory')?.errors?.['required']">O histórico de tratamentos é obrigatório!</span><br>
     <!-- Mensagens de erro -->
-    <ion-button color="white" expand="block" class="closeEditForm" (click)="closeEdit()">Fechar formulário</ion-button>
+    <ion-button color="white" expand="block" class="closeViewForm" (click)="closeEdit()">Fechar formulário</ion-button>
   </form>
 </div>
