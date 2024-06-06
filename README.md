@@ -2,7 +2,7 @@
 Este é o projeto do meu Trabalho de Conclusão de Curso (TCC), um aplicativo/website desenvolvido para facilitar a gestão de fazendas e animais.
 
 ### 💡 Funcionalidades
-- 1-Autenticação de Usuário: Criação, acesso, edição de conta de usuário.
+- 1-Autenticação de Usuário: Criação, acesso, edição e recuperação de senha da conta de usuário.
 - 2-Gerenciamento de Animais: Cadastro, edição e deleção de animais.
 - 3-Visualização Específica por Fazenda: Possibilidade de visualizar apenas os animais de cada fazenda.
 - 4-Registro de Óbito: Marcação de óbito de animais com registro da data da morte.

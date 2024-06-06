@@ -17,6 +17,10 @@ const routes: Routes = [
     loadChildren: () => import('./view/user/register/register.module').then(m => m.RegisterPageModule)
   },
   {
+    path: 'recovery-password',
+    loadChildren: () => import('./view/user/recovery-password/recovery-password.module').then( m => m.RecoveryPasswordPageModule),
+  },
+  {
     path: 'profile',
     loadChildren: () => import('./view/easyAgro/profile/profile.module').then(m => m.ProfilePageModule),
     canActivate: [AuthGuard]
@@ -41,6 +45,7 @@ const routes: Routes = [
     loadChildren: () => import('./view/easyAgro/death-animals/death-animals.module').then( m => m.DeathAnimalsPageModule),
     canActivate: [AuthGuard]
   },
+
 
 ];
 

@@ -50,4 +50,8 @@ export class LoginPage implements OnInit {
   goToRegisterPage(){
     this.router.navigate(['/register']);
   }
+
+  goRecoveryPage(){
+    this.router.navigate(['/recovery-password']);
+  }
 }
