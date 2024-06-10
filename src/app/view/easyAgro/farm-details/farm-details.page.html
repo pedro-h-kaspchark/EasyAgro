@@ -9,28 +9,33 @@
   <app-animal-edit-form [farm]="farm" *ngIf="showEditForm" [animal]="selectedAnimal" class="floating-form edit-form" (animalUpdated)="onAnimalUpdated()" (closeEditForm)="closeEditForm()"></app-animal-edit-form>
 
   <div>
-    <ion-button color="white" class="death-animals" (click)="openDeathAnimals(farm)">Animais Vivos</ion-button>
+    <ion-button color="white" class="death-animals">Animais Vivos</ion-button>
   </div>
 
   <ion-list class="list-container">
-    <ion-item-sliding *ngFor="let animal of animals">
-      <ion-item>
-        <ion-label>{{ animal.number }} {{ animal.name }}</ion-label>
-        <ion-icon name="share-outline" (click)="shareAnimalDetails(animal)"></ion-icon>
-        <ion-icon name="create-outline" (click)="openEditForm(animal)"></ion-icon>
-      </ion-item>
-      <ion-item-options side="end">
-        <ion-item-option color="white" (click)="deleteAnimal(animal)">
-          <ion-icon color="danger" name="trash-outline"></ion-icon>
-        </ion-item-option>
-        <ion-item-option color="white" (click)="setLifeFalse(animal)">
-          <ion-icon color="danger" name="skull-outline"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
+    <ion-item *ngFor="let animal of animals">
+      <ion-label>{{ animal.number }} {{ animal.name }}</ion-label>
+      <ion-icon class="item-icon" name="share-outline" (click)="shareAnimalDetails(animal)"></ion-icon>
+      <ion-icon class="item-icon" name="create-outline" (click)="openEditForm(animal)"></ion-icon>
+      <ion-icon color="danger" name="skull-outline" (click)="setLifeFalse(animal)"></ion-icon>
+      <ion-icon color="danger" name="trash-outline" (click)="deleteAnimal(animal)"></ion-icon>
+    </ion-item>
   </ion-list>
 
-  <div class="buttons-container">
+  <div class="bottom-section">
     <ion-button color="primary" (click)="openCreateForm()" fill="outline" shape="round">Registrar animal</ion-button>
   </div>
+
+  <ion-footer>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="alive">
+        <ion-icon class="heart" name="heart-outline"></ion-icon>
+        Vivos
+      </ion-tab-button>
+      <ion-tab-button tab="death" (click)="openDeathAnimals(farm)">
+        <ion-icon class="death" name="skull-outline"></ion-icon>
+        Mortos
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-footer>
 </ion-content>

@@ -43,7 +43,7 @@ ion-button {
   border: 1px solid #dee2e6;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-   width: 80vw; 
+  width: 80vw; 
   max-width: 600px; 
   height: 80vh;
   max-height: 65vh;
@@ -77,15 +77,22 @@ ion-button {
   }
 }
 
-.buttons-container {
+.bottom-section {
   position: fixed;
-  bottom: 0;
+  bottom: 60px;
   left: 50%;
   transform: translateX(-50%);
-  justify-content: space-between;
+  width: 100%;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  max-width: 90%;
-  width: auto;
+}
+
+ion-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 }
 
 ion-list {
@@ -109,7 +116,7 @@ ion-item {
 }
 
 ion-item-option {
-  color: green;
+  color: red;
   background: #ffffff;
 }
 
@@ -122,11 +129,6 @@ ion-item-option {
   justify-content: center;
   max-width: 50%;
   margin: 0 auto; 
-}
-
-.death-animals:hover {
-  background-color: darkgray;
-  border-radius: 5px;
 }
 
 .floating-form ion-label,
@@ -164,11 +166,19 @@ ion-item-option {
 .create-title {
   display: flex;
   justify-content: center;
-  color: black;
+  color: #007bff;
   font-size: 20px;
   margin-bottom: 10px;
 }
 
-ion-icon {
+ion-icon.back, .item-icon {
   color: #007bff; 
+}
+
+ion-icon.heart, .death{
+  color: gray; 
+}
+
+ion-tab-button{
+  color: gray;
 }

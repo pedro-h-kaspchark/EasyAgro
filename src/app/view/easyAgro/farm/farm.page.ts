@@ -67,8 +67,8 @@ export class FarmPage implements OnInit {
   deleteFarm(farm: Farm) {
     this.confirmAlert.presentConfirmAlert("ATENÇÃO", "Você realmente deseja deletar essa fazenda?", (confirmed) => {
       if (confirmed) {
-        this.loading.showLoading(10);
         this.firebaseService.deleteFarm(farm.id).then(() => {
+          this.router.navigate(['/farm']);
           this.alert.presentAlert('Sucesso', 'Fazenda excluída com sucesso!');
           this.getFarms();
         }).catch((error) => {
