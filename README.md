@@ -34,7 +34,7 @@ Você pode testar todas as funcionalidades do aplicativo, desde a autenticação
 - Firebase - Banco de dados utilizado para armazenamento e autenticação.
   
 ### 📌 Versão
-Beta 1.1
+Beta 1.2
 
 ### 🙋‍♂️ Autores
 Pedro Henrique Kaspchark - Desenvolvedor - [pedro-h-kaspchark](https://github.com/pedro-h-kaspchark)
