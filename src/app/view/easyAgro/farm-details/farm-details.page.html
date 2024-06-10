@@ -8,13 +8,11 @@
   <app-animal-create-form [farm]="farm" *ngIf="showCreateForm" class="floating-form create-form" (animalRegistered)="onAnimalRegistered()" (closeForm)="closeCreateForm()"></app-animal-create-form>
   <app-animal-edit-form [farm]="farm" *ngIf="showEditForm" [animal]="selectedAnimal" class="floating-form edit-form" (animalUpdated)="onAnimalUpdated()" (closeEditForm)="closeEditForm()"></app-animal-edit-form>
 
-  <div>
-    <ion-button color="white" class="death-animals">Animais Vivos</ion-button>
-  </div>
+  <div color="white" class="death-animals">Animais Vivos</div>
 
   <ion-list class="list-container">
     <ion-item *ngFor="let animal of animals">
-      <ion-label>{{ animal.number }} {{ animal.name }}</ion-label>
+      <ion-label>{{ animal.number }} - {{ animal.name }}</ion-label>
       <ion-icon class="item-icon" name="share-outline" (click)="shareAnimalDetails(animal)"></ion-icon>
       <ion-icon class="item-icon" name="create-outline" (click)="openEditForm(animal)"></ion-icon>
       <ion-icon color="danger" name="skull-outline" (click)="setLifeFalse(animal)"></ion-icon>
@@ -28,7 +26,7 @@
 
   <ion-footer>
     <ion-tab-bar slot="bottom">
-      <ion-tab-button tab="alive">
+      <ion-tab-button tab="alive" class="heart">
         <ion-icon class="heart" name="heart-outline"></ion-icon>
         Vivos
       </ion-tab-button>

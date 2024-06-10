@@ -5,13 +5,11 @@
   </div>
   <div class="overlay" *ngIf="showEditForm && !isClosingForm"></div>
   <app-animal-view-form [farm]="farm" *ngIf="showEditForm" [animal]="selectedAnimal" class="floating-form" [ngClass]="{ 'hidden': isClosingForm }" (closeEditForm)="closeEditForm()"></app-animal-view-form>
-  <div>
-    <ion-button color="white" class="death-animals">Animais Mortos</ion-button>
-  </div>
+  <div color="white" class="death-animals">Animais Mortos</div>
 
   <ion-list class="list-container">
       <ion-item *ngFor="let animal of animals">
-        <ion-label>{{ animal.number }} {{ animal.name }}</ion-label>
+        <ion-label>{{ animal.number }} - {{ animal.name }}</ion-label>
         <ion-icon class="item-icon" name="share-outline" (click)="shareAnimalDetails(animal)"></ion-icon>
         <ion-icon class="item-icon" name="eye-outline" (click)="openEditForm(animal)"></ion-icon>
         <ion-icon color="danger" name="trash-outline" (click)="deleteAnimal(animal)"></ion-icon>
@@ -23,7 +21,7 @@
         <ion-icon name="heart-outline" class="heart"></ion-icon>
         Vivos
       </ion-tab-button>
-      <ion-tab-button tab="death">
+      <ion-tab-button tab="death" class="death">
         <ion-icon name="skull-outline" class="death"></ion-icon>
         Mortos
       </ion-tab-button>
