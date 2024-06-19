@@ -101,73 +101,92 @@ export class FirebaseService {
     const doc = new jsPDF();
     const user = await this.getProfile();
     const farm = await this.getFarm(animal);
-  
-    doc.setFontSize(16);
-    doc.text('Informações do Perfil', 10, 10);
-    doc.setFontSize(12);
-    doc.text(`Nome: ${user.name}`, 10, 20);
-    doc.text(`Email: ${user.email}`, 10, 30);
-    doc.text(`Telefone: ${user.number}`, 10, 40);
-  
-    doc.setFontSize(16);
-    doc.text('Informações da Fazenda', 10, 50);
-    doc.setFontSize(12);
-    doc.text(`Nome da Fazenda: ${farm.farmName}`, 10, 60);
-    doc.text(`Localização: ${farm.location}`, 10, 70);
-  
-    doc.setFontSize(16);
-    doc.text('Detalhes do Animal', 10, 90);
-    doc.setFontSize(12);
-    const textWidth = 180;
-    const wrapText = (text: string, width: number) => {
-      return doc.splitTextToSize(text, width);
-    };
-  
-    doc.text(`Nome do animal: ${animal.name}`, 10, 100);
-    doc.text(`Espécie do animal: ${animal.species}`, 10, 110);
-    doc.text(`Data de nascimento: ${animal.birthDate}`, 10, 120);
-    
-    let currentPosition = 130;
-  
-    if (animal.deathDate) {
-      doc.text(`Data de óbito: ${animal.deathDate}`, 10, currentPosition);
-      currentPosition += 10;
-    }
-  
-    doc.text(`Número de identificação: ${animal.number}`, 10, currentPosition);
-    currentPosition += 10;
-    doc.text(`Estado do animal: ${animal.life ? 'Vivo' : 'Morto'}`, 10, currentPosition);
-    currentPosition += 10;
-  
-    doc.text(`Histórico de doenças:`, 10, currentPosition);
-    const illnessText = wrapText(animal.historyOfIllnesses, textWidth);
-    doc.text(illnessText, 10, currentPosition + 10);
-    currentPosition += (illnessText.length * 10) + 10;
-  
-    doc.text(`Histórico de tratamentos:`, 10, currentPosition);
-    const treatmentText = wrapText(animal.treatmentHistory, textWidth);
-    doc.text(treatmentText, 10, currentPosition + 10);
-  
-    return new Promise((resolve) => {
-      const pdfBlob = doc.output('blob');
-      resolve(pdfBlob);
-    });
-  }
 
-  async uploadPDF(animal: Animal): Promise<string>{
+    const textWidth = 180;
+    const margin = 10;
+    const pageHeight = doc.internal.pageSize.height;
+    let currentPosition = 10;
+
+    const wrapText = (text: string, width: number) => {
+        return doc.splitTextToSize(text, width);
+    };
+
+    const addText = (text: string, x: number, y: number, increase: number) => {
+        if (y + increase > pageHeight - margin) {
+            doc.addPage();
+            y = margin;
+        }
+        doc.text(text, x, y);
+        return y + increase;
+    };
+
+    const formatDateBR = (date: string) => {
+        const [year, month, day] = date.split('-');
+        return `${day}/${month}/${year}`;
+    };
+
+    doc.setFontSize(16);
+    currentPosition = addText('Informações do Perfil', margin, currentPosition, 10);
+
+    doc.setFontSize(12);
+    currentPosition = addText(`Nome: ${user.name}`, margin, currentPosition, 10);
+    currentPosition = addText(`Email: ${user.email}`, margin, currentPosition, 10);
+    currentPosition = addText(`Telefone: ${user.number}`, margin, currentPosition, 10);
+
+    doc.setFontSize(16);
+    currentPosition = addText('Informações da Fazenda', margin, currentPosition, 10);
+
+    doc.setFontSize(12);
+    currentPosition = addText(`Nome da Fazenda: ${farm.farmName}`, margin, currentPosition, 10);
+    currentPosition = addText(`Localização: ${farm.location}`, margin, currentPosition, 10);
+
+    doc.setFontSize(16);
+    currentPosition = addText('Detalhes do Animal', margin, currentPosition, 20);
+
+    doc.setFontSize(12);
+    currentPosition = addText(`Nome do animal: ${animal.name}`, margin, currentPosition, 10);
+    currentPosition = addText(`Espécie do animal: ${animal.species}`, margin, currentPosition, 10);
+    currentPosition = addText(`Data de nascimento: ${formatDateBR(animal.birthDate)}`, margin, currentPosition, 10);
+
+    if (animal.deathDate) {
+        currentPosition = addText(`Data de óbito: ${formatDateBR(animal.deathDate)}`, margin, currentPosition, 10);
+    }
+
+    currentPosition = addText(`Número de identificação: ${animal.number}`, margin, currentPosition, 10);
+    currentPosition = addText(`Estado do animal: ${animal.life ? 'Vivo' : 'Morto'}`, margin, currentPosition, 10);
+
+    currentPosition = addText('Histórico de doenças:', margin, currentPosition, 10);
+    const illnessText = wrapText(animal.historyOfIllnesses, textWidth);
+    for (const line of illnessText) {
+        currentPosition = addText(line, margin, currentPosition, 10);
+    }
+
+    currentPosition = addText('Histórico de tratamentos:', margin, currentPosition, 10);
+    const treatmentText = wrapText(animal.treatmentHistory, textWidth);
+    for (const line of treatmentText) {
+        currentPosition = addText(line, margin, currentPosition, 10);
+    }
+
+    return new Promise((resolve) => {
+        const pdfBlob = doc.output('blob');
+        resolve(pdfBlob);
+    });
+}
+
+async uploadPDF(animal: Animal): Promise<string> {
     const pdfBlob = await this.generatePDF(animal);
     const pdfPath = `animals/${animal.name}_${new Date().getTime()}.pdf`;
     const task = this.storage.upload(pdfPath, pdfBlob);
 
     return new Promise((resolve, reject) => {
-      task.snapshotChanges().subscribe({
-        next: (snapshot) => {
-          if (snapshot && snapshot.state === 'success'){
-            snapshot.ref.getDownloadURL().then(resolve).catch(reject);
-          }
-        },
-        error: reject,
-      });
+        task.snapshotChanges().subscribe({
+            next: (snapshot) => {
+                if (snapshot && snapshot.state === 'success') {
+                    snapshot.ref.getDownloadURL().then(resolve).catch(reject);
+                }
+            },
+            error: reject,
+        });
     });
-  }
+}
 }

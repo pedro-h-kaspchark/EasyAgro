@@ -25,6 +25,7 @@
         </ion-item>
         <!-- Mensagens de erro -->
         <span *ngIf="farmForm.get('farmName')?.touched && farmForm.get('farmName')?.errors?.['required']">O nome da fazenda é obrigatório!</span>
+        <span *ngIf="farmForm.get('farmName')?.dirty && farmForm.get('farmName')?.errors?.['minlength']">O nome da fazenda deve ter no mínimo 5 caracteres</span>
         <!-- Mensagens de erro -->
         <ion-item>
           <ion-label position="stacked">Localização da Fazenda</ion-label>
@@ -32,6 +33,7 @@
         </ion-item>
         <!-- Mensagens de erro -->
         <span *ngIf="farmForm.get('farmLocation')?.touched && farmForm.get('farmLocation')?.errors?.['required']">A Localização da fazenda é obrigatória!</span>
+        <span *ngIf="farmForm.get('farmLocation')?.dirty && farmForm.get('farmLocation')?.errors?.['minlength']">A Localização da fazenda deve ter no mínimo 5 caracteres</span>
         <!-- Mensagens de erro -->
         <ion-button type="submit" expand="block" color="white" class="createFarmButton">Criar Fazenda</ion-button>
       </form>

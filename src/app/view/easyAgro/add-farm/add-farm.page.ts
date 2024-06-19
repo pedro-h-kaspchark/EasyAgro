@@ -26,8 +26,8 @@ export class AddFarmPage implements OnInit {
 
   ngOnInit() {
     this.farmForm = this.formBuilder.group({
-      farmName: ['', Validators.required],
-      farmLocation: ['', Validators.required]
+      farmName: ['', [Validators.required, Validators.minLength(5)]],
+      farmLocation: ['', [Validators.required, Validators.minLength(5)]]
     });
   }
 

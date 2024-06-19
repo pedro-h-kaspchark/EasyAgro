@@ -45,6 +45,7 @@ export class FarmDetailsPage implements OnInit {
       const farm = await this.firebaseService.getFarm(animal);
       const pdfUrl = await this.firebaseService.uploadPDF(animal);
       console.log('PDF URL:', pdfUrl);
+      window.open(pdfUrl, '_blank');
       if (navigator.share) {
         await navigator.share({
           title: `Detalhes do animal: ${animal.name}`,
