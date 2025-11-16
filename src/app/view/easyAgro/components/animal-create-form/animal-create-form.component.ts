@@ -48,8 +48,8 @@ export class AnimalCreateFormComponent implements OnInit {
       animalData.historyOfIllnesses = this.animalForm.value.historyOfIllnesses;
       animalData.treatmentHistory = this.animalForm.value.treatmentHistory;
       animalData.uid = this.authService.getUserLogged().uid;
-      animalData.id = this.farm.farmId;
-      animalData.farmId = this.farm.farmId;
+      animalData.id = this.farm.newFarmId;
+      animalData.farmId = this.farm.newFarmId;
       animalData.life = true;
       this.firebaseService.registerAnimal(animalData).then(() => {
           this.animalRegistered.emit();

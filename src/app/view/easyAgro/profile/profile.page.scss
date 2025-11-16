@@ -82,9 +82,6 @@ form ion-label {
     border-top: 2px solid #dee2e6; 
   }
   
-  ion-icon {
-    color: #007bff; 
-  }
   
   ion-fab {
     bottom: 90px;
@@ -112,4 +109,35 @@ ion-button{
 
 span{
   color: red;
+}
+ion-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+ion-tab-bar {
+  border-top: 1px solid #ddd;
+  background: #fafafa;
+
+  justify-content: space-around !important;
+  padding: 0 35px !important;
+}
+
+ion-tab-button {
+  color: #555;
+  font-weight: 500;
+  min-width: 90px !important;
+}
+
+ion-tab-button.tab-selected {
+  color: #007bff;
+}
+
+ion-tab-button ion-icon {
+  font-size: 22px;
+}
+
+.fab-center {
+  margin-bottom: 22px !important;
 }

@@ -1,0 +1,60 @@
+ion-content {
+  --background: #ffffff;
+  color: black;
+}
+.header {
+  margin-top: 10%;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  font-size: 22px;
+  font-weight: bold;
+  color: black;
+}
+.header .title {
+  flex: 1;
+  text-align: center;
+  margin-right: 28px;
+}
+ion-icon.back {
+  font-size: 26px;
+  color: #007bff;
+}
+.page-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(70vh - 120px);
+  padding: 16px;
+}
+form {
+  width: 100%;
+  max-width: 450px;
+}
+.section-header {
+  margin-bottom: 10px;
+}
+.animal-title {
+  font-size: 18px;
+  color: #444;
+  font-weight: bold;
+}
+.form-item {
+  --background: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+.warning {
+  color: red;
+  font-size: 0.85em;
+  margin-left: 4px;
+  margin-bottom: 8px;
+  display: block;
+}
+.save-btn {
+  --background: #007bff;
+  --color: white;
+  --border-radius: 10px;
+  margin-top: 15px;
+}

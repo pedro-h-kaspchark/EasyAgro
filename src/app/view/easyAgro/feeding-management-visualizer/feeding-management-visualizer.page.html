@@ -1,0 +1,41 @@
+<ion-content class="page-container">
+
+  <div class="header">
+    <ion-icon class="back" name="arrow-back-outline" (click)="backFarmPage()"></ion-icon>
+    <div class="title">Histórico de Alimentos</div>
+  </div>
+
+  <ng-container *ngIf="feedings.length > 0; else noFeedings">
+
+    <ion-list class="feed-list">
+      <ion-item class="feed-card" *ngFor="let feed of feedings">
+        <ion-label>
+
+          <h2 class="feed-title">{{ feed.foodType }}</h2>
+
+          <p><strong>Data:</strong> {{ feed.date | date: 'dd/MM/yyyy' }}</p>
+          <p *ngIf="feed.animalName"><strong>Animal:</strong> {{ feed.animalName }}</p>
+          <p *ngIf="feed.amount"><strong>Quantidade:</strong> {{ feed.amount }}</p>
+          <p *ngIf="feed.providedBy"><strong>Responsável:</strong> {{ feed.providedBy }}</p>
+          <p *ngIf="feed.notes"><strong>Observações:</strong> {{ feed.notes }}</p>
+
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+  </ng-container>
+
+  <ng-template #noFeedings>
+    <div class="no-data">
+      <ion-icon name="restaurant-outline"></ion-icon>
+      <p>Nenhum registro de alimentação encontrado para esta fazenda.</p>
+    </div>
+  </ng-template>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="secondary" (click)="exportFeedingsPDF()">
+      <ion-icon name="document-text-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

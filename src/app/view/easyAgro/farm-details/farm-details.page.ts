@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ActionSheetController } from '@ionic/angular';
 import { Alert } from 'src/app/common/alert';
 import { confirmAlert } from 'src/app/common/confirmAlert';
 import { loading } from 'src/app/common/loading';
@@ -20,19 +21,20 @@ export class FarmDetailsPage implements OnInit {
   selectedAnimal!: Animal;
   public animals: Animal[] = [];
   farmID: string | null = null;
+  isClosingForm = false;
   user!: user;
   farm!: Farm;
   farmName!: string;
   animal!: Animal;
 
-  constructor(private authService: AuthService, private firebaseService: FirebaseService, private loading: loading, private alert: Alert, private confirmAlert: confirmAlert, private router: Router){
+  constructor(private authService: AuthService, private firebaseService: FirebaseService, private loading: loading, private alert: Alert, private confirmAlert: confirmAlert, private router: Router, private actionSheetCtrl: ActionSheetController){
     this.user = this.authService.getUserLogged();
   }
 
   ngOnInit() {
     this.farm = history.state.farm;
     this.farmName = this.farm.farmName;
-    this.firebaseService.getAllAnimalsByFarm(this.farm.farmId).subscribe(res => {
+    this.firebaseService.getAllAnimalsByFarm(this.farm.newFarmId).subscribe(res => {
       this.animals = res.map(animal => {
         return { id: animal.payload.doc.id, ...animal.payload.doc.data() as any } as Animal;
       });
@@ -86,7 +88,7 @@ export class FarmDetailsPage implements OnInit {
         const day = String(currentDate.getDate()).padStart(2, '0');
         animal.deathDate = `${year}-${month}-${day}`;
         this.firebaseService.setDeathDate(animal, animal.id).then(() => {
-          this.firebaseService.getAllAnimalsByFarm(this.farm.farmId).subscribe(res => {
+          this.firebaseService.getAllAnimalsByFarm(this.farm.newFarmId).subscribe(res => {
             this.animals = res.map(animal => {
               return { id: animal.payload.doc.id, ...animal.payload.doc.data() as any } as Animal;
             });
@@ -112,19 +114,25 @@ export class FarmDetailsPage implements OnInit {
     });
   }
 
+  closeCreateForm() {
+    this.isClosingForm = true;
+    setTimeout(() => {
+      this.showCreateForm = false;
+      this.isClosingForm = false;
+    }, 500);
+  }
+
+  closeEditForm() {
+    this.isClosingForm = true;
+    setTimeout(() => {
+      this.showEditForm = false;
+      this.isClosingForm = false;
+    }, 500);
+  }
+
   openCreateForm() {
     this.showCreateForm = true;
     this.showEditForm = false;
-  }
-
-  closeCreateForm() {
-    const form = document.querySelector('.create-form');
-    if (form) {
-      form.classList.add('hidden');
-      form.addEventListener('animationend', () => {
-        this.showCreateForm = false;
-      }, { once: true });
-    }
   }
 
   openEditForm(animal: Animal) {
@@ -133,19 +141,9 @@ export class FarmDetailsPage implements OnInit {
     this.showCreateForm = false;
   }
 
-  closeEditForm() {
-    const form = document.querySelector('.edit-form');
-    if (form) {
-      form.classList.add('hidden');
-      form.addEventListener('animationend', () => {
-        this.showEditForm = false;
-      }, { once: true });
-    }
-  }
-
   openDeathAnimals(farm: Farm){
     this.loading.showLoading(50);
-    this.farmID = farm.farmId;
+    this.farmID = farm.newFarmId;
     this.router.navigateByUrl('/death-animals', { state: { farm } });
   }
 
@@ -155,7 +153,7 @@ export class FarmDetailsPage implements OnInit {
 
   onAnimalRegistered() {
     this.closeCreateForm();
-    this.firebaseService.getAllAnimalsByFarm(this.farm.farmId).subscribe(res => {
+    this.firebaseService.getAllAnimalsByFarm(this.farm.newFarmId).subscribe(res => {
       this.animals = res.map(animal => {
         return { id: animal.payload.doc.id, ...animal.payload.doc.data() as any } as Animal;
       });
@@ -164,10 +162,64 @@ export class FarmDetailsPage implements OnInit {
 
   onAnimalUpdated() {
     this.closeEditForm();
-    this.firebaseService.getAllAnimalsByFarm(this.farm.farmId).subscribe(res => {
+    this.firebaseService.getAllAnimalsByFarm(this.farm.newFarmId).subscribe(res => {
       this.animals = res.map(animal => {
         return { id: animal.payload.doc.id, ...animal.payload.doc.data() as any } as Animal;
       });
     });
   }
+
+  goToVaccineManagement(animal: any) {
+    this.router.navigateByUrl('/vaccine-management', { state: { animal } });
+  }
+
+  goToFeedingManagement(animal: any) {
+    this.router.navigateByUrl('/feeding-management', { state: { animal } });
+  }
+
+  async openAnimalActions(animal: any) {
+  const actionSheet = await this.actionSheetCtrl.create({
+    buttons: [
+      {
+        text: 'Compartilhar',
+        icon: 'share-outline',
+        handler: () => this.shareAnimalDetails(animal)
+      },
+      {
+        text: 'Editar',
+        icon: 'create-outline',
+        handler: () => this.openEditForm(animal)
+      },
+      {
+        text: 'Marcar como morto',
+        icon: 'skull-outline',
+        handler: () => this.setLifeFalse(animal),
+      },
+      {
+        text: 'Gerenciar Vacina',
+        icon: 'medkit-outline',
+        handler: () => this.goToVaccineManagement(animal)
+      },
+      {
+        text: 'Gerenciar Alimentação',
+        icon: 'restaurant-outline',
+        handler: () => this.goToFeedingManagement(animal)
+      },
+      {
+        text: 'Excluir',
+        role: 'destructive',
+        icon: 'trash-outline',
+        handler: () => this.deleteAnimal(animal)
+      },
+      {
+        text: 'Cancelar',
+        icon: 'close',
+        role: 'cancel',
+      }
+    ]
+  });
+
+  await actionSheet.present();
+}
+
 }

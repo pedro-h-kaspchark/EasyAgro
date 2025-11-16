@@ -1,23 +1,106 @@
 ion-content {
   --background: #ffffff;
-  color: black;
-  position: relative;
-}
-
-ion-button {
-  --background: #007bff;
-  --color: white; 
-  --border-radius: 8px;
-  --padding-start: 12px;
-  --padding-end: 12px;
+  color: #222;
+  font-family: 'Inter', sans-serif;
 }
 
 .header {
-  margin-top: 10%;
+  margin-top: 8%;
   display: flex;
+  align-items: center;
   justify-content: center;
-  color: black;
+  position: relative;
+  font-weight: 600;
+  font-size: 22px;
+  padding: 10px 0;
+}
+
+.header .farm-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #000;
+}
+
+.header ion-icon.back {
+  position: absolute;
+  left: 20px;
+  font-size: 26px;
+  color: #007bff;
+}
+
+.list-container {
+  padding: 10px 15px;
+}
+
+ion-item {
+  background: #ffffff;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  --padding-start: 14px;
+  --padding-end: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+ion-item ion-label {
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+}
+
+ion-button[fill="clear"] ion-icon {
   font-size: 24px;
+  color: #007bff;
+}
+
+ion-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+ion-tab-bar {
+  border-top: 1px solid #ddd;
+  background: #fafafa;
+
+  justify-content: space-around !important;
+  padding: 0 35px !important;
+}
+
+ion-tab-button {
+  color: #555;
+  font-weight: 500;
+  min-width: 90px !important;
+}
+
+ion-tab-button.tab-selected {
+  color: #007bff;
+}
+
+ion-tab-button ion-icon {
+  font-size: 22px;
+}
+
+.fab-center {
+  margin-bottom: 22px !important;
+}
+
+ion-fab-button {
+  width: 60px;
+  height: 60px;
+  --border-radius: 50%;
+  font-size: 24px;
+}
+
+.fab-disabled {
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 15px 0 10px 15px;
+  color: #444;
 }
 
 .overlay {
@@ -26,159 +109,21 @@ ion-button {
   left: 0;
   width: 100%;
   height: 100%;
-  backdrop-filter: blur(5px);
-  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.45);
   z-index: 1000;
-  transition: opacity 0.3s;
 }
 
 .floating-form {
   z-index: 1001;
   position: fixed;
-  top: 15%;
-  left: 50%;
-  transform: translate(-50%, 0);
-  background-color: #f8f9fa;
-  padding: 20px;
-  border: 1px solid #dee2e6;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  width: 80vw; 
-  max-width: 600px; 
-  height: 80vh;
-  max-height: 65vh;
-  overflow-y: auto;
-  animation: fadeIn 0.5s forwards;
-}
-
-.floating-form.hidden {
-  animation: fadeOut 0.5s forwards;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translate(-50%, 5%);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-}
-
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-  to {
-    opacity: 0;
-    transform: translate(-50%, 5%);
-  }
-}
-
-.bottom-section {
-  position: fixed;
-  bottom: 60px;
+  top: 40%;
   left: 50%;
   transform: translateX(-50%);
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-ion-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-}
-
-ion-list {
-  background-color: #f8f9fa;
-  margin-top: 4%;
-}
-
-.list-container ion-item {
-  --background: transparent;
-  --border-color: gray;
-  border-radius: 5px;
-}
-
-ion-icon {
-  margin-right: 5px;
-}
-
-ion-item {
-  background-color: #f8f9fa;
-  color: black;
-}
-
-ion-item-option {
-  color: red;
   background: #ffffff;
-}
-
-.death-animals {
-  display: flex;
-  background-color: #ffffff;
-  color: black;
-  border-bottom: 2px solid #007bff;
-  align-items: center;
-  justify-content: center;
-  max-width: 50%;
-  margin: 0 auto; 
-}
-
-.floating-form ion-label,
-.floating-form ion-input,
-.floating-form ion-button {
-  display: block;
-  width: 100%;
-  margin-bottom: 10px;
-  color: white;
-}
-
-.floating-form ion-input {
-  padding: 10px;
-  border-radius: 5px;
-  background-color: black;
-  border: 1px solid gray;
-}
-
-.floating-form ion-button {
-  padding: 10px;
-  background-color: black;
-  border: 1px solid gray;
-  border-radius: 5px;
-}
-
-.floating-form ion-button:hover {
-  background-color: darkgray;
-}
-
-.warning-message {
-  color: red;
-  font-size: 0.9em;
-}
-
-.create-title {
-  display: flex;
-  justify-content: center;
-  color: #007bff;
-  font-size: 20px;
-  margin-bottom: 10px;
-}
-
-ion-icon.back, .item-icon, .death {
-  color: #007bff; 
-}
-
-ion-icon .heart{
-  color: gray; 
-}
-
-ion-tab-button{
-  color: gray;
+  padding: 22px;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+  width: 85vw;
+  max-width: 550px;
 }

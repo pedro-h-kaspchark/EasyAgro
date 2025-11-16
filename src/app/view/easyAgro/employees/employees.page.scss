@@ -1,0 +1,35 @@
+.header {
+  margin-top: 8%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.header .back {
+  position: absolute;
+  left: 20px;
+  font-size: 26px;
+  color: #007bff;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.empty {
+  margin-top: 40%;
+  text-align: center;
+  color: #777;
+}
+
+.empty ion-icon {
+  font-size: 60px;
+  color: #007bff;
+}
+
+ion-avatar img {
+  border-radius: 50%;
+  object-fit: cover;
+}
+

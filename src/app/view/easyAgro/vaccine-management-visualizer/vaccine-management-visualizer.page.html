@@ -1,0 +1,43 @@
+<ion-content class="page-container">
+
+  <div class="header">
+    <ion-icon class="back" name="arrow-back-outline" (click)="backFarmPage()"></ion-icon>
+    <div class="title">Histórico de Vacinas</div>
+  </div>
+
+  <ng-container *ngIf="vaccines.length > 0; else noVaccines">
+
+    <ion-list class="vaccine-list">
+
+      <ion-item class="vaccine-card" *ngFor="let vaccine of vaccines">
+        <ion-label>
+
+          <h2 class="vaccine-title">{{ vaccine.name }}</h2>
+
+          <p><strong>Data:</strong> {{ vaccine.date | date: 'dd/MM/yyyy' }}</p>
+          <p *ngIf="vaccine.animalName"><strong>Animal:</strong> {{ vaccine.animalName }}</p>
+          <p *ngIf="vaccine.animalNumber"><strong>Número do Animal:</strong> {{ vaccine.animalNumber }}</p>
+          <p *ngIf="vaccine.administeredBy"><strong>Responsável:</strong> {{ vaccine.administeredBy }}</p>
+          <p *ngIf="vaccine.notes"><strong>Observações:</strong> {{ vaccine.notes }}</p>
+
+        </ion-label>
+      </ion-item>
+
+    </ion-list>
+
+  </ng-container>
+
+  <ng-template #noVaccines>
+    <div class="no-data">
+      <ion-icon name="medkit-outline"></ion-icon>
+      <p>Nenhuma vacina registrada para esta fazenda.</p>
+    </div>
+  </ng-template>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="secondary" (click)="exportVaccinesPDF()">
+      <ion-icon name="document-text-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

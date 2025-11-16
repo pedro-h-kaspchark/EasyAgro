@@ -1,0 +1,29 @@
+.header {
+  margin-top: 8%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  font-weight: 600;
+  font-size: 22px;
+}
+
+.header ion-icon.back {
+  position: absolute;
+  left: 20px;
+  font-size: 26px;
+  color: #007bff;
+}
+
+.title {
+  color: #000;
+}
+
+form {
+  margin-top: 10vh; 
+}
+
+.error {
+  color: red;
+  margin: 10px 5px;
+}

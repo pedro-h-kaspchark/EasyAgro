@@ -37,12 +37,22 @@
     </div>
   </div>
 
-  <div class="buttons-container">
-    <ion-button color="white" (click)="goToFarmPage()">
-      <ion-icon slot="icon-only" name="leaf-outline"></ion-icon>
-    </ion-button>
-    <ion-button color="white">
-      <ion-icon slot="icon-only" name="person-circle-outline"></ion-icon>
-    </ion-button>
-  </div>
+<ion-footer>
+  <ion-tab-bar slot="bottom">
+
+    <ion-tab-button tab="farms" (click)="goToFarmPage()">
+      <ion-icon name="leaf-outline" class="tab-icon"></ion-icon>
+      Fazendas
+    </ion-tab-button>
+
+    <ion-tab-button disabled tab="add" class="fab-center">
+    </ion-tab-button>
+
+    <ion-tab-button tab="profile" class="tab-selected">
+      <ion-icon name="person-circle-outline" class="tab-icon"></ion-icon>
+      Perfil
+    </ion-tab-button>
+
+  </ion-tab-bar>
+</ion-footer>
 </ion-content>

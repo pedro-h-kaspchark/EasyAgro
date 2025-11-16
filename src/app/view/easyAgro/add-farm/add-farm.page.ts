@@ -42,9 +42,10 @@ export class AddFarmPage implements OnInit {
         newFarm.farmName = this.farmForm.value.farmName,
         newFarm.location = this.farmForm.value.farmLocation;
         newFarm.uid = this.user.uid,
-        newFarm.farmId = this.firebaseService.generateId();
+        newFarm.newFarmId = this.firebaseService.generateId();
 
-      this.firebaseService.registerFarm(newFarm).then(() => {
+      const ownerEmail = this.auth.getUserLogged().email;
+      this.firebaseService.registerFarm(newFarm, ownerEmail).then(() => {
         this.farmForm.reset();
         this.router.navigate(['/farm']);
       }).catch(error => {

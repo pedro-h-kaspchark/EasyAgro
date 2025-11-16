@@ -1,39 +1,72 @@
 <ion-content>
   <div class="header">
     <ion-icon class="back" name="arrow-back-outline" (click)="backFarmPage()"></ion-icon>
-    <div *ngIf="farmName">{{ farmName }}</div>
+    <div class="farm-name" *ngIf="farmName">{{ farmName }}</div>
   </div>
-  <div class="overlay" *ngIf="showCreateForm || showEditForm"></div>
 
-  <app-animal-create-form [farm]="farm" *ngIf="showCreateForm" class="floating-form create-form" (animalRegistered)="onAnimalRegistered()" (closeForm)="closeCreateForm()"></app-animal-create-form>
-  <app-animal-edit-form [farm]="farm" *ngIf="showEditForm" [animal]="selectedAnimal" class="floating-form edit-form" (animalUpdated)="onAnimalUpdated()" (closeEditForm)="closeEditForm()"></app-animal-edit-form>
+  <!-- MESMO PADRÃO DA TELA DE MORTOS -->
+  <div class="overlay" *ngIf="(showCreateForm || showEditForm) && !isClosingForm"></div>
 
-  <div color="white" class="death-animals">Animais Vivos</div>
+  <!-- CREATE FORM -->
+  <app-animal-create-form 
+    *ngIf="showCreateForm"
+    [farm]="farm"
+    class="floating-form create-form"
+    [ngClass]="{ 'hidden': isClosingForm }"
+    (animalRegistered)="onAnimalRegistered()"
+    (closeForm)="closeCreateForm()">
+  </app-animal-create-form>
 
-  <ion-list class="list-container">
-    <ion-item *ngFor="let animal of animals">
-      <ion-label>{{ animal.number }} - {{ animal.name }}</ion-label>
-      <ion-icon class="item-icon" name="share-outline" (click)="shareAnimalDetails(animal)"></ion-icon>
-      <ion-icon class="item-icon" name="create-outline" (click)="openEditForm(animal)"></ion-icon>
-      <ion-icon color="danger" name="skull-outline" (click)="setLifeFalse(animal)"></ion-icon>
-      <ion-icon color="danger" name="trash-outline" (click)="deleteAnimal(animal)"></ion-icon>
+  <!-- EDIT FORM -->
+  <app-animal-edit-form 
+    *ngIf="showEditForm"
+    [farm]="farm"
+    [animal]="selectedAnimal"
+    class="floating-form edit-form"
+    [ngClass]="{ 'hidden': isClosingForm }"
+    (animalUpdated)="onAnimalUpdated()"
+    (closeEditForm)="closeEditForm()">
+  </app-animal-edit-form>
+
+  <div class="section-title">Animais Vivos</div>
+
+  <ion-list class="card-list">
+    <ion-item class="animal-card" *ngFor="let animal of animals">
+      <ion-label class="animal-info">
+        <h2>{{ animal.number }}</h2>
+        <p>{{ animal.name }}</p>
+      </ion-label>
+
+      <ion-button fill="clear" class="menu-button" (click)="openAnimalActions(animal)">
+        <ion-icon name="menu-outline"></ion-icon>
+      </ion-button>
     </ion-item>
   </ion-list>
 
-  <div class="bottom-section">
-    <ion-button color="primary" (click)="openCreateForm()" fill="outline" shape="round">Registrar animal</ion-button>
-  </div>
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button (click)="openCreateForm()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
   <ion-footer>
     <ion-tab-bar slot="bottom">
-      <ion-tab-button tab="alive" class="heart">
-        <ion-icon class="heart" name="heart-outline"></ion-icon>
+
+      <ion-tab-button tab="alive" class="tab-selected">
+        <ion-icon name="heart-outline" class="tab-icon"></ion-icon>
         Vivos
       </ion-tab-button>
+
+      <ion-tab-button tab="add" class="fab-center">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-tab-button>
+
       <ion-tab-button tab="death" (click)="openDeathAnimals(farm)">
-        <ion-icon class="death" name="skull-outline"></ion-icon>
+        <ion-icon name="skull-outline" class="tab-icon"></ion-icon>
         Mortos
       </ion-tab-button>
+
     </ion-tab-bar>
   </ion-footer>
+
 </ion-content>

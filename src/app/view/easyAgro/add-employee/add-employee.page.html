@@ -1,0 +1,25 @@
+<ion-content class="ion-padding">
+
+  <div class="header">
+    <ion-icon class="back" name="arrow-back-outline" (click)="goBack()"></ion-icon>
+    <div class="title">Adicionar Funcionário</div>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+
+    <ion-item>
+      <ion-label position="floating">Email do funcionário</ion-label>
+      <ion-input type="email" formControlName="email"></ion-input>
+    </ion-item>
+
+    <span class="error" *ngIf="form.get('email')?.touched && form.get('email')?.errors?.['required']">E-mail é obrigatório!</span>
+    <span class="error" *ngIf="form.get('email')?.dirty && form.get('email')?.errors?.['email']">Formato de E-mail inválido</span>
+
+    <ion-button expand="block" color="primary" shape="round" type="submit">
+      <ion-icon name="person-add-outline" slot="start"></ion-icon>
+      Adicionar Funcionário
+    </ion-button>
+
+  </form>
+
+</ion-content>

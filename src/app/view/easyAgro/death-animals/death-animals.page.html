@@ -1,30 +1,50 @@
 <ion-content>
   <div class="header">
-    <ion-icon class="back" name="arrow-back-outline" (click)="openAliveAnimails(farm)"></ion-icon>
-    <div *ngIf="farmName">{{ farmName }}</div>
+    <ion-icon class="back" name="arrow-back-outline" (click)="backFarmPage()"></ion-icon>
+    <div *ngIf="farmName" class="farm-title">{{ farmName }}</div>
   </div>
+
   <div class="overlay" *ngIf="showEditForm && !isClosingForm"></div>
+
   <app-animal-view-form [farm]="farm" *ngIf="showEditForm" [animal]="selectedAnimal" class="floating-form" [ngClass]="{ 'hidden': isClosingForm }" (closeEditForm)="closeEditForm()"></app-animal-view-form>
-  <div color="white" class="death-animals">Animais Mortos</div>
+  <div class="section-title">Animais Mortos</div>
 
   <ion-list class="list-container">
-      <ion-item *ngFor="let animal of animals">
-        <ion-label>{{ animal.number }} - {{ animal.name }}</ion-label>
-        <ion-icon class="item-icon" name="share-outline" (click)="shareAnimalDetails(animal)"></ion-icon>
-        <ion-icon class="item-icon" name="eye-outline" (click)="openEditForm(animal)"></ion-icon>
-        <ion-icon color="danger" name="trash-outline" (click)="deleteAnimal(animal)"></ion-icon>
-      </ion-item>
+    <ion-item *ngFor="let animal of animals" class="animal-item">
+      <ion-label class="animal-info">
+        <h2>{{ animal.number }}</h2>
+        <p>{{ animal.name }}</p>
+      </ion-label>
+      <ion-button fill="clear" (click)="openAnimalActions(animal)">
+        <ion-icon name="menu-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
   </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button disabled class="fab-disabled">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
   <ion-footer>
     <ion-tab-bar slot="bottom">
+
       <ion-tab-button tab="alive" (click)="openAliveAnimails(farm)">
-        <ion-icon name="heart-outline" class="heart"></ion-icon>
+        <ion-icon name="heart-outline" class="tab-icon"></ion-icon>
         Vivos
       </ion-tab-button>
-      <ion-tab-button tab="death" class="death">
-        <ion-icon name="skull-outline" class="death"></ion-icon>
+
+      <ion-tab-button tab="add" class="fab-center">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-tab-button>
+
+      <ion-tab-button tab="death" class="tab-selected">
+        <ion-icon name="skull-outline" class="tab-icon"></ion-icon>
         Mortos
       </ion-tab-button>
+
     </ion-tab-bar>
   </ion-footer>
+
 </ion-content>

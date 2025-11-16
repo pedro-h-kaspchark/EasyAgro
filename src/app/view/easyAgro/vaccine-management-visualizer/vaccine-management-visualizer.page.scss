@@ -1,0 +1,64 @@
+.header {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 12px 0;
+}
+
+.header .title {
+  font-weight: 600;
+  font-size: 20px;
+  color: #000;
+}
+
+.header ion-icon.back {
+  position: absolute;
+  left: 20px;
+  font-size: 28px;
+  color: #000;
+}
+
+.page-container {
+  --background: #f7f7f7;
+}
+
+.vaccine-list {
+  padding: 12px;
+}
+
+.vaccine-card {
+  border-radius: 12px;
+  margin-bottom: 14px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.vaccine-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.vaccine-card p {
+  font-size: 14px;
+  margin: 3px 0;
+  color: #555;
+}
+.no-data {
+  text-align: center;
+  margin-top: 40%;
+  color: #6c757d;
+
+  ion-icon {
+    font-size: 58px;
+    color: #007bff;
+  }
+
+  p {
+    margin-top: 10px;
+    font-size: 16px;
+  }
+}

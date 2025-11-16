@@ -1,0 +1,38 @@
+<ion-content>
+  <div class="header">
+    <ion-icon class="back" name="arrow-back-outline" (click)="back()"></ion-icon>
+    <div class="title">Funcionários</div>
+  </div>
+
+  <ion-list *ngIf="employees.length > 0; else empty">
+    <ion-item *ngFor="let emp of employees">
+
+      <ion-avatar slot="start">
+        <img [src]="emp.photoURL" />
+      </ion-avatar>
+
+      <ion-label>
+        <h2>{{ emp.name }}</h2>
+        <p>{{ emp.email }}</p>
+      </ion-label>
+
+      <ion-button fill="clear" color="danger" *ngIf="isOwner" (click)="removeEmployee(emp.email)">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
+
+    </ion-item>
+  </ion-list>
+
+  <ng-template #empty>
+    <div class="empty">
+      <ion-icon name="people-outline"></ion-icon>
+      <p>Nenhum funcionário cadastrado.</p>
+    </div>
+  </ng-template>
+
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed" *ngIf="isOwner">
+    <ion-fab-button (click)="openAddEmployee()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

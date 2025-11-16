@@ -1,0 +1,38 @@
+<ion-content>
+  <!-- HEADER -->
+  <div class="header">
+    <ion-icon class="back" name="arrow-back-outline" (click)="backPage()"></ion-icon>
+    <div class="title">Alimentos</div>
+  </div>
+  <div class="page-content">
+    <div *ngIf="animal" class="section-header">
+      <h2 class="animal-title">{{ animal.number }} {{ animal.name }}</h2>
+    </div>
+
+    <form [formGroup]="feedingForm" (ngSubmit)="saveFeeding()">
+      <ion-item class="form-item">
+        <ion-label position="stacked">Data</ion-label>
+        <ion-input type="date" formControlName="date"></ion-input>
+      </ion-item>
+      <span class="warning" *ngIf="feedingForm.get('date')?.touched && feedingForm.get('date')?.errors?.['required']">A data é obrigatória!</span>
+      <ion-item class="form-item">
+        <ion-label position="stacked">Tipo de ração / alimento</ion-label>
+        <ion-input formControlName="feedType"></ion-input>
+      </ion-item>
+      <span class="warning" *ngIf="feedingForm.get('feedType')?.touched && feedingForm.get('feedType')?.errors?.['required']">O tipo de alimento é obrigatório!</span>
+      <ion-item class="form-item">
+        <ion-label position="stacked">Quantidade</ion-label>
+        <ion-input type="number" formControlName="amount"></ion-input>
+      </ion-item>
+      <span class="warning" *ngIf="feedingForm.get('amount')?.touched && feedingForm.get('amount')?.errors?.['required']">A quantidade é obrigatória!</span>
+      <ion-item class="form-item">
+        <ion-label position="stacked">Notas</ion-label>
+        <ion-textarea formControlName="notes"></ion-textarea>
+      </ion-item>
+
+      <ion-button class="save-btn" expand="block" type="submit">Salvar Registro</ion-button>
+
+    </form>
+
+  </div>
+</ion-content>

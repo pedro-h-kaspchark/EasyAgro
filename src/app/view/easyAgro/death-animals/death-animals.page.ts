@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ActionSheetController } from '@ionic/angular';
 import { Alert } from 'src/app/common/alert';
 import { confirmAlert } from 'src/app/common/confirmAlert';
 import { loading } from 'src/app/common/loading';
@@ -26,14 +27,14 @@ export class DeathAnimalsPage implements OnInit {
   farmName!: string;
   animal!: Animal;
 
-  constructor(private authService: AuthService, private firebaseService: FirebaseService, private loading: loading, private alert: Alert, private confirmAlert: confirmAlert, private router: Router) {
+  constructor(private authService: AuthService, private firebaseService: FirebaseService, private loading: loading, private alert: Alert, private confirmAlert: confirmAlert, private router: Router, private actionSheetCtrl: ActionSheetController) {
     this.user = this.authService.getUserLogged();
   }
 
   ngOnInit() {
     this.farm = history.state.farm;
     this.farmName = this.farm.farmName;
-    this.firebaseService.getAllAnimalsDeathByFarm(this.farm.farmId).subscribe(res => {
+    this.firebaseService.getAllAnimalsDeathByFarm(this.farm.newFarmId).subscribe(res => {
       this.animals = res.map(animal => {
         return { id: animal.payload.doc.id, ...animal.payload.doc.data() as any } as Animal;
       });
@@ -114,7 +115,41 @@ export class DeathAnimalsPage implements OnInit {
 
   openAliveAnimails(farm: Farm) {
     this.loading.showLoading(50);
-    this.farmID = farm.farmId;
+    this.farmID = farm.newFarmId;
     this.router.navigateByUrl('/farm-details', { state: { farm } });
   }
+
+    backFarmPage(){
+    this.router.navigate(['/farm']);
+  }
+
+  async openAnimalActions(animal: any) {
+  const actionSheet = await this.actionSheetCtrl.create({
+    buttons: [
+      {
+        text: 'Compartilhar',
+        icon: 'share-outline',
+        handler: () => this.shareAnimalDetails(animal)
+      },
+      {
+        text: 'Visualizar Detalhes',
+        icon: 'eye-outline',
+        handler: () => this.openEditForm(animal)
+      },
+      {
+        text: 'Excluir',
+        role: 'destructive',
+        icon: 'trash-outline',
+        handler: () => this.deleteAnimal(animal)
+      },
+      {
+        text: 'Cancelar',
+        role: 'cancel',
+        icon: 'close'
+      }
+    ]
+  });
+
+  await actionSheet.present();
+}
 }
