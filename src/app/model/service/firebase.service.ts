@@ -185,7 +185,7 @@ export class FirebaseService {
   }
 
   async getFarm(animal: Animal): Promise<Farm> {
-    const farmDoc = await this.firestore.collection(this.PATHFarm, ref => ref.where('farmId', '==', animal.farmId)).get().toPromise();
+    const farmDoc = await this.firestore.collection(this.PATHFarm, ref => ref.where('newFarmId', '==', animal.farmId)).get().toPromise();
     if (!farmDoc || farmDoc.empty || farmDoc.docs.length === 0) {
       console.error('Fazenda não encontrada');
       throw new Error('Fazenda não encontrada');
