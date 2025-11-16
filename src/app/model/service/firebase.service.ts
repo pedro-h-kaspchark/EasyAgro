@@ -39,7 +39,7 @@ export class FirebaseService {
   }
 
   registerFarm(farm: Farm, ownerEmail: string) {
-    return this.firestore.collection(this.PATHFarm).add({farmName: farm.farmName, location: farm.location, uid: farm.uid, ownerUid: farm.uid, farmId: farm.newFarmId, allowedUsers: [ownerEmail]});
+    return this.firestore.collection(this.PATHFarm).add({farmName: farm.farmName, location: farm.location, uid: farm.uid, ownerUid: farm.uid, newFarmId: farm.newFarmId, allowedUsers: [ownerEmail]});
   }
 
   registerAnimal(animal: Animal){

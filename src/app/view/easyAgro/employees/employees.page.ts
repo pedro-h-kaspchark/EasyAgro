@@ -15,15 +15,10 @@ export class EmployeesPage implements OnInit {
   ownerUid!: string;
   currentUid!: string;
   isOwner: boolean = false;
+  employees: any[] = [];
 
-  employees: any[] = []; // agora é lista de objetos (nome, email, foto)
-
-  constructor(
-    private router: Router,
-    private firebaseService: FirebaseService,
-    private alertCtrl: AlertController,
-    private auth: AuthService
-  ) {
+  constructor(private router: Router, private firebaseService: FirebaseService, private alertCtrl: AlertController, private auth: AuthService){
+    
     const nav = this.router.getCurrentNavigation();
     const state: any = nav?.extras?.state;
 
@@ -31,11 +26,16 @@ export class EmployeesPage implements OnInit {
     this.farmId = this.farm?.id;
     this.ownerUid = this.farm?.ownerUid;
     this.currentUid = this.auth.getUserLogged()?.uid;
-
     this.isOwner = this.currentUid === this.ownerUid;
   }
 
-  async ngOnInit() {
+  ngOnInit() {}
+
+  async ionViewWillEnter() {
+    await this.loadEmails();
+  }
+
+  async loadEmails() {
     const emails = this.farm.allowedUsers ?? [];
 
     this.employees = [];
@@ -64,7 +64,6 @@ export class EmployeesPage implements OnInit {
       message: `Deseja remover <b>${email}</b>?`,
       buttons: [
         { text: 'Cancelar', role: 'cancel' },
-
         {
           text: 'Remover',
           role: 'destructive',

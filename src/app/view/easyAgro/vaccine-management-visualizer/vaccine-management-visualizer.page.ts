@@ -26,8 +26,6 @@ export class VaccineManagementVisualizerPage implements OnInit {
     if (state && state.farm && state.farm.newFarmId) {
       this.farmId = state.farm.newFarmId;
       this.loadVaccines();
-    } else {
-      this.alert.presentAlert('Erro', 'Não foi possível identificar a fazenda.');
     }
   }
 

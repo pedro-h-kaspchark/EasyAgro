@@ -20,7 +20,6 @@ export class AddEmployeePage implements OnInit {
 
   ngOnInit() {
     this.farm = history.state.farm;
-
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
     });

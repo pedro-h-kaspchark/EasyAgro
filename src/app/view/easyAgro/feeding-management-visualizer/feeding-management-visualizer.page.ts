@@ -26,8 +26,6 @@ export class FeedingManagementVisualizerPage implements OnInit {
     if (state && state.farm && state.farm.newFarmId) {
       this.farmId = state.farm.newFarmId;
       this.loadFeeding();
-    } else {
-      this.alert.presentAlert('Erro', 'Não foi possível identificar a fazenda.');
     }
   }
   async loadFeeding() {
