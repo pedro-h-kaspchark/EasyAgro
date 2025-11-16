@@ -23,8 +23,8 @@ export class FeedingManagementVisualizerPage implements OnInit {
     const nav = this.router.getCurrentNavigation();
     const state = nav?.extras?.state as any;
 
-    if (state && state.farm && state.farm.farmId) {
-      this.farmId = state.farm.farmId;
+    if (state && state.farm && state.farm.newFarmId) {
+      this.farmId = state.farm.newFarmId;
       this.loadFeeding();
     } else {
       this.alert.presentAlert('Erro', 'Não foi possível identificar a fazenda.');

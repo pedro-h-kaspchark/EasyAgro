@@ -1,5 +1,7 @@
 {
   "projects": {
     "default": "agro-26b61"
-  }
+  },
+  "targets": {},
+  "etags": {}
 }
