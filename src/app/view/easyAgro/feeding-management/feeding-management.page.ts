@@ -4,6 +4,8 @@ import { Feeding } from 'src/app/model/entities/Feeding';
 import { FirebaseService } from 'src/app/model/service/firebase.service';
 import { loading } from 'src/app/common/loading';
 import { Alert } from 'src/app/common/alert';
+import { Router } from '@angular/router';
+import { Farm } from 'src/app/model/entities/farm';
 
 @Component({
   selector: 'app-feeding-management',
@@ -13,9 +15,10 @@ import { Alert } from 'src/app/common/alert';
 export class FeedingManagementPage implements OnInit {
   feedingForm!: FormGroup;
   feeds: Feeding[] = [];
+  farmID: string | null = null;
   animal: any;
 
-  constructor(private fb: FormBuilder, private firebaseService: FirebaseService, private load: loading, private alert: Alert) {}
+  constructor(private fb: FormBuilder, private firebaseService: FirebaseService, private loading: loading, private alert: Alert, private router: Router) {}
 
   ngOnInit() {
     this.animal = history.state.animal;
@@ -48,6 +51,7 @@ export class FeedingManagementPage implements OnInit {
     try {
       await this.firebaseService.registerFeeding(feeding);
       this.feedingForm.reset();
+      this.goBackToFarmDetails();
       this.alert.presentAlert('Sucesso', 'Registro de alimentação salvo!');
     } catch (err) {
       console.error(err);
@@ -56,8 +60,18 @@ export class FeedingManagementPage implements OnInit {
     }
   }
 
-    backPage() {
+  backPage() {
     window.history.back();
+  }
+
+  goBackToFarmDetails() {
+    const farm = history.state.farm;
+    if (!farm) {
+      console.error("Fazenda não encontrada no state!");
+      return;
+    }
+
+    this.router.navigate(['/farm-details'], { state: { farm } });
   }
 
 }

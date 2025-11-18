@@ -170,11 +170,11 @@ export class FarmDetailsPage implements OnInit {
   }
 
   goToVaccineManagement(animal: any) {
-    this.router.navigateByUrl('/vaccine-management', { state: { animal } });
+    this.router.navigateByUrl('/vaccine-management', { state: { animal, farm: this.farm} });
   }
 
   goToFeedingManagement(animal: any) {
-    this.router.navigateByUrl('/feeding-management', { state: { animal } });
+    this.router.navigateByUrl('/feeding-management', { state: { animal, farm: this.farm } });
   }
 
   async openAnimalActions(animal: any) {

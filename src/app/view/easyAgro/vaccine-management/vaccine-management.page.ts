@@ -54,6 +54,7 @@ export class VaccineManagementPage implements OnInit {
     try {
       await this.firebaseService.registerVaccine(vaccine);
       this.vaccineForm.reset();
+      this.goBackToFarmDetails();
       this.alert.presentAlert('Sucesso', 'Vacina registrada!');
     } catch (err) {
       console.error(err);
@@ -64,6 +65,16 @@ export class VaccineManagementPage implements OnInit {
   
   backPage() {
     window.history.back();
+  }
+
+  goBackToFarmDetails() {
+    const farm = history.state.farm;
+    if (!farm) {
+      console.error("Fazenda não encontrada no state!");
+      return;
+    }
+
+    this.router.navigate(['/farm-details'], { state: { farm } });
   }
 
 }
