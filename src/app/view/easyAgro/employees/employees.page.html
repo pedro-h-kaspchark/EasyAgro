@@ -16,7 +16,11 @@
         <p>{{ emp.email }}</p>
       </ion-label>
 
-      <ion-button fill="clear" color="danger" *ngIf="isOwner" (click)="removeEmployee(emp.email)">
+      <ion-chip *ngIf="emp.email === ownerEmail">
+        <ion-label>admin</ion-label>
+      </ion-chip>
+
+      <ion-button fill="clear" color="danger" *ngIf="isOwner && emp.email !== currentUserEmail" (click)="removeEmployee(emp.email)">
         <ion-icon name="trash-outline"></ion-icon>
       </ion-button>
 

@@ -29,17 +29,25 @@ export class AddEmployeePage implements OnInit {
     this.location.back();
   }
 
-  async submit() {
+async submit() {
     if (this.form.invalid) {
-      this.alert.presentAlert("Erro", "Informe um email válido!");
+      this.alert.presentAlert('Erro', 'Digite um email válido.');
       return;
     }
 
-    const email = this.form.value.email;
+    const email = this.form.value.email.toLowerCase();
 
+    const userData = await this.firebaseService.getUserByEmail(email);
+    if (!userData) {
+      this.alert.presentAlert('Erro', 'Esse email não está registrado no sistema.');
+      return;
+    }
+    if (this.farm.allowedUsers.includes(email)) {
+      this.alert.presentAlert('Erro', 'Esse usuário já está cadastrado nessa fazenda.');
+      return;
+    }
     await this.firebaseService.addEmployeeToFarm(this.farm.id, email);
-
-    this.alert.presentAlert("Sucesso", "Funcionário adicionado!");
-    this.goBack();
+    this.alert.presentAlert('Sucesso', 'Funcionário adicionado!');
+    this.router.navigate(['/employees'], { state: { farm: this.farm } });
   }
 }

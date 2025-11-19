@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FirebaseService } from 'src/app/model/service/firebase.service';
 import { AlertController } from '@ionic/angular';
 import { AuthService } from 'src/app/model/service/auth.service';
+import { Alert } from 'src/app/common/alert';
 
 @Component({
   selector: 'app-employees',
@@ -16,8 +17,10 @@ export class EmployeesPage implements OnInit {
   currentUid!: string;
   isOwner: boolean = false;
   employees: any[] = [];
+  currentUserEmail: string[] = [];
+  ownerEmail: string = '';
 
-  constructor(private router: Router, private firebaseService: FirebaseService, private alertCtrl: AlertController, private auth: AuthService){
+  constructor(private router: Router, private firebaseService: FirebaseService, private alertCtrl: AlertController, private auth: AuthService, private alert: Alert){
     
     const nav = this.router.getCurrentNavigation();
     const state: any = nav?.extras?.state;
@@ -27,12 +30,16 @@ export class EmployeesPage implements OnInit {
     this.ownerUid = this.farm?.ownerUid;
     this.currentUid = this.auth.getUserLogged()?.uid;
     this.isOwner = this.currentUid === this.ownerUid;
+    this.currentUserEmail = this.auth.getUserLogged()?.email;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.OwnerEmail();
+  }
 
   async ionViewWillEnter() {
     await this.loadEmails();
+
   }
 
   async loadEmails() {
@@ -50,18 +57,11 @@ export class EmployeesPage implements OnInit {
     }
   }
 
-  back() {
-    this.router.navigate(['/farm']);
-  }
-
-  openAddEmployee() {
-    this.router.navigate(['/add-employee'], { state: { farm: this.farm } });
-  }
 
   async removeEmployee(email: string) {
     const alert = await this.alertCtrl.create({
       header: 'Remover Funcionário',
-      message: `Deseja remover <b>${email}</b>?`,
+      message: `Deseja remover ${email}?`,
       buttons: [
         { text: 'Cancelar', role: 'cancel' },
         {
@@ -76,5 +76,17 @@ export class EmployeesPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+    async OwnerEmail() {
+    this.ownerEmail = this.farm.allowedUsers?.[0];
+  }
+
+  back() {
+    this.router.navigate(['/farm']);
+  }
+
+  openAddEmployee() {
+    this.router.navigate(['/add-employee'], { state: { farm: this.farm } });
   }
 }
