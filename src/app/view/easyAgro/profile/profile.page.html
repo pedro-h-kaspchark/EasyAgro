@@ -1,58 +1,57 @@
 <ion-content *ngIf="userData">
-  <div class="data">
-    <div class="profile-container">
-      <div class="profile-title">Perfil</div>
-      <div class="image" (click)="fileInput.click()">
-        <input type="file" accept="image/*" (change)="uploadPhoto($event)" #fileInput style="display:none;">
-        <img [src]="userData.photoURL ? userData.photoURL : 'assets/default-avatar.png'" style="cursor:pointer;">
-      </div>
-      <form [formGroup]="profileForm" (ngSubmit)="submitForm()" novalidate class="formContainer">
-        <ion-list>
-          <ion-item lines="none">
-            <ion-label position="floating">Nome</ion-label>
-            <ion-input type="text" formControlName="name"></ion-input>
-          </ion-item>
-          <!-- Mensagens de erro -->
-          <span *ngIf="profileForm.get('name')?.touched && profileForm.get('name')?.errors?.['required']">O nome de usuário é obrigatório!</span>
-          <span *ngIf="profileForm.get('name')?.dirty && profileForm.get('name')?.errors?.['minlength']">O nome deve ter no mínimo 3 caracteres!</span>
-          <!-- Mensagens de erro -->
-          <ion-item lines="none">
-            <ion-label position="floating">Email</ion-label>
-            <ion-input type="email" [value]="userData.email" disabled></ion-input>
-          </ion-item>
+  <div class="floating-profile">
 
-          <ion-item lines="none">
-            <ion-label position="floating">Telefone</ion-label>
-            <ion-input type="tel" formControlName="number"></ion-input>
-          </ion-item>
-          <!-- Mensagens de erro-->
-          <span *ngIf="profileForm.get('number')?.touched && profileForm.get('number')?.errors?.['required']">O telefone é obrigatório!</span>
-          <span *ngIf="profileForm.get('number')?.dirty && profileForm.get('number')?.errors?.['minlength']">O telefone deve ter no mínimo 9 caracteres!</span>
-          <span *ngIf="profileForm.get('number')?.dirty && profileForm.get('number')?.errors?.['maxlength']">O telefone deve ter no máximo 13 caracteres!</span>
-          <!-- Mensagens de erro-->
-        </ion-list>
-        <ion-button (click)="logOut()" color="primary" expand="block" fill="outline" shape="round"><ion-icon name="log-out-outline"></ion-icon> Sair</ion-button>
-        <ion-button color="primary" type="submit" expand="block" fill="outline" shape="round"><ion-icon name="checkmark-outline"></ion-icon> Salvar</ion-button>
-      </form>
+    <div class="profile-title">Perfil</div>
+
+    <div class="profile-photo" (click)="fileInput.click()">
+      <input type="file" accept="image/*" (change)="uploadPhoto($event)" #fileInput style="display:none;">
+      <img [src]="userData.photoURL ? userData.photoURL : 'assets/default-avatar.png'">
     </div>
+
+    <form [formGroup]="profileForm" (ngSubmit)="submitForm()">
+
+      <ion-label>Nome:</ion-label>
+      <ion-input type="text" formControlName="name"></ion-input>
+      <span class="error-text" *ngIf="profileForm.get('name')?.touched && profileForm.get('name')?.errors?.['required']">Nome obrigatório!</span>
+      <span class="error-text" *ngIf="profileForm.get('name')?.dirty && profileForm.get('name')?.errors?.['minlength']">Min. 3 caracteres</span>
+      <br>
+
+      <ion-label>Email:</ion-label>
+      <ion-input type="email" [value]="userData.email" disabled></ion-input>
+      <br>
+
+      <ion-label>Telefone:</ion-label>
+      <ion-input type="tel" formControlName="number"></ion-input>
+      <span class="error-text" *ngIf="profileForm.get('number')?.touched && profileForm.get('number')?.errors?.['required']">Telefone obrigatório!</span>
+      <span class="error-text" *ngIf="profileForm.get('number')?.dirty && profileForm.get('number')?.errors?.['minlength']">Min. 9 dígitos</span>
+      <span class="error-text" *ngIf="profileForm.get('number')?.dirty && profileForm.get('number')?.errors?.['maxlength']">Máx. 13 dígitos</span>
+      <br>
+
+      <ion-button color="danger" expand="block" class="logoutBtn" (click)="logOut()">
+        <ion-icon name="log-out-outline"></ion-icon> Sair
+      </ion-button>
+
+      <ion-button expand="block" class="saveBtn" type="submit" [disabled]="profileForm.pristine || profileForm.invalid">
+        <ion-icon name="checkmark-outline"></ion-icon> Salvar
+      </ion-button>
+
+    </form>
+
   </div>
 
-<ion-footer>
-  <ion-tab-bar slot="bottom">
+  <ion-footer>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="farms" (click)="goToFarmPage()">
+        <ion-icon name="leaf-outline"></ion-icon>
+        Fazendas
+      </ion-tab-button>
 
-    <ion-tab-button tab="farms" (click)="goToFarmPage()">
-      <ion-icon name="leaf-outline" class="tab-icon"></ion-icon>
-      Fazendas
-    </ion-tab-button>
+      <ion-tab-button disabled class="fab-center"></ion-tab-button>
 
-    <ion-tab-button disabled tab="add" class="fab-center">
-    </ion-tab-button>
-
-    <ion-tab-button tab="profile" class="tab-selected">
-      <ion-icon name="person-circle-outline" class="tab-icon"></ion-icon>
-      Perfil
-    </ion-tab-button>
-
-  </ion-tab-bar>
-</ion-footer>
+      <ion-tab-button tab="profile" class="tab-selected">
+        <ion-icon name="person-circle-outline"></ion-icon>
+        Perfil
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-footer>
 </ion-content>

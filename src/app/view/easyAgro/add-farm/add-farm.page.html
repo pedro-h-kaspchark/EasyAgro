@@ -1,32 +1,24 @@
 <ion-content>
-  <div class="no-farms-container">
-<div class="spanNoFarm">Crie uma fazenda!</div>
-    <div class="form-container">
-      <div class="farm-title">Fazendas</div>
-      <form [formGroup]="farmForm" (ngSubmit)="createFarm()">
-        <ion-item>
-          <ion-label position="stacked">Nome da Fazenda</ion-label>
-          <ion-input formControlName="farmName" type="text"></ion-input>
-        </ion-item>
-        <!-- Mensagens de erro -->
-        <span *ngIf="farmForm.get('farmName')?.touched && farmForm.get('farmName')?.errors?.['required']">O nome da fazenda é obrigatório!</span>
-        <span *ngIf="farmForm.get('farmName')?.dirty && farmForm.get('farmName')?.errors?.['minlength']">O nome da fazenda deve ter no mínimo 5 caracteres</span>
-        <!-- Mensagens de erro -->
-        <ion-item>
-          <ion-label position="stacked">Localização da Fazenda</ion-label>
-          <ion-input formControlName="farmLocation" type="text"></ion-input>
-        </ion-item>
-        <!-- Mensagens de erro -->
-        <span *ngIf="farmForm.get('farmLocation')?.touched && farmForm.get('farmLocation')?.errors?.['required']">A Localização da fazenda é obrigatória!</span>
-        <span *ngIf="farmForm.get('farmLocation')?.dirty && farmForm.get('farmLocation')?.errors?.['minlength']">A Localização da fazenda deve ter no mínimo 5 caracteres</span>
-        <!-- Mensagens de erro -->
-        <ion-button type="submit" expand="block" color="white" class="createFarmButton">Criar Fazenda</ion-button>
-      </form>
-    </div>
-    <div class="register-buttons-container">
-      <div class="register-farm-container">
-        <ion-button class="register-farm" color="white" (click)="enableFarmsList()" fill="outline" shape="round">Fechar registro</ion-button>
-      </div>
-    </div>
+  <div class="floating-form">
+    <div class="create-title">Criar Fazenda</div>
+
+    <form [formGroup]="farmForm" (ngSubmit)="createFarm()">
+
+      <ion-label>Nome da Fazenda:</ion-label>
+      <ion-input type="text" formControlName="farmName"></ion-input>
+      <span class="error-text" *ngIf="farmForm.get('farmName')?.touched && farmForm.get('farmName')?.errors?.['required']">O nome da fazenda é obrigatório!</span>
+      <span class="error-text" *ngIf="farmForm.get('farmName')?.dirty && farmForm.get('farmName')?.errors?.['minlength']">Min. 5 caracteres</span>
+      <br>
+
+      <ion-label>Localização da Fazenda:</ion-label>
+      <ion-input type="text" formControlName="farmLocation"></ion-input>
+      <span class="error-text" *ngIf="farmForm.get('farmLocation')?.touched && farmForm.get('farmLocation')?.errors?.['required']">Localização obrigatória!</span>
+      <span class="error-text" *ngIf="farmForm.get('farmLocation')?.dirty && farmForm.get('farmLocation')?.errors?.['minlength']">Min. 5 caracteres</span>
+      <br>
+
+      <ion-button expand="block" class="createBtn" type="submit" [disabled]="farmForm.invalid">Criar Fazenda</ion-button>
+      <ion-button color="danger" expand="block" class="closeBtn" (click)="enableFarmsList()">Fechar registro</ion-button>
+
+    </form>
   </div>
 </ion-content>

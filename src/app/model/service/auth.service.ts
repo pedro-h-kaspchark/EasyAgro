@@ -8,6 +8,8 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Observable } from 'rxjs';
 import 'firebase/compat/auth';
 import { User as FirebaseUser } from 'firebase/auth';
+import { firstValueFrom } from 'rxjs';
+import { authState } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -222,6 +224,11 @@ export class AuthService {
 
   public getCurrentUser(): Observable<FirebaseUser | null> {
     return this.auth.authState as Observable<FirebaseUser | null>;
+  }
+
+  async signInAndWaitAuth(email: string, password: string) {
+    await this.auth.signInWithEmailAndPassword(email, password);
+    return await firstValueFrom(this.auth.authState);
   }
 
 }

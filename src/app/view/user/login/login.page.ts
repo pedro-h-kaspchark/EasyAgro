@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Alert } from 'src/app/common/alert';
 import { loading } from 'src/app/common/loading';
@@ -13,38 +12,48 @@ import { AuthService } from 'src/app/model/service/auth.service';
 })
 export class LoginPage implements OnInit {
   loginForm!: FormGroup;
-  showPassword: boolean = false;
-  
-  constructor(private formBuilder: FormBuilder, private alert: Alert, private auth: AuthService, private router: Router, private loading: loading){
-    
-  }
+  showPassword = false;
+  loadingLogin = false;
 
-  ngOnInit(){
+  constructor(
+    private formBuilder: FormBuilder, private alert: Alert, private auth: AuthService, private router: Router, private loading: loading) {
+      
+    }
+
+  ngOnInit() {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
-    })
+    });
   }
-  get errorControl(){
+
+  get errorControl() {
     return this.loginForm.controls;
   }
 
-  submitForm(){
-    if(!this.loginForm.valid){
-      this.alert.presentAlert("Erro", "Campos inválidos!")
-    }else{
-      this.signIn();
+  async submitForm() {
+    if (!this.loginForm.valid) {
+      return this.alert.presentAlert("Erro", "Campos inválidos!");
     }
+    this.signIn();
   }
-  signIn(){
-    this.loading.showLoading(400);
-    this.auth.signIn(this.loginForm.value['email'], this.loginForm.value['password']).then((res) => {
-    this.router.navigate(['/farm'])}).catch((error) => {
-    this.handleLoginError(error); console.log(error);})
+
+  async signIn() {
+    if (this.loadingLogin) return;
+    this.loadingLogin = true;
+
+    this.loading.showLoading(200);
+    try {await this.auth.signInAndWaitAuth(this.loginForm.value.email, this.loginForm.value.password);
+      this.router.navigate(['/farm']);
+    } catch (error) {this.handleLoginError(error);
+
+    }
+    this.loadingLogin = false;
   }
 
   handleLoginError(error: any) {
     const code = error.code;
+
     switch (code) {
       case 'auth/user-not-found':
         this.alert.presentAlert("Erro", "Nenhuma conta encontrada com este e-mail.");
@@ -59,7 +68,7 @@ export class LoginPage implements OnInit {
         break;
 
       case 'auth/too-many-requests':
-        this.alert.presentAlert("Erro", "Muitas tentativas. Sua conta foi temporariamente bloqueada. Tente novamente mais tarde.");
+        this.alert.presentAlert("Erro", "Muitas tentativas. Tente novamente mais tarde.");
         break;
 
       case 'auth/network-request-failed':
@@ -71,17 +80,24 @@ export class LoginPage implements OnInit {
         break;
     }
   }
-  
-  loginWithGmail(){
-    this.auth.logInWithGoogle().then((res)=>{this.alert.presentAlert("OK", "Seja bem Vindo!"); this.router.navigate(['/farm']); }).catch((error)=>{
-    this.alert.presentAlert("OK", "Erro ao Logar! Tente Novamente"); console.log(error);});
+
+  loginWithGmail() {
+    this.auth.logInWithGoogle()
+      .then(() => {
+        this.alert.presentAlert("OK", "Seja bem-vindo!");
+        this.router.navigate(['/farm']);
+      })
+      .catch((error) => {
+        this.alert.presentAlert("Erro", "Erro ao Logar! Tente Novamente");
+        console.log(error);
+      });
   }
 
-  goToRegisterPage(){
+  goToRegisterPage() {
     this.router.navigate(['/register']);
   }
 
-  goRecoveryPage(){
+  goRecoveryPage() {
     this.router.navigate(['/recovery-password']);
   }
 }
