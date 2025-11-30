@@ -1,57 +1,51 @@
-<ion-content class="ion-padding"> 
-  <div class="register-container">
-    <ion-list class="register-list">
-      <div class="register-title">Cadastrar</div>
-      <div></div>
-      <form [formGroup]="registerForm" (ngSubmit)="submitForm()" novalidate>
-        <ion-item>
-          <ion-label position="floating">E-mail</ion-label>
-          <ion-input type="email" formControlName="email" placeholder="Insira seu email" color="dark"></ion-input>
-        </ion-item>
-      <!--Mensagens de erro-->
-      <span *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['required']">E-mail é obrigatório!</span>
-      <span *ngIf="registerForm.get('email')?.dirty && registerForm.get('email')?.errors?.['email']">Formato de E-mail inválido</span>
-      <!--Mensagens de erro-->
-      <ion-item>
-        <ion-label position="floating">Senha</ion-label>
-        <ion-input type="password" formControlName="password" placeholder="Insira sua Senha"></ion-input>
-      </ion-item>
-      <!--Mensagens de erro-->
-      <span *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.errors?.['required']">A senha é obrigatória!</span>
-      <span *ngIf="registerForm.get('password')?.dirty && registerForm.get('password')?.errors?.['minlength']">A senha deve ter no mínimo 6 caracteres</span>
-      <!--Mensagens de erro-->
-      <ion-item>
-        <ion-label position="floating">Confirmação de senha</ion-label>
-        <ion-input type="password" formControlName="confPassword" placeholder="Repita sua Senha"></ion-input>
-      </ion-item>
-      <!--Mensagens de erro-->
-      <span *ngIf="registerForm.get('confPassword')?.touched && registerForm.get('confPassword')?.errors?.['required']">A confirmação de senha é obrigatória!</span>
-      <span *ngIf="registerForm.get('confPassword')?.dirty && registerForm.get('confPassword')?.errors?.['minlength']">A confirmação de senha deve ter no mínimo 6 caracteres</span>
-      <span *ngIf="registerForm.get('confPassword')?.dirty && (registerForm.get('password')?.value != registerForm.get('confPassword')?.value) && !registerForm.get('confPassword')?.errors?.['minlength']"> As senhas não conferem!</span>
-      <!--Mensagens de erro-->
-      <ion-item>
-        <ion-label position="floating">Nome</ion-label>
-        <ion-input type="name" formControlName="displayName" placeholder="digite seu nome de usuário"></ion-input>
-      </ion-item>
-      <!-- Mensagens de erro  -->
-      <span *ngIf="registerForm.get('displayName')?.touched && registerForm.get('displayName')?.errors?.['required']">O nome de usuário é obrigatório!</span>
-      <span *ngIf="registerForm.get('displayName')?.dirty && registerForm.get('displayName')?.errors?.['minlength']">O nome deve ter no minimo 3 caracteres!</span>
-      <!-- Mensagens de erro  -->
-      <ion-item>
-        <ion-label position="floating">Numero de telefone</ion-label>
-        <ion-input type="tel" formControlName="phoneNumber" placeholder="Digite seu numero de telefone"></ion-input>
-      </ion-item>
-      <!-- Mensagens de erro-->
-      <span *ngIf="registerForm.get('phoneNumber')?.touched && registerForm.get('phoneNumber')?.errors?.['required']">O telefone é obrigatório!</span>
-      <span *ngIf="registerForm.get('phoneNumber')?.dirty && registerForm.get('phoneNumber')?.errors?.['minlength']">O telefone deve ter no minimo 9 caracteres!</span>
-      <span *ngIf="registerForm.get('phoneNumber')?.dirty && registerForm.get('phoneNumber')?.errors?.['maxlength']">O telefone deve ter no maximo 13 caracteres!</span>
-      <!-- Mensagens de erro-->
-      <ion-item>
-        <label class="file-input-label" for="file-input">Selecione uma foto</label>
-        <input id="file-input" class="file-input" type="file" (change)="uploadFile($event.target)"/>
-      </ion-item>
-      <ion-button expand="full" color="primary" class="submit-button" type="submit" fill="outline" shape="round" [disabled]="registerForm.invalid">Cadastrar</ion-button>
+<ion-content>
+  <div class="floating-form">
+    <div class="create-title">Cadastrar</div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="submitForm()">
+
+      <ion-label>E-mail:</ion-label>
+      <ion-input type="email" formControlName="email"></ion-input>
+      <span class="error-text" *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['required']">E-mail é obrigatório!</span>
+      <span class="error-text" *ngIf="registerForm.get('email')?.dirty && registerForm.get('email')?.errors?.['email']">Formato inválido!</span>
+      <br>
+      <ion-label>Senha:</ion-label>
+      <div class="input-password">
+        <ion-input [type]="showPassword ? 'text' : 'password'" formControlName="password"></ion-input>
+        <ion-icon [name]="showPassword ? 'eye-outline' : 'eye-off-outline'" (click)="showPassword = !showPassword"></ion-icon>
+      </div>
+      <span class="error-text" *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.errors?.['required']">Senha obrigatória!</span>
+      <span class="error-text" *ngIf="registerForm.get('password')?.dirty && registerForm.get('password')?.errors?.['minlength']">Min. 6 caracteres</span>
+      <br>
+      <ion-label>Confirmar senha:</ion-label>
+      <div class="input-password">
+        <ion-input [type]="showConfirmPassword ? 'text' : 'password'" formControlName="confPassword"></ion-input>
+        <ion-icon [name]="showConfirmPassword ? 'eye-outline' : 'eye-off-outline'" (click)="showConfirmPassword = !showConfirmPassword"></ion-icon>
+      </div>
+      <span class="error-text" *ngIf="registerForm.get('confPassword')?.touched && registerForm.get('confPassword')?.errors?.['required']">Campo obrigatório!</span>
+      <span class="error-text" *ngIf="registerForm.get('confPassword')?.dirty && registerForm.get('confPassword')?.errors?.['minlength']">Min. 6 caracteres</span>
+      <span class="error-text" *ngIf="registerForm.get('confPassword')?.dirty && registerForm.get('password')?.value != registerForm.get('confPassword')?.value">Senhas não conferem!</span>
+      <br>
+      <ion-label>Nome:</ion-label>
+      <ion-input type="text" formControlName="displayName"></ion-input>
+      <span class="error-text" *ngIf="registerForm.get('displayName')?.touched && registerForm.get('displayName')?.errors?.['required']">Nome obrigatório!</span>
+      <span class="error-text" *ngIf="registerForm.get('displayName')?.dirty && registerForm.get('displayName')?.errors?.['minlength']">Min. 3 caracteres</span>
+      <br>
+      <ion-label>Telefone:</ion-label>
+      <ion-input type="tel" formControlName="phoneNumber"></ion-input>
+      <span class="error-text" *ngIf="registerForm.get('phoneNumber')?.touched && registerForm.get('phoneNumber')?.errors?.['required']">Telefone obrigatório!</span>
+      <span class="error-text" *ngIf="registerForm.get('phoneNumber')?.dirty && registerForm.get('phoneNumber')?.errors?.['minlength']">Min. 9 dígitos</span>
+      <span class="error-text" *ngIf="registerForm.get('phoneNumber')?.dirty && registerForm.get('phoneNumber')?.errors?.['maxlength']">Máximo 13 dígitos</span>
+      <br>
+      <ion-label>Foto:</ion-label>
+      <label class="file-box">
+        <span>Selecionar imagem</span>
+        <input class="file-input" type="file" (change)="uploadFile($event.target)">
+      </label>
+      <br>
+      <ion-button expand="block" class="createBtn" type="submit" [disabled]="registerForm.invalid">Criar conta</ion-button>
+      <ion-button expand="block" class="closeBtn" (click)="goToLoginPage()">Voltar</ion-button>
     </form>
-    </ion-list>
   </div>
+
 </ion-content>

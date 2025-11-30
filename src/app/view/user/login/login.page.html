@@ -1,30 +1,42 @@
-<ion-content [fullscreen]="true" class="ion-padding">
-  <div class="icon-container"><ion-img src="assets/icon.png" class="icon"></ion-img></div>
-  <div class="login-container">
-    <ion-list class="login-list">
-      <div class="login-title">Login</div>
-      <form [formGroup]="loginForm" (ngSubmit)="submitForm()" novalidate class="formLogin">
-        <ion-item>
-          <ion-label position="floating">E-mail</ion-label>
-          <ion-input type="email" formControlName="email" placeholder="Insira seu email"></ion-input>
-        </ion-item>
-      <!--Mensagens de erro-->
-      <span *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['required']">E-mail é obrigatório!</span>
-      <span *ngIf="loginForm.get('email')?.dirty && loginForm.get('email')?.errors?.['email']">Formato de E-mail inválido</span>
-      <!--Mensagens de erro-->
-      <ion-item>
-        <ion-label position="floating">Senha</ion-label>
-        <ion-input type="password" formControlName="password" placeholder="Insira sua Senha"></ion-input>
-      </ion-item>
-      <!--Mensagens de erro-->
-      <span *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['required']">A senha é obrigatória!</span>
-      <span *ngIf="loginForm.get('password')?.dirty && loginForm.get('password')?.errors?.['minlength']">A senha deve ter no mínimo 6 caracteres</span>
-      <!--Mensagens de erro-->
-      <ion-button expand="full" color="primary" type="submit" fill="outline" shape="round">Entrar</ion-button>
-    </form>
-    <a (click)="goRecoveryPage()"> Esqueceu sua senha?</a><br>
-    <ion-label>Não tem cadastro?</ion-label>
-    <a (click)="goToRegisterPage()"> Clique Aqui!</a>
-    </ion-list>
+<ion-content>
+
+  <div class="login-wrapper">
+
+    <div class="icon-container">
+      <ion-img src="assets/icon.png" class="icon"></ion-img>
+    </div>
+
+    <div class="floating-login">
+
+      <div class="create-title">Login</div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
+
+        <ion-label>E-mail:</ion-label>
+        <ion-input type="email" formControlName="email"></ion-input>
+        <span class="error-text" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['required']">E-mail obrigatório!</span>
+        <span class="error-text" *ngIf="loginForm.get('email')?.dirty && loginForm.get('email')?.errors?.['email']">Formato inválido!</span>
+        <br>
+
+        <ion-label>Senha:</ion-label>
+        <div class="input-password">
+          <ion-input [type]="showPassword ? 'text' : 'password'" formControlName="password"></ion-input>
+          <ion-icon [name]="showPassword ? 'eye-outline' : 'eye-off-outline'"
+                    (click)="showPassword = !showPassword"></ion-icon>
+        </div>
+        <span class="error-text" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['required']">Senha obrigatória!</span>
+        <span class="error-text" *ngIf="loginForm.get('password')?.dirty && loginForm.get('password')?.errors?.['minlength']">Min. 6 caracteres</span>
+        <br>
+
+        <ion-button expand="block" class="createBtn" type="submit">Entrar</ion-button>
+        <ion-button expand="block" class="closeBtn" (click)="goToRegisterPage()">Criar conta</ion-button>
+
+        <p class="recovery" (click)="goRecoveryPage()">Esqueceu sua senha?</p>
+
+      </form>
+
+    </div>
+
   </div>
+
 </ion-content>

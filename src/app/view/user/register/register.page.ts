@@ -13,6 +13,8 @@ import { AuthService } from 'src/app/model/service/auth.service';
 export class RegisterPage implements OnInit {
   registerForm! : FormGroup;
   imagem: any;
+  showPassword: boolean = false;
+  showConfirmPassword: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private alert: Alert, private auth: AuthService, private loading: loading){
 
@@ -50,30 +52,66 @@ export class RegisterPage implements OnInit {
   }
 
   submitForm() {
-    if(!this.registerForm.valid){
-      this.alert.presentAlert("Erro", "Erro ao Cadastrar!");
-    }else{
-      const formData = this.registerForm.value;
-      const phoneNumber = formData.phoneNumber;
-      if (this.imagem && this.imagem.length > 0){
-        this.loading.showLoading(1400);
-        this.auth.register(formData.email, formData.password, formData.displayName, this.imagem[0], phoneNumber).then(() =>{
-          this.alert.presentAlert('OK', 'Conta Criada!');
-          this.router.navigate(['/login']);
-        }).catch((error) =>{
-          this.alert.presentAlert('Erro', 'Erro ao cadastrar!');
-          console.log(error);
-        });
-      }else{
-        this.loading.showLoading(200);
-        this.auth.registerWithoutPhoto(formData.email, formData.password, formData.displayName, phoneNumber).then(() =>{
-          this.alert.presentAlert('OK', 'Conta Criada!');
-          this.router.navigate(['/login']);
-        }).catch((error) =>{
-          this.alert.presentAlert('Erro', 'Erro ao cadastrar!');
-          console.log(error);
-        });
-      }
+    if (!this.registerForm.valid) {
+      this.alert.presentAlert("Erro", "Preencha todos os campos corretamente!");
+      return;
     }
+
+    const formData = this.registerForm.value;
+    const phoneNumber = formData.phoneNumber;
+
+    const registerPromise = this.imagem && this.imagem.length > 0
+      ? this.auth.register(formData.email, formData.password, formData.displayName, this.imagem[0], phoneNumber)
+      : this.auth.registerWithoutPhoto(formData.email, formData.password, formData.displayName, phoneNumber);
+
+    this.loading.showLoading(600);
+
+    registerPromise
+      .then(() => {
+        this.alert.presentAlert("Sucesso", "Conta criada com sucesso!");
+        return this.auth.signIn(formData.email, formData.password);
+      })
+      .then(() => {
+        this.router.navigate(['/farm']);
+      })
+      .catch((error) => {
+        this.handleAuthError(error);
+        console.error(error);
+      });
+  }
+
+  handleAuthError(error: any) {
+    const errorCode = error.code;
+
+    switch (errorCode) {
+
+      case 'auth/email-already-in-use':
+        this.alert.presentAlert("Erro", "Este e-mail já está em uso!");
+        break;
+
+      case 'auth/invalid-email':
+        this.alert.presentAlert("Erro", "O e-mail informado é inválido!");
+        break;
+
+      case 'auth/weak-password':
+        this.alert.presentAlert("Erro", "A senha deve ter pelo menos 6 caracteres!");
+        break;
+
+      case 'auth/network-request-failed':
+        this.alert.presentAlert("Erro", "Falha de conexão. Verifique sua internet.");
+        break;
+
+      case 'auth/too-many-requests':
+        this.alert.presentAlert("Erro", "Muitas tentativas. Tente novamente mais tarde.");
+        break;
+
+      default:
+        this.alert.presentAlert("Erro", "Não foi possível criar a conta.");
+        break;
+    }
+  }
+
+  goToLoginPage(){
+    this.router.navigate(['/login']);
   }
 }

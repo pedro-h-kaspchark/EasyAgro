@@ -41,4 +41,8 @@ export class RecoveryPasswordPage implements OnInit {
   goToRegisterPage(){
     this.router.navigate(['/register']);
   }
+
+  goToLoginPage(){
+    this.router.navigate(['/login']);
+  }
 }
