@@ -20,6 +20,17 @@
     <ion-input formControlName="number" type="number"></ion-input>
     <!-- Mensagens de erro -->
     <span *ngIf="animalForm.get('number')?.touched && animalForm.get('number')?.errors?.['required']">O número do animal é obrigatório!</span><br>
+    <ion-label>Tipo do animal:</ion-label>
+      <ion-select formControlName="animalType">
+        <ion-select-option value="corte">Corte</ion-select-option>
+        <ion-select-option value="leite">Leite</ion-select-option>
+        <ion-select-option value="reprodutor">Reprodutor</ion-select-option>
+        <ion-select-option value="bezerro">Bezerro</ion-select-option>
+        <ion-select-option value="outro">Outro</ion-select-option>
+      </ion-select>
+    <!-- Mensagens de erro -->
+      <span *ngIf="animalForm.get('animalType')?.touched && animalForm.get('animalType')?.errors?.['required']">O tipo do animal é obrigatório!</span>
+      <br>
     <!-- Mensagens de erro -->
     <ion-label>Histórico de doenças</ion-label>
     <ion-input formControlName="historyOfIllnesses" type="text"></ion-input>

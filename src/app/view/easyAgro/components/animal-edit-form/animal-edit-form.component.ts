@@ -28,7 +28,8 @@ export class AnimalEditFormComponent implements OnInit {
       birthDate: [{ value:this.animal.birthDate, disabled: true }, Validators.required],
       number: [{ value:this.animal.number, disabled: true }, Validators.required],
       historyOfIllnesses: [this.animal.historyOfIllnesses, Validators.required],
-      treatmentHistory: [this.animal.treatmentHistory, Validators.required]
+      treatmentHistory: [this.animal.treatmentHistory, Validators.required],
+      animalType: [this.animal.type, Validators.required]
     });
   }
 
@@ -46,6 +47,7 @@ export class AnimalEditFormComponent implements OnInit {
       updatedAnimal.number = this.animal.number;
       updatedAnimal.historyOfIllnesses = this.animalForm.value.historyOfIllnesses;
       updatedAnimal.treatmentHistory = this.animalForm.value.treatmentHistory;
+      updatedAnimal.type = this.animalForm.value.animalType;
       updatedAnimal.uid = this.authService.getUserLogged().uid;
       updatedAnimal.farmId = this.animal.farmId;
       updatedAnimal.life = true;

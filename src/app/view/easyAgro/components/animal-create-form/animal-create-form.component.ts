@@ -27,6 +27,7 @@ export class AnimalCreateFormComponent implements OnInit {
       species: ['', Validators.required],
       birthDate: ['', Validators.required],
       number: ['', Validators.required],
+      animalType: ['', Validators.required],
       historyOfIllnesses: ['nenhum', Validators.required],
       treatmentHistory: ['nenhum', Validators.required]
     });
@@ -48,6 +49,7 @@ registerAnimal() {
     animalData.number = this.animalForm.value.number;
     animalData.historyOfIllnesses = this.animalForm.value.historyOfIllnesses;
     animalData.treatmentHistory = this.animalForm.value.treatmentHistory;
+    animalData.type = this.animalForm.value.animalType;
     animalData.uid = this.authService.getUserLogged().uid;
     animalData.id = this.farm.newFarmId;
     animalData.farmId = this.farm.newFarmId;
