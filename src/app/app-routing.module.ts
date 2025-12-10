@@ -84,10 +84,15 @@ const routes: Routes = [
   {
     path: 'add-employee',
     loadChildren: () => import('./view/easyAgro/add-employee/add-employee.module').then(m => m.AddEmployeePageModule)
-  },  {
+  },
+  {
     path: 'employees',
     loadChildren: () => import('./view/easyAgro/employees/employees.module').then( m => m.EmployeesPageModule)
+  },  {
+    path: 'lot-management',
+    loadChildren: () => import('./view/easyAgro/lot-management/lot-management.module').then( m => m.LotManagementPageModule)
   },
+
 
 
 ];

@@ -1,0 +1,168 @@
+ion-content {
+  --background: #ffffff;
+  color: #000;
+}
+
+/* ---------------- HEADER ---------------- */
+
+.header {
+  margin-top: 8%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 0 16px;
+}
+
+.header .title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #000;
+}
+
+ion-icon.back {
+  position: absolute;
+  left: 10px;
+  font-size: 26px;
+  color: #007bff;
+  cursor: pointer;
+}
+
+/* ---------------- LISTA DE LOTES ---------------- */
+
+.lot-list {
+  padding: 16px;
+}
+
+.lot-card {
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 14px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.15);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  transition: 0.2s ease;
+}
+
+.lot-card:hover {
+  transform: scale(1.01);
+}
+
+.lot-info-area {
+  flex: 1;
+}
+
+.lot-name {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.lot-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+  color: #444;
+}
+
+/* TAGS */
+.tag {
+  background: #f1f1f1;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+/* ÍCONE DE LIXEIRA */
+.delete-icon {
+  font-size: 24px;
+  color: #d9534f;    /* vermelho */
+  cursor: pointer;
+  margin-left: 12px;
+
+  padding: 6px;
+  border-radius: 8px;
+  transition: 0.2s ease;
+}
+
+.delete-icon:hover {
+  background: rgba(217, 83, 79, 0.15);
+}
+
+.empty {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 16px;
+  color: #777;
+}
+
+/* ---------------- FORMULÁRIO ---------------- */
+
+.floating-form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ffffff;
+  padding: 22px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  width: 80vw;
+  max-width: 500px;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.header-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+ion-label {
+  color: #000;
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+ion-input,
+ion-textarea,
+ion-select {
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  color: #000;
+}
+
+.error-text {
+  color: red;
+  font-size: 13px;
+  display: block;
+}
+
+.saveBtn {
+  margin-top: 12px;
+  background: #007bff;
+  border-radius: 6px;
+  border: 2px solid #007bff;
+  color: #fff;
+}
+
+.closeBtn {
+  margin-top: 6px;
+  background: #fff;
+  color: #d9534f;
+  border-radius: 6px;
+  border: 2px solid #d9534f;
+}
+
+/* FAB BUTTON */
+.fab-center {
+  bottom: 25px;
+}

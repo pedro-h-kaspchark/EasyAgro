@@ -11,6 +11,7 @@ export class Animal {
     private _farmId!: string;
     private _life!: boolean;
     private _type!: string;
+    private _lotId!: string;
 
 // --------------------------------------------------------
     public get id(): string {
@@ -95,5 +96,12 @@ export class Animal {
     }
     public set type(value: string) {
         this._type = value;
+    }
+// --------------------------------------------------------
+    public get lotId(): string {
+        return this._lotId;
+    }
+    public set lotId(value: string) {
+        this._lotId = value;
     }
   }

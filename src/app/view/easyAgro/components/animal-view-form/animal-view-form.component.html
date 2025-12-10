@@ -37,6 +37,14 @@
     <!-- Mensagens de erro -->
       <span *ngIf="animalForm.get('animalType')?.touched && animalForm.get('animalType')?.errors?.['required']">O tipo do animal é obrigatório!</span>
       <br>
+
+      <ion-label>Lote:</ion-label>
+      <ion-select formControlName="lotId">
+        <ion-select-option *ngFor="let lot of lotes" [value]="lot.id">
+          {{ lot.name }} - {{ lot.type | titlecase }}
+        </ion-select-option>
+      </ion-select>
+      <br>
     <ion-label>Histórico de doenças</ion-label>
     <ion-input formControlName="historyOfIllnesses" type="text"></ion-input>
     <!-- Mensagens de erro -->

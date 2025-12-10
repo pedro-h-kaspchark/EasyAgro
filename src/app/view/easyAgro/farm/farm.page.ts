@@ -142,6 +142,11 @@ export class FarmPage implements OnInit {
     this.router.navigateByUrl('/feeding-management-visualizer', { state: { farm } });
   }
 
+  goTolotManagement(farm: Farm){
+    this.isPopoverOpen = false;
+    this.router.navigate(['/lot-management'], { state: { farm} });
+  }
+
   async addEmployee(farm: any) {
     const alert = await this.alertCtrl.create({
       header: 'Adicionar Funcionário',

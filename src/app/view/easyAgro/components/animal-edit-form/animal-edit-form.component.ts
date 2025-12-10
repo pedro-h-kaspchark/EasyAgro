@@ -6,6 +6,7 @@ import { Animal } from 'src/app/model/entities/Animal';
 import { Alert } from 'src/app/common/alert';
 import { Farm } from 'src/app/model/entities/farm';
 import { loading } from 'src/app/common/loading';
+import { LotService } from 'src/app/model/service/lot.service';
 
 @Component({
   selector: 'app-animal-edit-form',
@@ -13,13 +14,14 @@ import { loading } from 'src/app/common/loading';
   styleUrls: ['./animal-edit-form.component.scss'],
 })
 export class AnimalEditFormComponent implements OnInit {
+  lotes: any[] = [];
   @Input() farm!: Farm;
   @Input() animal!: Animal;
   @Output() animalUpdated = new EventEmitter<void>();
   @Output() closeEditForm = new EventEmitter<void>();
   animalForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private firebaseService: FirebaseService, private authService: AuthService, private alert: Alert, private loading: loading) {}
+  constructor(private formBuilder: FormBuilder, private firebaseService: FirebaseService, private authService: AuthService, private alert: Alert, private loading: loading, private lotService: LotService) {}
 
   ngOnInit(): void {
     this.animalForm = this.formBuilder.group({
@@ -29,8 +31,10 @@ export class AnimalEditFormComponent implements OnInit {
       number: [{ value:this.animal.number, disabled: true }, Validators.required],
       historyOfIllnesses: [this.animal.historyOfIllnesses, Validators.required],
       treatmentHistory: [this.animal.treatmentHistory, Validators.required],
-      animalType: [this.animal.type, Validators.required]
+      animalType: [this.animal.type, Validators.required],
+      lotId: [this.animal.lotId],
     });
+    this.loadLots();
   }
 
   closeEdit(){
@@ -48,6 +52,7 @@ export class AnimalEditFormComponent implements OnInit {
       updatedAnimal.historyOfIllnesses = this.animalForm.value.historyOfIllnesses;
       updatedAnimal.treatmentHistory = this.animalForm.value.treatmentHistory;
       updatedAnimal.type = this.animalForm.value.animalType;
+      updatedAnimal.lotId = this.animalForm.value.lotId;
       updatedAnimal.uid = this.authService.getUserLogged().uid;
       updatedAnimal.farmId = this.animal.farmId;
       updatedAnimal.life = true;
@@ -60,6 +65,12 @@ export class AnimalEditFormComponent implements OnInit {
     }else{
       this.alert.presentAlert("Erro", "campos inválidos!");
     }
+  }
+
+    loadLots() {
+    this.lotService.getLots().subscribe((lotes: any[]) => {
+      this.lotes = lotes;
+    });
   }
   
 }

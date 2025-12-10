@@ -6,6 +6,7 @@ import { Animal } from 'src/app/model/entities/Animal';
 import { Farm } from 'src/app/model/entities/farm';
 import { AuthService } from 'src/app/model/service/auth.service';
 import { FirebaseService } from 'src/app/model/service/firebase.service';
+import { LotService } from 'src/app/model/service/lot.service';
 
 @Component({
   selector: 'app-animal-create-form',
@@ -15,11 +16,12 @@ import { FirebaseService } from 'src/app/model/service/firebase.service';
 
 export class AnimalCreateFormComponent implements OnInit {
   animalForm!: FormGroup;
+  lotes: any[] = [];
   @Input() farm!: Farm;
   @Output() animalRegistered = new EventEmitter<void>();
   @Output() closeForm = new EventEmitter<void>();
 
-  constructor(private formBuilder: FormBuilder, private firebaseService: FirebaseService, private authService: AuthService, private alert: Alert, private loading: loading) { }
+  constructor(private formBuilder: FormBuilder, private firebaseService: FirebaseService, private authService: AuthService, private alert: Alert, private loading: loading, private lotService: LotService) { }
 
   ngOnInit(): void {
     this.animalForm = this.formBuilder.group({
@@ -28,9 +30,11 @@ export class AnimalCreateFormComponent implements OnInit {
       birthDate: ['', Validators.required],
       number: ['', Validators.required],
       animalType: ['', Validators.required],
+      lotId: [''],
       historyOfIllnesses: ['nenhum', Validators.required],
       treatmentHistory: ['nenhum', Validators.required]
     });
+    this.loadLots();
   }
 
   closeCreateForm(){
@@ -50,6 +54,7 @@ registerAnimal() {
     animalData.historyOfIllnesses = this.animalForm.value.historyOfIllnesses;
     animalData.treatmentHistory = this.animalForm.value.treatmentHistory;
     animalData.type = this.animalForm.value.animalType;
+    animalData.lotId = this.animalForm.value.lotId;
     animalData.uid = this.authService.getUserLogged().uid;
     animalData.id = this.farm.newFarmId;
     animalData.farmId = this.farm.newFarmId;
@@ -83,5 +88,11 @@ registerAnimal() {
     if (!this.firstWarningShown[field]) {
       this.firstWarningShown[field] = true;
     }
+  }
+
+  loadLots() {
+    this.lotService.getLots().subscribe((lotes: any[]) => {
+      this.lotes = lotes;
+    });
   }
 }

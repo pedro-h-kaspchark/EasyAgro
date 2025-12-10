@@ -1,0 +1,91 @@
+<ion-content>
+
+  <div class="header">
+    <ion-icon class="back" name="arrow-back-outline" (click)="goBack()"></ion-icon>
+    <div class="title">Lotes</div>
+  </div>
+
+  <div class="lot-list" *ngIf="lotes.length > 0; else noLots">
+
+    <div class="lot-card" *ngFor="let lot of lotes">
+
+      <!-- Área clicável para edição -->
+      <div class="lot-info-area" (click)="openEditForm(lot)">
+        <div class="lot-name">{{ lot.name }}</div>
+
+        <div class="lot-row">
+          <span class="tag">{{ lot.type | titlecase }}</span>
+          <span class="tag">{{ lot.location }}</span>
+          <span class="tag">{{ lot.count }} animais</span>
+        </div>
+      </div>
+
+      <!-- Ícone de deletar -->
+      <ion-icon
+        name="trash-outline"
+        class="delete-icon"
+        (click)="deleteLot(lot); $event.stopPropagation()">
+      </ion-icon>
+
+    </div>
+
+  </div>
+
+  <ng-template #noLots>
+    <div class="empty">Nenhum lote registrado.</div>
+  </ng-template>
+
+  <!-- FAB BUTTON -->
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed" class="fab-center">
+    <ion-fab-button (click)="openCreateForm()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- FORMULÁRIO FLUTUANTE -->
+  <div class="floating-form" *ngIf="showForm">
+
+    <div class="header-row">
+      <div class="title">{{ editing ? 'Editar Lote' : 'Criar Lote' }}</div>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="saveLot()">
+
+      <ion-label>Nome do lote:</ion-label>
+      <ion-input formControlName="name"></ion-input>
+      <span class="error-text" *ngIf="form.get('name')?.touched && form.get('name')?.errors?.['required']">
+        O nome é obrigatório.
+      </span>
+      <br>
+
+      <ion-label>Tipo / Finalidade:</ion-label>
+      <ion-select formControlName="type">
+        <ion-select-option value="corte">Corte</ion-select-option>
+        <ion-select-option value="leite">Leite</ion-select-option>
+        <ion-select-option value="reproducao">Reprodução</ion-select-option>
+        <ion-select-option value="bezerro">Bezerros</ion-select-option>
+        <ion-select-option value="outro">Outro</ion-select-option>
+      </ion-select>
+      <span class="error-text" *ngIf="form.get('type')?.touched && form.get('type')?.errors?.['required']">
+        O tipo do lote é obrigatório.
+      </span>
+      <br>
+
+      <ion-label>Localização:</ion-label>
+      <ion-input formControlName="location"></ion-input>
+      <span class="error-text" *ngIf="form.get('location')?.touched && form.get('location')?.errors?.['required']">
+        A localização é obrigatória.
+      </span>
+      <br>
+
+      <ion-label>Descrição:</ion-label>
+      <ion-textarea formControlName="description"></ion-textarea>
+
+      <ion-button expand="block" class="saveBtn" type="submit">Salvar</ion-button>
+      <ion-button expand="block" class="closeBtn" color="danger" (click)="closeForm()">Fechar</ion-button>
+
+    </form>
+
+  </div>
+
+</ion-content>

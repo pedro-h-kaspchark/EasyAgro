@@ -6,6 +6,7 @@ import { Animal } from 'src/app/model/entities/Animal';
 import { Alert } from 'src/app/common/alert';
 import { Farm } from 'src/app/model/entities/farm';
 import { loading } from 'src/app/common/loading';
+import { LotService } from 'src/app/model/service/lot.service';
 
 @Component({
   selector: 'app-animal-view-form',
@@ -13,12 +14,13 @@ import { loading } from 'src/app/common/loading';
   styleUrls: ['./animal-view-form.component.scss'],
 })
 export class AnimalViewFormComponent  implements OnInit {
+  lotes: any[] = [];
   @Input() farm!: Farm;
   @Input() animal!: Animal;
   @Output() closeEditForm = new EventEmitter<void>();
   animalForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private firebaseService: FirebaseService, private authService: AuthService, private alert: Alert, private loading: loading) {}
+  constructor(private formBuilder: FormBuilder, private firebaseService: FirebaseService, private authService: AuthService, private alert: Alert, private loading: loading, private lotService: LotService) {}
 
   ngOnInit(): void {
     this.animalForm = this.formBuilder.group({
@@ -30,11 +32,18 @@ export class AnimalViewFormComponent  implements OnInit {
       historyOfIllnesses: [{ value:this.animal.historyOfIllnesses, disabled: true } , Validators.required],
       treatmentHistory: [{ value:this.animal.treatmentHistory, disabled: true }, Validators.required],
       animalType: [{ value:this.animal.type, disabled: true }, Validators.required],
+      lotId: [{value:this.animal.lotId, disabled: true}],
     });
+    this.loadLots()
   }
 
   closeEdit(){
     this.closeEditForm.emit();
   }
   
+  loadLots() {
+    this.lotService.getLots().subscribe((lotes: any[]) => {
+      this.lotes = lotes;
+    });
+  }
 }
