@@ -1,25 +1,24 @@
-<ion-content class="ion-padding">
+<ion-content>
 
-  <div class="header">
-    <ion-icon class="back" name="arrow-back-outline" (click)="goBack()"></ion-icon>
-    <div class="title">Adicionar Funcionário</div>
-  </div>
+  <div class="floating-form">
 
-  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="header-row">
+      <div class="title">Adicionar Funcionário</div>
+    </div>
 
-    <ion-item>
-      <ion-label position="floating">Email do funcionário</ion-label>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+
+      <ion-label>Email do funcionário:</ion-label>
       <ion-input type="email" formControlName="email"></ion-input>
-    </ion-item>
 
-    <span class="error" *ngIf="form.get('email')?.touched && form.get('email')?.errors?.['required']">E-mail é obrigatório!</span>
-    <span class="error" *ngIf="form.get('email')?.dirty && form.get('email')?.errors?.['email']">Formato de E-mail inválido</span>
+      <span class="error-text" *ngIf="form.get('email')?.touched && form.get('email')?.errors?.['required']">E-mail é obrigatório!</span>
 
-    <ion-button expand="block" color="primary" shape="round" type="submit">
-      <ion-icon name="person-add-outline" slot="start"></ion-icon>
-      Adicionar Funcionário
-    </ion-button>
+      <span class="error-text" *ngIf="form.get('email')?.dirty && form.get('email')?.errors?.['email']">Formato de E-mail inválido!</span>
+      <br>
 
-  </form>
+      <ion-button expand="block" class="saveBtn" type="submit"><ion-icon name="person-add-outline" slot="start"></ion-icon>Adicionar Funcionário</ion-button>
+      <ion-button expand="block" class="closeBtn" color="danger" (click)="goBack()">Voltar</ion-button>
+    </form>
+  </div>
 
 </ion-content>
